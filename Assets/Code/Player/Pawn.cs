@@ -1,6 +1,8 @@
-﻿using Code.Player.Input;
+﻿using System;
+using Code.Player.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 namespace Code.Player
 {
@@ -9,12 +11,13 @@ namespace Code.Player
   {
     private PossessableFacade possessable;
     private bool hasStarted;
+    private PlayerInput playerInput;
 
     private void Start()
     {
-      var playerInput = gameObject.GetComponent<PlayerInput>();
+      playerInput = gameObject.GetComponent<PlayerInput>();
       playerInput.onActionTriggered += OnActionTriggered;
-      EstablishPossession();
+      EstablishPossessionFromParent();
       hasStarted = true;
     }
 
@@ -22,13 +25,27 @@ namespace Code.Player
     {
       // OnTransformParentChanged runs before MonoBehaviour injection,
       // so we need to make sure we establish possession at Start at the earliest
-      if (hasStarted) EstablishPossession();
+      if (hasStarted) EstablishPossessionFromParent();
     }
 
-    private void EstablishPossession()
+    public void Possess(GameObject toPossess)
+    {
+      transform.parent = toPossess.transform;
+    }
+
+    public void SetControlScheme(string controlScheme)
+    {
+      playerInput = gameObject.GetComponent<PlayerInput>();
+      playerInput.SwitchCurrentControlScheme(controlScheme);
+    }
+
+    private void EstablishPossessionFromParent()
     {
       var newPossessable = transform.parent.GetComponent<PossessableFacade>();
-      if (newPossessable == null || newPossessable.IsPossessed) return;
+      if (newPossessable == null || newPossessable.IsPossessed)
+      {
+        throw new Exception($"Cannot Possess gameObject {transform.parent.name}");
+      }
 
       if (possessable != null)
       {
@@ -52,6 +69,10 @@ namespace Code.Player
           possessable.Shoot();
           break;
       }
+    }
+
+    public class Factory : PlaceholderFactory<Pawn>
+    {
     }
   }
 }

@@ -201,6 +201,8 @@ MonoBehaviour:
     type: 3}
   bulletPrefab: {fileID: 5774354381715059978, guid: fdbd9cac3eb28a3a1a3bd48c3184023e,
     type: 3}
+  pawnPrefab: {fileID: 6718613143096409298, guid: bb62e975174dfc693b5d6a770c5e3564,
+    type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@
             ],
             "bindings": [
                 {
-                    "name": "WASD",
+                    "name": "Arrows",
                     "id": "97b1b7c1-dc97-48d1-8466-bfe1712674ed",
                     "path": "2DVector(mode=1)",
                     "interactions": "",
@@ -37,10 +37,10 @@
                 {
                     "name": "up",
                     "id": "322c56f1-2525-4c48-ab06-e386843f1475",
-                    "path": "<Keyboard>/w",
+                    "path": "<Keyboard>/upArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "ArrowsKeyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -48,10 +48,10 @@
                 {
                     "name": "down",
                     "id": "652ee5f6-e2c0-430b-990a-c64e7d079204",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "ArrowsKeyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -59,10 +59,10 @@
                 {
                     "name": "left",
                     "id": "fc2e3353-ba39-40ed-9e34-175b33106312",
-                    "path": "<Keyboard>/a",
+                    "path": "<Keyboard>/leftArrow",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "ArrowsKeyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -70,10 +70,65 @@
                 {
                     "name": "right",
                     "id": "f53d83bd-f0eb-491d-b2a3-80357f5ebda7",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ArrowsKeyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "WASD",
+                    "id": "63944810-f32e-494c-8b8f-bd5ddacd0680",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "c2067e3b-a244-43de-bd5b-6b080e689a35",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "WASDKeyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "ec68397d-54b8-478e-9c96-fd98e18e307b",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "WASDKeyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "30970c42-ece8-4c8e-bdca-3a93b5cebb2f",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "WASDKeyboard",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "88481682-3703-4421-88ad-d735fab08c61",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "WASDKeyboard",
                     "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -81,10 +136,21 @@
                 {
                     "name": "F",
                     "id": "648d12c9-bf78-4ddf-9fbc-56029004b565",
+                    "path": "<Keyboard>/slash",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "ArrowsKeyboard",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ffe92ada-74bc-4eb4-96fd-d6c480023ae9",
                     "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "WASDKeyboard",
                     "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -92,5 +158,28 @@
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "WASDKeyboard",
+            "bindingGroup": "WASDKeyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "ArrowsKeyboard",
+            "bindingGroup": "ArrowsKeyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

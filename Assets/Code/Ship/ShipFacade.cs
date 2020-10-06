@@ -19,6 +19,8 @@ namespace Code.Ship
       rigidbody.SetPosition(position);
     }
 
+    public GameObject GameObject => rigidbody.gameObject;
+
     public class Factory : PlaceholderFactory<ShipFacade>
     {
     }

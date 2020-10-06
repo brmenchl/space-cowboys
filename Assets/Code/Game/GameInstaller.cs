@@ -1,4 +1,4 @@
-using Code.Bullets;
+using Code.Player;
 using Code.Ship;
 using UnityEngine;
 using Zenject;
@@ -9,6 +9,7 @@ namespace Code.Game
   {
     [SerializeField] private GameObject shipPrefab;
     [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject pawnPrefab;
 
     public override void InstallBindings()
     {
@@ -17,6 +18,8 @@ namespace Code.Game
       Container.BindFactory<ShipFacade, ShipFacade.Factory>()
         .FromSubContainerResolve().ByNewPrefabInstaller<ShipInstaller>(shipPrefab);
       Container.BindInstance(bulletPrefab).WhenInjectedInto<ShipInstaller>();
+
+      Container.BindFactory<Pawn, Pawn.Factory>().FromComponentInNewPrefab(pawnPrefab);
     }
   }
 }
