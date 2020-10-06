@@ -1,16 +1,19 @@
 using UnityEngine;
 
-public static class CameraExtensions
+namespace Code.Utilities
 {
-  public static Vector2 ScreenBounds(this Camera camera)
+  public static class CameraExtensions
   {
-    var screenBottomLeft = camera.ViewportToWorldPoint(new Vector3(0, 0, 0));
-    var screenTopRight = camera.ViewportToWorldPoint(new Vector3(1, 1, 0));
-
-    return new Vector2
+    public static Vector2 ScreenBounds(this Camera camera)
     {
-      x = screenTopRight.x - screenBottomLeft.x,
-      y = screenTopRight.y - screenBottomLeft.y
-    };
+      var screenBottomLeft = camera.ViewportToWorldPoint(new Vector3(0, 0, 0));
+      var screenTopRight = camera.ViewportToWorldPoint(new Vector3(1, 1, 0));
+
+      return new Vector2
+      {
+        x = screenTopRight.x - screenBottomLeft.x,
+        y = screenTopRight.y - screenBottomLeft.y
+      };
+    }
   }
 }

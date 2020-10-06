@@ -6,7 +6,7 @@ namespace Code.Game
 {
   public class GameRunner : IInitializable
   {
-    readonly ShipFacade.Factory shipFactory;
+    private readonly ShipFacade.Factory shipFactory;
 
     public GameRunner(ShipFacade.Factory shipFactory)
     {
@@ -16,7 +16,7 @@ namespace Code.Game
     public void Initialize()
     {
       var ship = shipFactory.Create();
-      ship.Transform.position = new Vector3(0, 0, 0);
+      ship.SetPosition(new Vector3(0, 0, 0));
     }
   }
 }

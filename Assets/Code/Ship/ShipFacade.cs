@@ -1,3 +1,4 @@
+using Code.Utilities.ScreenWrap;
 using UnityEngine;
 using Zenject;
 
@@ -5,8 +6,17 @@ namespace Code.Ship
 {
   public class ShipFacade
   {
-    [Inject] public Transform Transform { get; private set; }
+    private readonly ScreenWrappingRigidbody2D rigidbody;
 
+    public ShipFacade(ScreenWrappingRigidbody2D rigidbody)
+    {
+      this.rigidbody = rigidbody;
+    }
+
+    public void SetPosition(Vector3 position)
+    {
+      rigidbody.SetPosition(position);
+    }
 
     public class Factory : PlaceholderFactory<ShipFacade>
     {

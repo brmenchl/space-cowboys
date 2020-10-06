@@ -1,159 +1,159 @@
-using UnityEngine;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class ScreenWrappingRigidbody2D : MonoBehaviour
+namespace Code.Utilities.ScreenWrap
 {
-  [SerializeField] private GameObject clonePrefab;
-  private Vector2 screenBounds;
-  private Dictionary<ClonePlacement, GameObject> clones = new Dictionary<ClonePlacement, GameObject>();
-  private RotationManager rotationManager;
-  private Rigidbody2D rb;
-
-  #region MonoBehaviour API
-  private void Start()
+  public class ScreenWrappingRigidbody2D : MonoBehaviour
   {
-    screenBounds = Camera.main.ScreenBounds();
+    [SerializeField] private GameObject clonePrefab;
+    private Vector2 screenBounds;
+    private readonly Dictionary<ClonePlacement, GameObject> clones = new Dictionary<ClonePlacement, GameObject>();
+    private RotationManager rotationManager;
+    private Rigidbody2D rb;
 
-    rb = GetComponent<Rigidbody2D>();
+    #region MonoBehaviour API
 
-    rotationManager = new RotationManager();
-    rotationManager.CreateRotator(transform);
-
-    CreateClones();
-  }
-
-  private void Update()
-  {
-    if (Application.IsPlaying(gameObject))
+    private void Awake()
     {
+      screenBounds = Camera.main.ScreenBounds();
+
+      rb = GetComponent<Rigidbody2D>();
+
+      rotationManager = new RotationManager();
+      rotationManager.CreateRotator(transform);
+
+      CreateClones();
+    }
+
+    private void Update()
+    {
+      if (!Application.IsPlaying(gameObject)) return;
       UpdateClonesArrangement();
       TransformClones();
     }
-  }
-  #endregion
 
-  #region "RigidBody2D" API
-  public Vector3 Up { get => rotationManager.Transform.up; }
+    #endregion
 
-  public Quaternion Rotation { get => rotationManager.Transform.rotation; }
+    #region Facade
 
-  public void AddForce(Vector2 force)
-  {
-    rb.AddForce(force);
-  }
+    public Vector3 Up => rotationManager.Transform.up;
 
-  public void AddTorque(float torque)
-  {
-    rotationManager.AddTorque(torque);
-  }
-  #endregion
+    public Quaternion Rotation => rotationManager.Transform.rotation;
 
-  #region Clone Placement
-  private void CreateCenter()
-  {
-    GameObject.Instantiate(clonePrefab, transform);
-  }
+    public void AddForce(Vector2 force) => rb.AddForce(force);
 
-  private void CreateClones()
-  {
-    foreach (ClonePlacement clonePlacement in Enum.GetValues(typeof(ClonePlacement)))
+    public void AddTorque(float torque) => rotationManager.AddTorque(torque);
+
+    public void SetPosition(Vector3 position) => rb.transform.position = position;
+    #endregion
+
+    #region Clone Placement
+
+    private void CreateClones()
     {
-      var clone = GameObject.Instantiate(clonePrefab, transform);
-      TransformClone(transform, clone.transform, clonePlacement);
-      clones[clonePlacement] = clone;
-    }
-  }
-
-  private void UpdateClonesArrangement()
-  {
-    foreach (ClonePlacement clonePlacement in Enum.GetValues(typeof(ClonePlacement)))
-    {
-      var clone = clones[clonePlacement];
-
-      if (clonePlacement != ClonePlacement.Center && IsInCenter(clone.transform))
+      foreach (ClonePlacement clonePlacement in Enum.GetValues(typeof(ClonePlacement)))
       {
-        var prevCenterObject = clones[ClonePlacement.Center];
-        clones[ClonePlacement.Center] = clone;
-        clones[clonePlacement] = prevCenterObject;
-        transform.position = clones[ClonePlacement.Center].transform.position;
-        break;
+        var clone = GameObject.Instantiate(clonePrefab, transform);
+        TransformClone(transform, clone.transform, clonePlacement);
+        clones[clonePlacement] = clone;
       }
     }
-  }
 
-  private void TransformClones()
-  {
-    foreach (var entry in clones)
+    private void UpdateClonesArrangement()
     {
-      TransformClone(transform, entry.Value.transform, entry.Key);
-    }
-  }
+      foreach (ClonePlacement clonePlacement in Enum.GetValues(typeof(ClonePlacement)))
+      {
+        var clone = clones[clonePlacement];
 
-  private void TransformClone(Transform centerTransform, Transform cloneTransform, ClonePlacement clone)
-  {
-    var clonePosition = centerTransform.position;
-    switch (clone)
-    {
-      case ClonePlacement.TopLeft:
-        clonePosition.x = centerTransform.position.x - screenBounds.x;
-        clonePosition.y = centerTransform.position.y + screenBounds.y;
-        break;
-
-      case ClonePlacement.Left:
-        clonePosition.x = centerTransform.position.x - screenBounds.x;
-        break;
-
-      case ClonePlacement.BottomLeft:
-        clonePosition.x = centerTransform.position.x - screenBounds.x;
-        clonePosition.y = centerTransform.position.y - screenBounds.y;
-        break;
-
-      case ClonePlacement.Top:
-        clonePosition.y = centerTransform.position.y + screenBounds.y;
-        break;
-
-      case ClonePlacement.Bottom:
-        clonePosition.y = centerTransform.position.y - screenBounds.y;
-        break;
-
-      case ClonePlacement.TopRight:
-        clonePosition.x = centerTransform.position.x + screenBounds.x;
-        clonePosition.y = centerTransform.position.y + screenBounds.y;
-        break;
-
-      case ClonePlacement.Right:
-        clonePosition.x = centerTransform.position.x + screenBounds.x;
-        break;
-
-      case ClonePlacement.BottomRight:
-        clonePosition.x = centerTransform.position.x + screenBounds.x;
-        clonePosition.y = centerTransform.position.y - screenBounds.y;
-        break;
+        if (clonePlacement != ClonePlacement.Center && IsInCenter(clone.transform))
+        {
+          var prevCenterObject = clones[ClonePlacement.Center];
+          clones[ClonePlacement.Center] = clone;
+          clones[clonePlacement] = prevCenterObject;
+          transform.position = clones[ClonePlacement.Center].transform.position;
+          break;
+        }
+      }
     }
 
-    cloneTransform.position = clonePosition;
-    cloneTransform.rotation = rotationManager.Transform.rotation;
-  }
+    private void TransformClones()
+    {
+      foreach (var entry in clones)
+      {
+        TransformClone(transform, entry.Value.transform, entry.Key);
+      }
+    }
 
-  private bool IsInCenter(Transform transform) => (
-    transform.position.x <= (screenBounds.x / 2) &&
-    transform.position.x > -(screenBounds.x / 2) &&
-    transform.position.y <= (screenBounds.y / 2) &&
-    transform.position.y > -(screenBounds.y / 2)
-  );
+    private void TransformClone(Transform centerTransform, Transform cloneTransform, ClonePlacement clone)
+    {
+      var basePosition = centerTransform.position;
+      var clonePosition = basePosition;
+      switch (clone)
+      {
+        case ClonePlacement.TopLeft:
+          clonePosition.x = basePosition.x - screenBounds.x;
+          clonePosition.y = basePosition.y + screenBounds.y;
+          break;
 
-  private enum ClonePlacement
-  {
-    Center,
-    TopLeft,
-    Top,
-    TopRight,
-    Right,
-    BottomRight,
-    Bottom,
-    BottomLeft,
-    Left,
+        case ClonePlacement.Left:
+          clonePosition.x = basePosition.x - screenBounds.x;
+          break;
+
+        case ClonePlacement.BottomLeft:
+          clonePosition.x = basePosition.x - screenBounds.x;
+          clonePosition.y = basePosition.y - screenBounds.y;
+          break;
+
+        case ClonePlacement.Top:
+          clonePosition.y = basePosition.y + screenBounds.y;
+          break;
+
+        case ClonePlacement.Bottom:
+          clonePosition.y = basePosition.y - screenBounds.y;
+          break;
+
+        case ClonePlacement.TopRight:
+          clonePosition.x = basePosition.x + screenBounds.x;
+          clonePosition.y = basePosition.y + screenBounds.y;
+          break;
+
+        case ClonePlacement.Right:
+          clonePosition.x = basePosition.x + screenBounds.x;
+          break;
+
+        case ClonePlacement.BottomRight:
+          clonePosition.x = basePosition.x + screenBounds.x;
+          clonePosition.y = basePosition.y - screenBounds.y;
+          break;
+      }
+
+      cloneTransform.position = clonePosition;
+      cloneTransform.rotation = rotationManager.Transform.rotation;
+    }
+
+    private bool IsInCenter(Transform t)
+    {
+      var position = t.position;
+      return position.x <= screenBounds.x / 2 &&
+             position.x > -(screenBounds.x / 2) &&
+             position.y <= screenBounds.y / 2 &&
+             position.y > -(screenBounds.y / 2);
+    }
+
+    private enum ClonePlacement
+    {
+      Center,
+      TopLeft,
+      Top,
+      TopRight,
+      Right,
+      BottomRight,
+      Bottom,
+      BottomLeft,
+      Left,
+    }
+
+    #endregion
   }
-  #endregion
 }

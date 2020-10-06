@@ -1,37 +1,43 @@
 using UnityEngine;
 
-public class ScreenWrap : MonoBehaviour
+namespace Code.Utilities.ScreenWrap
 {
-  private Vector3 screenBottomLeft;
-  private Vector3 screenTopRight;
-
-  public void Start()
+  public class ScreenWrap : MonoBehaviour
   {
-    screenBottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-    screenTopRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
-  }
+    private Vector3 screenBottomLeft;
+    private Vector3 screenTopRight;
 
-  public void Update()
-  {
-    var newPosition = transform.position;
-    if (transform.position.x > screenTopRight.x)
+    public void Start()
     {
-      newPosition.x = screenBottomLeft.x;
-    }
-    if (transform.position.x < screenBottomLeft.x)
-    {
-      newPosition.x = screenTopRight.x;
+      if (Camera.main is null) return;
+      screenBottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+      screenTopRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
     }
 
-    if (transform.position.y > screenTopRight.y)
+    public void Update()
     {
-      newPosition.y = screenBottomLeft.y;
-    }
-    if (transform.position.y < screenBottomLeft.y)
-    {
-      newPosition.y = screenTopRight.y;
-    }
+      var newPosition = transform.position;
+      if (transform.position.x > screenTopRight.x)
+      {
+        newPosition.x = screenBottomLeft.x;
+      }
 
-    transform.position = newPosition;
+      if (transform.position.x < screenBottomLeft.x)
+      {
+        newPosition.x = screenTopRight.x;
+      }
+
+      if (transform.position.y > screenTopRight.y)
+      {
+        newPosition.y = screenBottomLeft.y;
+      }
+
+      if (transform.position.y < screenBottomLeft.y)
+      {
+        newPosition.y = screenTopRight.y;
+      }
+
+      transform.position = newPosition;
+    }
   }
 }
