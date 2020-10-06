@@ -1,4 +1,5 @@
 using Code.Bullets;
+using Code.Player.Input;
 using Code.Utilities.ScreenWrap;
 using UnityEngine;
 using Zenject;
@@ -19,6 +20,8 @@ namespace Code.Ship
     {
       Container.Bind<ShipFacade>().AsSingle();
       Container.Bind<ScreenWrappingRigidbody2D>().FromComponentOnRoot();
+
+      Container.Bind<InputState>().AsSingle().NonLazy();
 
       Container.BindInterfacesTo<MoveHandler>().AsSingle();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();

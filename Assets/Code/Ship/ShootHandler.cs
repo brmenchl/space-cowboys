@@ -15,16 +15,15 @@ namespace Code.Ship
 
     private bool canShoot = true;
 
-    public ShootHandler(SignalBus signalBus, Settings settings, ScreenWrappingRigidbody2D rigidbody,
+    public ShootHandler(Settings settings, ScreenWrappingRigidbody2D rigidbody,
       Bullet.Factory bulletFactory)
     {
       this.bulletFactory = bulletFactory;
       this.settings = settings;
       this.rigidbody = rigidbody;
-      signalBus.Subscribe<ShootSignal>(Shoot);
     }
 
-    private async void Shoot()
+    public async void Shoot()
     {
       if (!canShoot) return;
 

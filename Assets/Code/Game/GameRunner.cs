@@ -17,6 +17,9 @@ namespace Code.Game
     {
       var ship = shipFactory.Create();
       ship.SetPosition(new Vector3(0, 0, 0));
+
+      var ship2 = shipFactory.Create();
+      ship.SetPosition(new Vector3(5, 0, 0));
     }
   }
 }

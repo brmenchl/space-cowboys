@@ -20,8 +20,8 @@ namespace Code.Ship
 
     public void Tick()
     {
-      Thrust(inputState.MovementInputState.y);
-      Turn(inputState.MovementInputState.x);
+      Thrust(inputState.Movement.y);
+      Turn(inputState.Movement.x);
     }
 
     private void Thrust(float amount)
