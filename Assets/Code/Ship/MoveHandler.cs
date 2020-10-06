@@ -1,6 +1,6 @@
-﻿using Code.Player.Input;
+﻿using System;
+using Code.Player.Input;
 using Code.Utilities.ScreenWrap;
-using UnityEngine;
 using Zenject;
 
 namespace Code.Ship
@@ -9,12 +9,11 @@ namespace Code.Ship
   {
     private readonly InputState inputState;
     private readonly ScreenWrappingRigidbody2D rigidbody;
+    private readonly Settings settings;
 
-    private float speed = 10;
-    private float turnSpeed = 8;
-
-    private MoveHandler(InputState inputState, ScreenWrappingRigidbody2D rigidbody)
+    private MoveHandler(Settings settings, InputState inputState, ScreenWrappingRigidbody2D rigidbody)
     {
+      this.settings = settings;
       this.inputState = inputState;
       this.rigidbody = rigidbody;
     }
@@ -27,14 +26,21 @@ namespace Code.Ship
 
     private void Thrust(float amount)
     {
-      var force = rigidbody.Up * speed * amount;
+      var force = rigidbody.Up * settings.speed * amount;
       rigidbody.AddForce(force);
     }
 
     private void Turn(float amount)
     {
-      var torque = turnSpeed * -amount;
+      var torque = settings.turnSpeed * -amount;
       rigidbody.AddTorque(torque);
+    }
+
+    [Serializable]
+    public class Settings
+    {
+      public float speed;
+      public float turnSpeed;
     }
   }
 }

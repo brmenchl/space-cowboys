@@ -3,17 +3,23 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
-namespace Code.Bullet
+namespace Code.Bullets
 {
   public class Bullet : MonoBehaviour, IPoolable<IMemoryPool>, IDisposable
   {
     private IMemoryPool pool;
-    [SerializeField] private float lifetime = 1;
-    [SerializeField] private float speed = 10;
+
+    private Settings settings;
+
+    [Inject]
+    private void Inject(Settings settings)
+    {
+      this.settings = settings;
+    }
 
     private void Update()
     {
-      transform.Translate(transform.up * (speed * Time.deltaTime), Space.World);
+      transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
     }
 
     public void Dispose()
@@ -30,12 +36,19 @@ namespace Code.Bullet
     public async void OnSpawned(IMemoryPool pool)
     {
       this.pool = pool;
-      await UniTask.Delay(TimeSpan.FromSeconds(lifetime));
+      await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime));
       Dispose();
     }
 
     public class Factory : PlaceholderFactory<Bullet>
     {
+    }
+
+    [Serializable]
+    public class Settings
+    {
+      public float speed;
+      public float lifeTime;
     }
   }
 }

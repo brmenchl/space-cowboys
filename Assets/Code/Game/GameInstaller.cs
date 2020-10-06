@@ -1,3 +1,4 @@
+using Code.Bullets;
 using Code.Ship;
 using UnityEngine;
 using Zenject;
@@ -16,7 +17,7 @@ namespace Code.Game
       Container.BindFactory<ShipFacade, ShipFacade.Factory>()
         .FromSubContainerResolve().ByNewPrefabInstaller<ShipInstaller>(shipPrefab);
 
-      Container.BindFactory<Bullet.Bullet, Bullet.Bullet.Factory>()
+      Container.BindFactory<Bullet, Bullet.Factory>()
         .FromMonoPoolableMemoryPool(x =>
           x
             .WithInitialSize(10)
