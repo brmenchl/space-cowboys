@@ -16,14 +16,7 @@ namespace Code.Game
 
       Container.BindFactory<ShipFacade, ShipFacade.Factory>()
         .FromSubContainerResolve().ByNewPrefabInstaller<ShipInstaller>(shipPrefab);
-
-      Container.BindFactory<Bullet, Bullet.Factory>()
-        .FromMonoPoolableMemoryPool(x =>
-          x
-            .WithInitialSize(10)
-            .FromComponentInNewPrefab(bulletPrefab)
-            .UnderTransformGroup("Bullets")
-        );
+      Container.BindInstance(bulletPrefab).WhenInjectedInto<ShipInstaller>();
     }
   }
 }
