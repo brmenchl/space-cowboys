@@ -6,11 +6,9 @@ namespace Code.Player.Input
 {
   public interface IPossessable
   {
-    InputState InputState { get; }
-
     bool IsPossessed { get; }
 
-    void Possess();
+    void Possess(Pawn pawn);
 
     void Depossess();
 

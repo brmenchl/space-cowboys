@@ -1,3 +1,4 @@
+using Code.Player;
 using Code.Player.Input;
 using Code.Utilities.ScreenWrap;
 using UnityEngine;
@@ -9,12 +10,13 @@ namespace Code.Ship
   {
     private readonly ScreenWrappingRigidbody2D rigidbody;
     private readonly ShootHandler shootHandler;
+    private readonly InputHandler inputHandler;
 
-    public ShipFacade(InputState inputState, ScreenWrappingRigidbody2D rigidbody, ShootHandler shootHandler)
+    public ShipFacade(InputHandler inputHandler, ScreenWrappingRigidbody2D rigidbody, ShootHandler shootHandler)
     {
       this.rigidbody = rigidbody;
       this.shootHandler = shootHandler;
-      InputState = inputState;
+      this.inputHandler = inputHandler;
     }
 
     public void SetPosition(Vector3 position)
@@ -22,19 +24,16 @@ namespace Code.Ship
       rigidbody.SetPosition(position);
     }
 
+    public bool IsPossessed => inputHandler.HasLinkedInputState;
 
-    public InputState InputState { get; private set; }
-
-    public bool IsPossessed => InputState.IsEnabled;
-
-    public void Possess()
+    public void Possess(Pawn pawn)
     {
-      InputState.Enable();
+      inputHandler.LinkInputState(pawn.InputState);
     }
 
     public void Depossess()
     {
-      InputState.Disable();
+      inputHandler.ClearInputState();
     }
 
     public void Shoot()

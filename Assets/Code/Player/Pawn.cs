@@ -12,6 +12,8 @@ namespace Code.Player
     private IPossessable possessable;
     private PlayerInput playerInput;
 
+    public InputState InputState { get; private set; } = new InputState();
+
     private void Start()
     {
       playerInput = gameObject.GetComponent<PlayerInput>();
@@ -26,7 +28,7 @@ namespace Code.Player
       }
 
       possessable?.Depossess();
-      newPossessable.Possess();
+      newPossessable.Possess(this);
       possessable = newPossessable;
     }
 
@@ -43,7 +45,7 @@ namespace Code.Player
       switch (context.action.name)
       {
         case "Movement":
-          possessable.InputState.Movement = context.ReadValue<Vector2>();
+          InputState.Movement = context.ReadValue<Vector2>();
           break;
         case "Shoot":
           possessable.Shoot();

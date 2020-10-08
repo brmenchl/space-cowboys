@@ -7,21 +7,22 @@ namespace Code.Ship
 {
   public class MoveHandler : ITickable
   {
-    private readonly InputState inputState;
+    private readonly InputHandler inputHandler;
     private readonly ScreenWrappingRigidbody2D rigidbody;
     private readonly Settings settings;
 
-    private MoveHandler(Settings settings, InputState inputState, ScreenWrappingRigidbody2D rigidbody)
+    private MoveHandler(Settings settings, InputHandler inputHandler, ScreenWrappingRigidbody2D rigidbody)
     {
       this.settings = settings;
-      this.inputState = inputState;
+      this.inputHandler = inputHandler;
       this.rigidbody = rigidbody;
     }
 
     public void Tick()
     {
-      Thrust(inputState.Movement.y);
-      Turn(inputState.Movement.x);
+      if (!inputHandler.HasLinkedInputState) return;
+      Thrust(inputHandler.Movement.y);
+      Turn(inputHandler.Movement.x);
     }
 
     private void Thrust(float amount)

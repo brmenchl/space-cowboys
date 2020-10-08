@@ -21,7 +21,7 @@ namespace Code.Ship
       Container.Bind<ShipFacade>().AsSingle();
       Container.Bind<ScreenWrappingRigidbody2D>().FromComponentOnRoot();
 
-      Container.Bind<InputState>().AsSingle().NonLazy();
+      Container.Bind<InputHandler>().AsSingle().NonLazy();
 
       Container.BindInterfacesTo<MoveHandler>().AsSingle();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
