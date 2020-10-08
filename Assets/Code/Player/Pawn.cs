@@ -9,51 +9,31 @@ namespace Code.Player
   [RequireComponent(typeof(PlayerInput))]
   public class Pawn : MonoBehaviour
   {
-    private PossessableFacade possessable;
-    private bool hasStarted;
+    private IPossessable possessable;
     private PlayerInput playerInput;
 
     private void Start()
     {
       playerInput = gameObject.GetComponent<PlayerInput>();
       playerInput.onActionTriggered += OnActionTriggered;
-      EstablishPossessionFromParent();
-      hasStarted = true;
     }
 
-    private void OnTransformParentChanged()
+    public void Possess(IPossessable newPossessable)
     {
-      // OnTransformParentChanged runs before MonoBehaviour injection,
-      // so we need to make sure we establish possession at Start at the earliest
-      if (hasStarted) EstablishPossessionFromParent();
-    }
+      if (newPossessable == null || newPossessable.IsPossessed)
+      {
+        throw new Exception($"Cannot possess gameObject");
+      }
 
-    public void Possess(GameObject toPossess)
-    {
-      transform.parent = toPossess.transform;
+      possessable?.Depossess();
+      newPossessable.Possess();
+      possessable = newPossessable;
     }
 
     public void SetControlScheme(string controlScheme)
     {
       playerInput = gameObject.GetComponent<PlayerInput>();
       playerInput.SwitchCurrentControlScheme(controlScheme);
-    }
-
-    private void EstablishPossessionFromParent()
-    {
-      var newPossessable = transform.parent.GetComponent<PossessableFacade>();
-      if (newPossessable == null || newPossessable.IsPossessed)
-      {
-        throw new Exception($"Cannot Possess gameObject {transform.parent.name}");
-      }
-
-      if (possessable != null)
-      {
-        possessable.Depossess();
-      }
-
-      newPossessable.Possess();
-      possessable = newPossessable;
     }
 
     private void OnActionTriggered(InputAction.CallbackContext context)

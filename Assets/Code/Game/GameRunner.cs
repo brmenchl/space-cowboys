@@ -22,13 +22,13 @@ namespace Code.Game
       ship.SetPosition(new Vector3(0, 0, 0));
       var player1 = pawnFactory.Create();
       player1.SetControlScheme("WASDKeyboard");
-      player1.Possess(ship.GameObject);
+      player1.Possess(ship);
 
       var ship2 = shipFactory.Create();
       ship2.SetPosition(new Vector3(5, 0, 0));
       var player2 = pawnFactory.Create();
       player2.SetControlScheme("ArrowsKeyboard");
-      player2.Possess(ship2.GameObject);
+      player2.Possess(ship2);
     }
   }
 }
