@@ -7,8 +7,8 @@ namespace Code.Game
 {
   public class GameRunner : IInitializable
   {
-    private readonly ShipFacade.Factory shipFactory;
     private readonly Pawn.Factory pawnFactory;
+    private readonly ShipFacade.Factory shipFactory;
 
     public GameRunner(ShipFacade.Factory shipFactory, Pawn.Factory pawnFactory)
     {
@@ -18,16 +18,12 @@ namespace Code.Game
 
     public void Initialize()
     {
-      var ship = shipFactory.Create();
-      ship.SetPosition(new Vector3(0, 0, 0));
-      var player1 = pawnFactory.Create();
-      player1.SetControlScheme("WASDKeyboard");
+      var ship = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
+      var player1 = pawnFactory.Create("WASDKeyboard");
       player1.Possess(ship);
 
-      var ship2 = shipFactory.Create();
-      ship2.SetPosition(new Vector3(5, 0, 0));
-      var player2 = pawnFactory.Create();
-      player2.SetControlScheme("ArrowsKeyboard");
+      var ship2 = shipFactory.Create(new Vector3(3, 0, 0), Quaternion.identity);
+      var player2 = pawnFactory.Create("ArrowsKeyboard");
       player2.Possess(ship2);
     }
   }

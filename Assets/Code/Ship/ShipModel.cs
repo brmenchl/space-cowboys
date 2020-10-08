@@ -7,8 +7,9 @@ namespace Code.Ship
   {
     private readonly GameObject gameObject;
 
-    public ShipModel(ScreenWrappingRigidbody2D rigidbody2D)
+    public ShipModel(ScreenWrappingRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation)
     {
+      rigidbody2D.SetPositionAndRotation(position, rotation);
       gameObject = rigidbody2D.gameObject;
     }
 

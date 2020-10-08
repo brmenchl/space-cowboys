@@ -1,6 +1,5 @@
 using Code.Player;
 using Code.Player.Input;
-using Code.Utilities.ScreenWrap;
 using UnityEngine;
 using Zenject;
 
@@ -10,13 +9,13 @@ namespace Code.Ship
   {
     private readonly HealthHandler healthHandler;
     private readonly InputHandler inputHandler;
-    private readonly ScreenWrappingRigidbody2D rigidbody;
     private readonly ShootHandler shootHandler;
 
-    public ShipFacade(InputHandler inputHandler, ScreenWrappingRigidbody2D rigidbody, ShootHandler shootHandler,
+    public ShipFacade(
+      InputHandler inputHandler,
+      ShootHandler shootHandler,
       HealthHandler healthHandler)
     {
-      this.rigidbody = rigidbody;
       this.shootHandler = shootHandler;
       this.healthHandler = healthHandler;
       this.inputHandler = inputHandler;
@@ -39,17 +38,12 @@ namespace Code.Ship
       shootHandler.Shoot();
     }
 
-    public void SetPosition(Vector3 position)
-    {
-      rigidbody.SetPosition(position);
-    }
-
     public void Damage(float damage)
     {
       healthHandler.Damage(damage);
     }
 
-    public class Factory : PlaceholderFactory<ShipFacade>
+    public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade>
     {
     }
   }

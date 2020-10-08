@@ -50,9 +50,10 @@ namespace Code.Utilities.ScreenWrap
       rotationManager.AddTorque(torque);
     }
 
-    public void SetPosition(Vector3 position)
+    public void SetPositionAndRotation(Vector3 position, Quaternion rotation)
     {
-      rb.transform.position = position;
+      transform.position = position;
+      // rotationManager.Transform.rotation = rotation; // TODO: doesnt work, rotationManager not avail yet.
     }
 
     #endregion

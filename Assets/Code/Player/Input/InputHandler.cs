@@ -15,7 +15,7 @@ namespace Code.Player.Input
       {
         if (!IsPossessed) throw new Exception("InputHandler is not possessed.");
 
-        return pawn.inputState.Movement;
+        return pawn.InputState.Movement;
       }
     }
 

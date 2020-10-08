@@ -9,14 +9,22 @@ namespace Code.Player
   [RequireComponent(typeof(PlayerInput))]
   public class Pawn : MonoBehaviour
   {
-    public readonly InputState inputState = new InputState();
+    public readonly InputState InputState = new InputState();
+    private string controlScheme;
     private PlayerInput playerInput;
     private IPossessable possessable;
 
     private void Start()
     {
       playerInput = gameObject.GetComponent<PlayerInput>();
+      playerInput.SwitchCurrentControlScheme(controlScheme);
       playerInput.onActionTriggered += OnActionTriggered;
+    }
+
+    [Inject]
+    public void Construct(string controlScheme)
+    {
+      this.controlScheme = controlScheme;
     }
 
     public void Possess(IPossessable newPossessable)
@@ -28,11 +36,11 @@ namespace Code.Player
       possessable = newPossessable;
     }
 
-    public void SetControlScheme(string controlScheme)
-    {
-      playerInput = gameObject.GetComponent<PlayerInput>();
-      playerInput.SwitchCurrentControlScheme(controlScheme);
-    }
+    // public void SetControlScheme(string controlScheme)
+    // {
+    //   playerInput = gameObject.GetComponent<PlayerInput>();
+    //   playerInput.SwitchCurrentControlScheme(controlScheme);
+    // }
 
     public void OnPossessableDestroy()
     {
@@ -46,7 +54,7 @@ namespace Code.Player
       switch (context.action.name)
       {
         case "Movement":
-          inputState.Movement = context.ReadValue<Vector2>();
+          InputState.Movement = context.ReadValue<Vector2>();
           break;
         case "Shoot":
           possessable.Shoot();
@@ -54,7 +62,7 @@ namespace Code.Player
       }
     }
 
-    public class Factory : PlaceholderFactory<Pawn>
+    public class Factory : PlaceholderFactory<string, Pawn>
     {
     }
   }

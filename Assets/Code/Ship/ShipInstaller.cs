@@ -9,17 +9,21 @@ namespace Code.Ship
   public class ShipInstaller : Installer<ShipInstaller>
   {
     private GameObject bulletPrefab;
+    private Vector3 position;
+    private Quaternion rotation;
 
     [Inject]
-    private void Inject(GameObject bulletPrefab)
+    private void Inject(GameObject bulletPrefab, Vector3 position, Quaternion rotation)
     {
       this.bulletPrefab = bulletPrefab;
+      this.position = position;
+      this.rotation = rotation;
     }
 
     public override void InstallBindings()
     {
       Container.Bind<ShipFacade>().AsSingle();
-      Container.Bind<ShipModel>().AsSingle();
+      Container.Bind<ShipModel>().AsSingle().WithArguments(position, rotation).NonLazy();
       Container.Bind<ScreenWrappingRigidbody2D>().FromComponentOnRoot();
 
       Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle().NonLazy();
