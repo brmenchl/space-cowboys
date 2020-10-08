@@ -3,33 +3,35 @@ using UnityEngine;
 
 namespace Code.Player.Input
 {
-  public class InputHandler
+  public class InputHandler : IDisposable
   {
-    private InputState inputState;
+    private Pawn pawn;
 
-    public bool HasLinkedInputState => inputState != null;
-
-    public void ClearInputState()
-    {
-      inputState = null;
-    }
-
-    public void LinkInputState(InputState inputState)
-    {
-      this.inputState = inputState;
-    }
+    public bool IsPossessed => pawn != null;
 
     public Vector2 Movement
     {
       get
       {
-        if (!HasLinkedInputState)
-        {
-          throw new Exception("Cannot read input from unlinked InputHandler");
-        }
+        if (!IsPossessed) throw new Exception("InputHandler is not possessed.");
 
-        return inputState.Movement;
+        return pawn.inputState.Movement;
       }
+    }
+
+    public void Dispose()
+    {
+      if (IsPossessed) pawn.OnPossessableDestroy();
+    }
+
+    public void Depossess()
+    {
+      pawn = null;
+    }
+
+    public void Possess(Pawn pawn)
+    {
+      this.pawn = pawn;
     }
   }
 }

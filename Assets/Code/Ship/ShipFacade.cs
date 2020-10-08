@@ -8,15 +8,35 @@ namespace Code.Ship
 {
   public class ShipFacade : IPossessable
   {
+    private readonly HealthHandler healthHandler;
+    private readonly InputHandler inputHandler;
     private readonly ScreenWrappingRigidbody2D rigidbody;
     private readonly ShootHandler shootHandler;
-    private readonly InputHandler inputHandler;
 
-    public ShipFacade(InputHandler inputHandler, ScreenWrappingRigidbody2D rigidbody, ShootHandler shootHandler)
+    public ShipFacade(InputHandler inputHandler, ScreenWrappingRigidbody2D rigidbody, ShootHandler shootHandler,
+      HealthHandler healthHandler)
     {
       this.rigidbody = rigidbody;
       this.shootHandler = shootHandler;
+      this.healthHandler = healthHandler;
       this.inputHandler = inputHandler;
+    }
+
+    public bool IsPossessed => inputHandler.IsPossessed;
+
+    public void Possess(Pawn pawn)
+    {
+      inputHandler.Possess(pawn);
+    }
+
+    public void Depossess()
+    {
+      inputHandler.Depossess();
+    }
+
+    public void Shoot()
+    {
+      shootHandler.Shoot();
     }
 
     public void SetPosition(Vector3 position)
@@ -24,21 +44,9 @@ namespace Code.Ship
       rigidbody.SetPosition(position);
     }
 
-    public bool IsPossessed => inputHandler.HasLinkedInputState;
-
-    public void Possess(Pawn pawn)
+    public void Damage(float damage)
     {
-      inputHandler.LinkInputState(pawn.InputState);
-    }
-
-    public void Depossess()
-    {
-      inputHandler.ClearInputState();
-    }
-
-    public void Shoot()
-    {
-      shootHandler.Shoot();
+      healthHandler.Damage(damage);
     }
 
     public class Factory : PlaceholderFactory<ShipFacade>

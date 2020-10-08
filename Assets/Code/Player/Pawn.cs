@@ -9,10 +9,9 @@ namespace Code.Player
   [RequireComponent(typeof(PlayerInput))]
   public class Pawn : MonoBehaviour
   {
-    private IPossessable possessable;
+    public readonly InputState inputState = new InputState();
     private PlayerInput playerInput;
-
-    public InputState InputState { get; private set; } = new InputState();
+    private IPossessable possessable;
 
     private void Start()
     {
@@ -22,10 +21,7 @@ namespace Code.Player
 
     public void Possess(IPossessable newPossessable)
     {
-      if (newPossessable == null || newPossessable.IsPossessed)
-      {
-        throw new Exception($"Cannot possess gameObject");
-      }
+      if (newPossessable == null || newPossessable.IsPossessed) throw new Exception("Cannot possess gameObject");
 
       possessable?.Depossess();
       newPossessable.Possess(this);
@@ -38,6 +34,11 @@ namespace Code.Player
       playerInput.SwitchCurrentControlScheme(controlScheme);
     }
 
+    public void OnPossessableDestroy()
+    {
+      possessable = null;
+    }
+
     private void OnActionTriggered(InputAction.CallbackContext context)
     {
       if (possessable == null) return;
@@ -45,7 +46,7 @@ namespace Code.Player
       switch (context.action.name)
       {
         case "Movement":
-          InputState.Movement = context.ReadValue<Vector2>();
+          inputState.Movement = context.ReadValue<Vector2>();
           break;
         case "Shoot":
           possessable.Shoot();

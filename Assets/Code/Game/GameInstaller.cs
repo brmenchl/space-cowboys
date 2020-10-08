@@ -16,7 +16,9 @@ namespace Code.Game
       Container.BindInterfacesTo<GameRunner>().AsSingle();
 
       Container.BindFactory<ShipFacade, ShipFacade.Factory>()
-        .FromSubContainerResolve().ByNewPrefabInstaller<ShipInstaller>(shipPrefab);
+        .FromSubContainerResolve()
+        .ByNewPrefabInstaller<ShipInstaller>(shipPrefab);
+
       Container.BindInstance(bulletPrefab).WhenInjectedInto<ShipInstaller>();
 
       Container.BindFactory<Pawn, Pawn.Factory>().FromComponentInNewPrefab(pawnPrefab);

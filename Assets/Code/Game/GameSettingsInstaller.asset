@@ -15,9 +15,12 @@ MonoBehaviour:
   bullet:
     speed: 20
     lifeTime: 1
+    damage: 5
   moving:
     speed: 8
     turnSpeed: 1.6
   shooting:
     muzzleDistance: 1
     fireRate: 4
+  health:
+    startingHealth: 100

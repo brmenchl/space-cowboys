@@ -19,12 +19,13 @@ namespace Code.Ship
     public override void InstallBindings()
     {
       Container.Bind<ShipFacade>().AsSingle();
+      Container.Bind<ShipModel>().AsSingle();
       Container.Bind<ScreenWrappingRigidbody2D>().FromComponentOnRoot();
 
-      Container.Bind<InputHandler>().AsSingle().NonLazy();
-
+      Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle().NonLazy();
       Container.BindInterfacesTo<MoveHandler>().AsSingle();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
+      Container.Bind<HealthHandler>().AsSingle().NonLazy();
 
       Container.BindFactory<Bullet, Bullet.Factory>()
         .FromMonoPoolableMemoryPool(x =>

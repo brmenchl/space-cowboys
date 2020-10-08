@@ -7,10 +7,10 @@ namespace Code.Utilities.ScreenWrap
   public class ScreenWrappingRigidbody2D : MonoBehaviour
   {
     [SerializeField] private GameObject clonePrefab;
-    private Vector2 screenBounds;
     private readonly Dictionary<ClonePlacement, GameObject> clones = new Dictionary<ClonePlacement, GameObject>();
-    private RotationManager rotationManager;
     private Rigidbody2D rb;
+    private RotationManager rotationManager;
+    private Vector2 screenBounds;
 
     #region MonoBehaviour API
 
@@ -28,7 +28,6 @@ namespace Code.Utilities.ScreenWrap
 
     private void Update()
     {
-      if (!Application.IsPlaying(gameObject)) return;
       UpdateClonesArrangement();
       TransformClones();
     }
@@ -41,11 +40,21 @@ namespace Code.Utilities.ScreenWrap
 
     public Quaternion Rotation => rotationManager.Transform.rotation;
 
-    public void AddForce(Vector2 force) => rb.AddForce(force);
+    public void AddForce(Vector2 force)
+    {
+      rb.AddForce(force);
+    }
 
-    public void AddTorque(float torque) => rotationManager.AddTorque(torque);
+    public void AddTorque(float torque)
+    {
+      rotationManager.AddTorque(torque);
+    }
 
-    public void SetPosition(Vector3 position) => rb.transform.position = position;
+    public void SetPosition(Vector3 position)
+    {
+      rb.transform.position = position;
+    }
+
     #endregion
 
     #region Clone Placement
@@ -54,7 +63,7 @@ namespace Code.Utilities.ScreenWrap
     {
       foreach (ClonePlacement clonePlacement in Enum.GetValues(typeof(ClonePlacement)))
       {
-        var clone = GameObject.Instantiate(clonePrefab, transform);
+        var clone = Instantiate(clonePrefab, transform);
         TransformClone(transform, clone.transform, clonePlacement);
         clones[clonePlacement] = clone;
       }
@@ -62,7 +71,7 @@ namespace Code.Utilities.ScreenWrap
 
     private void UpdateClonesArrangement()
     {
-      foreach (ClonePlacement clonePlacement in Enum.GetValues(typeof(ClonePlacement)))
+      foreach (var clonePlacement in clones.Keys)
       {
         var clone = clones[clonePlacement];
 
@@ -79,10 +88,7 @@ namespace Code.Utilities.ScreenWrap
 
     private void TransformClones()
     {
-      foreach (var entry in clones)
-      {
-        TransformClone(transform, entry.Value.transform, entry.Key);
-      }
+      foreach (var entry in clones) TransformClone(transform, entry.Value.transform, entry.Key);
     }
 
     private void TransformClone(Transform centerTransform, Transform cloneTransform, ClonePlacement clone)
@@ -151,7 +157,7 @@ namespace Code.Utilities.ScreenWrap
       BottomRight,
       Bottom,
       BottomLeft,
-      Left,
+      Left
     }
 
     #endregion

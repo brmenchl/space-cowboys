@@ -20,7 +20,7 @@ namespace Code.Ship
 
     public void Tick()
     {
-      if (!inputHandler.HasLinkedInputState) return;
+      if (!inputHandler.IsPossessed) return;
       Thrust(inputHandler.Movement.y);
       Turn(inputHandler.Movement.x);
     }
