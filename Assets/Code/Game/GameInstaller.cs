@@ -1,3 +1,4 @@
+using Code.Cowboy;
 using Code.Player;
 using Code.Ship;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace Code.Game
   public class GameInstaller : MonoInstaller
   {
     [SerializeField] private GameObject shipPrefab;
+    [SerializeField] private GameObject cowboyPrefab;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private GameObject pawnPrefab;
 
@@ -19,7 +21,12 @@ namespace Code.Game
         .FromSubContainerResolve()
         .ByNewPrefabInstaller<ShipInstaller>(shipPrefab);
 
+      Container.BindFactory<Vector3, Quaternion, CowboyFacade, CowboyFacade.Factory>()
+        .FromSubContainerResolve()
+        .ByNewPrefabInstaller<CowboyInstaller>(cowboyPrefab);
+
       Container.BindInstance(bulletPrefab).WhenInjectedInto<ShipInstaller>();
+      Container.BindInstance(bulletPrefab).WhenInjectedInto<CowboyInstaller>();
 
       Container.BindFactory<string, Pawn, Pawn.Factory>().FromComponentInNewPrefab(pawnPrefab);
     }

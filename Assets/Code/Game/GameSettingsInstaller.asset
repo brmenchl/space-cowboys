@@ -18,7 +18,7 @@ MonoBehaviour:
     damage: 5
   moving:
     speed: 8
-    turnSpeed: 1.6
+    turnSpeed: 0.8
   shooting:
     muzzleDistance: 1
     fireRate: 4

@@ -199,6 +199,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipPrefab: {fileID: 5442183746321770514, guid: 02c106283ce7d4bf0941806f76a4e104,
     type: 3}
+  cowboyPrefab: {fileID: 7728747806077742917, guid: 0d870a3aa6ee3466aa00f982e7cc9411,
+    type: 3}
   bulletPrefab: {fileID: 5774354381715059978, guid: fdbd9cac3eb28a3a1a3bd48c3184023e,
     type: 3}
   pawnPrefab: {fileID: 6718613143096409298, guid: bb62e975174dfc693b5d6a770c5e3564,

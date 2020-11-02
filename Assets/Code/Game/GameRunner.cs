@@ -1,3 +1,4 @@
+using Code.Cowboy;
 using Code.Player;
 using Code.Ship;
 using UnityEngine;
@@ -9,18 +10,24 @@ namespace Code.Game
   {
     private readonly Pawn.Factory pawnFactory;
     private readonly ShipFacade.Factory shipFactory;
+    private readonly CowboyFacade.Factory cowboyFactory;
 
-    public GameRunner(ShipFacade.Factory shipFactory, Pawn.Factory pawnFactory)
+    public GameRunner(Pawn.Factory pawnFactory, ShipFacade.Factory shipFactory, CowboyFacade.Factory cowboyFactory)
     {
-      this.shipFactory = shipFactory;
       this.pawnFactory = pawnFactory;
+      this.shipFactory = shipFactory;
+      this.cowboyFactory = cowboyFactory;
     }
 
     public void Initialize()
     {
-      var ship = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
+      var cowboy = cowboyFactory.Create(Vector3.zero, Quaternion.identity);
       var player1 = pawnFactory.Create("WASDKeyboard");
-      player1.Possess(ship);
+      player1.Possess(cowboy);
+
+      // var ship = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
+      // var player1 = pawnFactory.Create("WASDKeyboard");
+      // player1.Possess(ship);
 
       var ship2 = shipFactory.Create(new Vector3(3, 0, 0), Quaternion.identity);
       var player2 = pawnFactory.Create("ArrowsKeyboard");
