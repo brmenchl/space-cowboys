@@ -36,12 +36,6 @@ namespace Code.Player
       possessable = newPossessable;
     }
 
-    // public void SetControlScheme(string controlScheme)
-    // {
-    //   playerInput = gameObject.GetComponent<PlayerInput>();
-    //   playerInput.SwitchCurrentControlScheme(controlScheme);
-    // }
-
     public void OnPossessableDestroy()
     {
       possessable = null;
