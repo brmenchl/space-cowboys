@@ -27,7 +27,7 @@ namespace Code.Ship
 
     private void Thrust(float amount)
     {
-      var force = rigidbody.Up * settings.speed * amount;
+      var force = rigidbody.Transform.up * settings.speed * amount;
       rigidbody.AddForce(force);
     }
 

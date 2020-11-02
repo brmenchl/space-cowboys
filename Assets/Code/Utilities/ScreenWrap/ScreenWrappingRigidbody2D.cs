@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Code.Utilities.Extensions;
 using UnityEngine;
 
 namespace Code.Utilities.ScreenWrap
@@ -7,6 +8,7 @@ namespace Code.Utilities.ScreenWrap
   public class ScreenWrappingRigidbody2D : MonoBehaviour
   {
     [SerializeField] private GameObject clonePrefab;
+    [SerializeField] private float inertia;
     private readonly Dictionary<ClonePlacement, GameObject> clones = new Dictionary<ClonePlacement, GameObject>();
     private Rigidbody2D rb;
     private RotationManager rotationManager;
@@ -16,12 +18,12 @@ namespace Code.Utilities.ScreenWrap
 
     private void Awake()
     {
-      screenBounds = Camera.main.ScreenBounds();
+      screenBounds = UnityEngine.Camera.main.ScreenBounds();
 
       rb = GetComponent<Rigidbody2D>();
 
       rotationManager = new RotationManager();
-      rotationManager.CreateRotator(transform);
+      rotationManager.CreateRotator(transform, inertia);
 
       CreateClones();
     }
@@ -30,15 +32,14 @@ namespace Code.Utilities.ScreenWrap
     {
       UpdateClonesArrangement();
       TransformClones();
+      rotationManager.Transform.position = transform.position;
     }
 
     #endregion
 
     #region Facade
 
-    public Vector3 Up => rotationManager.Transform.up;
-
-    public Quaternion Rotation => rotationManager.Transform.rotation;
+    public Transform Transform => rotationManager.Transform;
 
     public void AddForce(Vector2 force)
     {

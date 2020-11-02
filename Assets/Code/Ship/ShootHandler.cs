@@ -1,9 +1,7 @@
 using System;
 using Code.Bullets;
-using Code.Player.Input;
 using Code.Utilities.ScreenWrap;
 using Cysharp.Threading.Tasks;
-using Zenject;
 
 namespace Code.Ship
 {
@@ -15,7 +13,8 @@ namespace Code.Ship
 
     private bool canShoot = true;
 
-    public ShootHandler(Settings settings, ScreenWrappingRigidbody2D rigidbody,
+    public ShootHandler(Settings settings,
+      ScreenWrappingRigidbody2D rigidbody,
       Bullet.Factory bulletFactory)
     {
       this.bulletFactory = bulletFactory;
@@ -30,8 +29,8 @@ namespace Code.Ship
       canShoot = false;
       var bullet = bulletFactory.Create();
       var bTrans = bullet.transform;
-      bTrans.position = rigidbody.transform.position + rigidbody.Up * settings.muzzleDistance;
-      bTrans.rotation = rigidbody.Rotation;
+      bTrans.position = rigidbody.transform.position + rigidbody.Transform.up * settings.muzzleDistance;
+      bTrans.rotation = rigidbody.Transform.rotation;
       await UniTask.Delay(TimeSpan.FromSeconds(1 / settings.fireRate));
       canShoot = true;
     }

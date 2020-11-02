@@ -68,6 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clonePrefab: {fileID: 6090372457170470386, guid: 493491f505c7704c9b6be7769087931d,
     type: 3}
+  inertia: 0.125
 --- !u!114 &6435773326387051233
 MonoBehaviour:
   m_ObjectHideFlags: 0
