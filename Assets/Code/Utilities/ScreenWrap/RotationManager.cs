@@ -1,6 +1,6 @@
-namespace Code.Utilities.ScreenWrap {
-  using UnityEngine;
+using UnityEngine;
 
+namespace Code.Utilities.ScreenWrap {
   public class RotationManager {
     private Rigidbody2D rb;
     private GameObject rotator;

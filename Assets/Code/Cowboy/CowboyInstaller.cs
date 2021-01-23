@@ -1,14 +1,10 @@
+using Code.Bullets;
+using Code.Player.Input;
+using Code.Utilities.ScreenWrap;
+using UnityEngine;
+using Zenject;
+
 namespace Code.Cowboy {
-  using Bullets;
-
-  using Player.Input;
-
-  using UnityEngine;
-
-  using Utilities.ScreenWrap;
-
-  using Zenject;
-
   public class CowboyInstaller : Installer<CowboyInstaller> {
     private readonly GameObject bulletPrefab;
     private readonly Vector3 position;

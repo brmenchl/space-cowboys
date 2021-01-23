@@ -1,36 +1,29 @@
+using System;
+using System.Threading;
+using Code.Ship;
+using Cysharp.Threading.Tasks;
+using LanguageExt;
+using UnityEngine;
+using Zenject;
+
 namespace Code.Bullets {
-  using System;
-  using System.Threading;
+  using static Prelude;
 
-  using Cysharp.Threading.Tasks;
-
-  using Ship;
-
-  using UnityEngine;
-
-  using Zenject;
-
-  public class Bullet : MonoBehaviour, IPoolable<IMemoryPool> {
+  public class Bullet : MonoBehaviour, IPoolable<IMemoryPool>, IDisposable {
     private CancellationTokenSource disposeLifeTimeCancelToken;
     private IMemoryPool pool;
-    private Settings settings;
+    [Inject] private Settings settings;
 
     private void Update() => transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
 
-    public void OnTriggerEnter2D(Collider2D other) {
-      var shipView = other.attachedRigidbody.GetComponent<ShipView>();
+    private void OnTriggerEnter2D(Collider2D other) =>
+      Optional(other.attachedRigidbody.GetComponent<ShipView>()).IfSome(view => {
+        view.Facade.Damage(settings.damage);
+        pool.Despawn(this);
+        Dispose();
+      });
 
-      if (shipView == null) return;
-
-      shipView.Facade.Damage(settings.damage);
-      pool.Despawn(this);
-    }
-
-    public void OnDespawned() {
-      pool = null;
-      transform.position = Vector3.zero;
-      disposeLifeTimeCancelToken.Cancel();
-    }
+    public void Dispose() => pool.Despawn(this);
 
     public void OnSpawned(IMemoryPool pool) {
       this.pool = pool;
@@ -38,8 +31,11 @@ namespace Code.Bullets {
       DisposeAfterLifeTime().Forget();
     }
 
-    [Inject]
-    private void Inject(Settings settings) => this.settings = settings;
+    public void OnDespawned() {
+      pool = null;
+      transform.position = Vector3.zero;
+      disposeLifeTimeCancelToken.Cancel();
+    }
 
     private async UniTaskVoid DisposeAfterLifeTime() {
       await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime)).WithCancellation(disposeLifeTimeCancelToken.Token);

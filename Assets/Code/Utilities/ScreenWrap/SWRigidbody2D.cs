@@ -1,11 +1,9 @@
+using System;
+using System.Collections.Generic;
+using Code.Utilities.Extensions;
+using UnityEngine;
+
 namespace Code.Utilities.ScreenWrap {
-  using System;
-  using System.Collections.Generic;
-
-  using Extensions;
-
-  using UnityEngine;
-
   public class SWRigidbody2D : MonoBehaviour {
     [SerializeField] private GameObject clonePrefab;
     [SerializeField] private float inertia;

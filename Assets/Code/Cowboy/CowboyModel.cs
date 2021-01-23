@@ -1,8 +1,7 @@
+using Code.Utilities.ScreenWrap;
+using UnityEngine;
+
 namespace Code.Cowboy {
-  using UnityEngine;
-
-  using Utilities.ScreenWrap;
-
   public class CowboyModel {
     private readonly GameObject gameObject;
 

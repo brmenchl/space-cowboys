@@ -1,14 +1,10 @@
+using Code.Cowboy;
+using Code.Player;
+using Code.Ship;
+using UnityEngine;
+using Zenject;
+
 namespace Code.Game {
-  using Cowboy;
-
-  using Player;
-
-  using Ship;
-
-  using UnityEngine;
-
-  using Zenject;
-
   public class GameInstaller : MonoInstaller {
     [SerializeField] private GameObject shipPrefab;
     [SerializeField] private GameObject cowboyPrefab;

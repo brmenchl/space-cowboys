@@ -1,13 +1,10 @@
+using System;
+using Code.Player.Input;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using Zenject;
+
 namespace Code.Player {
-  using System;
-
-  using Input;
-
-  using UnityEngine;
-  using UnityEngine.InputSystem;
-
-  using Zenject;
-
   [RequireComponent(typeof(PlayerInput))]
   public class Pawn : MonoBehaviour {
     public readonly InputState inputState = new InputState();

@@ -1,6 +1,6 @@
-namespace Code.Utilities.ScreenWrap {
-  using UnityEngine;
+using UnityEngine;
 
+namespace Code.Utilities.ScreenWrap {
   public class ScreenWrap : MonoBehaviour {
     private Vector3 screenBottomLeft;
     private Vector3 screenTopRight;

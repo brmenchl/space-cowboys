@@ -1,14 +1,10 @@
+using Code.Cowboy;
+using Code.Player;
+using Code.Ship;
+using UnityEngine;
+using Zenject;
+
 namespace Code.Game {
-  using Cowboy;
-
-  using Player;
-
-  using Ship;
-
-  using UnityEngine;
-
-  using Zenject;
-
   public class GameRunner : IInitializable {
     private readonly CowboyFacade.Factory cowboyFactory;
     private readonly Pawn.Factory pawnFactory;

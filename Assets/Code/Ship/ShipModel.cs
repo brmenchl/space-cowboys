@@ -1,8 +1,7 @@
+using Code.Utilities.ScreenWrap;
+using UnityEngine;
+
 namespace Code.Ship {
-  using UnityEngine;
-
-  using Utilities.ScreenWrap;
-
   public class ShipModel {
     private readonly GameObject gameObject;
 

@@ -1,11 +1,9 @@
+using Code.Player;
+using Code.Player.Input;
+using UnityEngine;
+using Zenject;
+
 namespace Code.Ship {
-  using Player;
-  using Player.Input;
-
-  using UnityEngine;
-
-  using Zenject;
-
   public class ShipFacade : IPossessable {
     private readonly HealthHandler healthHandler;
     private readonly InputHandler inputHandler;

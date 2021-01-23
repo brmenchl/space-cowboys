@@ -1,14 +1,10 @@
+using Code.Bullets;
+using Code.Player.Input;
+using Code.Utilities.ScreenWrap;
+using UnityEngine;
+using Zenject;
+
 namespace Code.Ship {
-  using Bullets;
-
-  using Player.Input;
-
-  using UnityEngine;
-
-  using Utilities.ScreenWrap;
-
-  using Zenject;
-
   public class ShipInstaller : Installer<ShipInstaller> {
     private GameObject bulletPrefab;
     private Vector3 position;

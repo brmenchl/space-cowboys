@@ -1,12 +1,9 @@
+using Code.Bullets;
+using Code.Ship;
+using UnityEngine;
+using Zenject;
+
 namespace Code.Game {
-  using Bullets;
-
-  using Ship;
-
-  using UnityEngine;
-
-  using Zenject;
-
   [CreateAssetMenu(fileName = "GameSettingsInstaller", menuName = "Installers/GameSettingsInstaller")]
   public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller> {
     public Bullet.Settings bullet;

@@ -1,12 +1,9 @@
+using System;
+using Code.Bullets;
+using Code.Utilities.ScreenWrap;
+using Cysharp.Threading.Tasks;
+
 namespace Code.Cowboy {
-  using System;
-
-  using Bullets;
-
-  using Cysharp.Threading.Tasks;
-
-  using Utilities.ScreenWrap;
-
   public class ShootHandler {
     private readonly Bullet.Factory bulletFactory;
 

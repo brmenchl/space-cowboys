@@ -1,6 +1,6 @@
-namespace Code.Ship {
-  using System;
+using System;
 
+namespace Code.Ship {
   public class HealthHandler {
     private readonly ShipModel model;
 

@@ -1,8 +1,7 @@
+using System;
+using UnityEngine;
+
 namespace Code.Player.Input {
-  using System;
-
-  using UnityEngine;
-
   public class InputHandler : IDisposable {
     private Pawn pawn;
 

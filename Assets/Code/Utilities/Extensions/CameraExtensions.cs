@@ -1,6 +1,6 @@
-namespace Code.Utilities.Extensions {
-  using UnityEngine;
+using UnityEngine;
 
+namespace Code.Utilities.Extensions {
   public static class CameraExtensions {
     public static Vector2 ScreenBounds(this Camera camera) {
       var screenBottomLeft = camera.ViewportToWorldPoint(new Vector3(0, 0, 0));

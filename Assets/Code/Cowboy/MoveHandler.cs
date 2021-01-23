@@ -1,10 +1,8 @@
+using Code.Player.Input;
+using Code.Utilities.ScreenWrap;
+using Zenject;
+
 namespace Code.Cowboy {
-  using Player.Input;
-
-  using Utilities.ScreenWrap;
-
-  using Zenject;
-
   public class MoveHandler : ITickable {
     private readonly InputHandler inputHandler;
     private readonly SWRigidbody2D rigidbody;
