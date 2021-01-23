@@ -8,10 +8,10 @@ namespace Code.Ship
     public class MoveHandler : ITickable
     {
         private readonly InputHandler inputHandler;
-        private readonly ScreenWrappingRigidbody2D rigidbody;
+        private readonly SWRigidbody2D rigidbody;
         private readonly Settings settings;
 
-        private MoveHandler(Settings settings, InputHandler inputHandler, ScreenWrappingRigidbody2D rigidbody)
+        private MoveHandler(Settings settings, InputHandler inputHandler, SWRigidbody2D rigidbody)
         {
             this.settings = settings;
             this.inputHandler = inputHandler;

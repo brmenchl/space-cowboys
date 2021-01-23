@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Code.Utilities.ScreenWrap
 {
-    public class ScreenWrappingRigidbody2D : MonoBehaviour
+    public class SWRigidbody2D : MonoBehaviour
     {
         [SerializeField] private GameObject clonePrefab;
         [SerializeField] private float inertia;

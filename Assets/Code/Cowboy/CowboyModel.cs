@@ -7,7 +7,7 @@ namespace Code.Cowboy
     {
         private readonly GameObject gameObject;
 
-        public CowboyModel(ScreenWrappingRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation)
+        public CowboyModel(SWRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation)
         {
             rigidbody2D.SetPositionAndRotation(position, rotation);
             gameObject = rigidbody2D.gameObject;

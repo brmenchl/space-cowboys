@@ -8,13 +8,13 @@ namespace Code.Ship
     public class ShootHandler
     {
         private readonly Settings settings;
-        private readonly ScreenWrappingRigidbody2D rigidbody;
+        private readonly SWRigidbody2D rigidbody;
         private readonly Bullet.Factory bulletFactory;
 
         private bool canShoot = true;
 
         public ShootHandler(Settings settings,
-                            ScreenWrappingRigidbody2D rigidbody,
+                            SWRigidbody2D rigidbody,
                             Bullet.Factory bulletFactory)
         {
             this.bulletFactory = bulletFactory;

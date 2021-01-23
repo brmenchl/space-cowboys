@@ -7,9 +7,9 @@ namespace Code.Cowboy
     public class MoveHandler : ITickable
     {
         private readonly InputHandler inputHandler;
-        private readonly ScreenWrappingRigidbody2D rigidbody;
+        private readonly SWRigidbody2D rigidbody;
 
-        private MoveHandler(InputHandler inputHandler, ScreenWrappingRigidbody2D rigidbody)
+        private MoveHandler(InputHandler inputHandler, SWRigidbody2D rigidbody)
         {
             this.inputHandler = inputHandler;
             this.rigidbody = rigidbody;

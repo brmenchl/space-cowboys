@@ -23,7 +23,7 @@ namespace Code.Cowboy
         {
             Container.Bind<CowboyFacade>().AsSingle();
             Container.Bind<CowboyModel>().AsSingle().WithArguments(position, rotation).NonLazy();
-            Container.Bind<ScreenWrappingRigidbody2D>().FromComponentOnRoot();
+            Container.Bind<SWRigidbody2D>().FromComponentOnRoot();
 
             Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle().NonLazy();
             Container.BindInterfacesTo<MoveHandler>().AsSingle();
