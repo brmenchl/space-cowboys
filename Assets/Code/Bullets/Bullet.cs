@@ -12,7 +12,10 @@ namespace Code.Bullets {
   public class Bullet : MonoBehaviour, IPoolable<IMemoryPool>, IDisposable {
     private CancellationTokenSource disposeLifeTimeCancelToken;
     private IMemoryPool pool;
-    [Inject] private Settings settings;
+    private Settings settings;
+
+    [Inject]
+    public void Inject(Settings settings) => this.settings = settings;
 
     private void Update() => transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
 

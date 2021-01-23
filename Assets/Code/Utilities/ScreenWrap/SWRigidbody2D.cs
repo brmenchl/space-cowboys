@@ -5,8 +5,8 @@ using UnityEngine;
 
 namespace Code.Utilities.ScreenWrap {
   public class SWRigidbody2D : MonoBehaviour {
-    [SerializeField] private GameObject clonePrefab;
-    [SerializeField] private float inertia;
+    [SerializeField] private GameObject clonePrefab = null;
+    [SerializeField] private float inertia = 0;
     private readonly Dictionary<ClonePlacement, GameObject> clones = new Dictionary<ClonePlacement, GameObject>();
     private Rigidbody2D rb;
     private RotationManager rotationManager;
