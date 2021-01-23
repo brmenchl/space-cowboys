@@ -1,51 +1,37 @@
-using Code.Player;
-using Code.Player.Input;
-using UnityEngine;
-using Zenject;
+namespace Code.Cowboy {
+  using Player;
+  using Player.Input;
 
-namespace Code.Cowboy
-{
-    public class CowboyFacade : IPossessable
-    {
-        private readonly HealthHandler healthHandler;
-        private readonly InputHandler inputHandler;
-        private readonly ShootHandler shootHandler;
+  using UnityEngine;
 
-        public CowboyFacade(
-            InputHandler inputHandler,
-            ShootHandler shootHandler,
-            HealthHandler healthHandler
-        )
-        {
-            this.shootHandler = shootHandler;
-            this.healthHandler = healthHandler;
-            this.inputHandler = inputHandler;
-        }
+  using Zenject;
 
-        public bool IsPossessed => inputHandler.IsPossessed;
+  public class CowboyFacade : IPossessable {
+    private readonly HealthHandler healthHandler;
+    private readonly InputHandler inputHandler;
+    private readonly ShootHandler shootHandler;
 
-        public void Possess(Pawn pawn)
-        {
-            inputHandler.Possess(pawn);
-        }
-
-        public void Depossess()
-        {
-            inputHandler.Depossess();
-        }
-
-        public void Shoot()
-        {
-            shootHandler.Shoot();
-        }
-
-        public void Damage(float damage)
-        {
-            healthHandler.Damage(damage);
-        }
-
-        public class Factory : PlaceholderFactory<Vector3, Quaternion, CowboyFacade>
-        {
-        }
+    public CowboyFacade(
+      InputHandler inputHandler,
+      ShootHandler shootHandler,
+      HealthHandler healthHandler
+    ) {
+      this.shootHandler = shootHandler;
+      this.healthHandler = healthHandler;
+      this.inputHandler = inputHandler;
     }
+
+    public bool IsPossessed => inputHandler.IsPossessed;
+
+    public void Possess(Pawn pawn) => inputHandler.Possess(pawn);
+
+    public void Depossess() => inputHandler.Depossess();
+
+    public void Shoot() => shootHandler.Shoot();
+
+    public void Damage(float damage) => healthHandler.Damage(damage);
+
+    public class Factory : PlaceholderFactory<Vector3, Quaternion, CowboyFacade> {
+    }
+  }
 }

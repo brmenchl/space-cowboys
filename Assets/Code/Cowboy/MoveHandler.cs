@@ -1,30 +1,27 @@
-using Code.Player.Input;
-using Code.Utilities.ScreenWrap;
-using Zenject;
+namespace Code.Cowboy {
+  using Player.Input;
 
-namespace Code.Cowboy
-{
-    public class MoveHandler : ITickable
-    {
-        private readonly InputHandler inputHandler;
-        private readonly SWRigidbody2D rigidbody;
+  using Utilities.ScreenWrap;
 
-        private MoveHandler(InputHandler inputHandler, SWRigidbody2D rigidbody)
-        {
-            this.inputHandler = inputHandler;
-            this.rigidbody = rigidbody;
-        }
+  using Zenject;
 
-        public void Tick()
-        {
-            if (!inputHandler.IsPossessed) return;
-            Turn(inputHandler.Movement.x);
-        }
+  public class MoveHandler : ITickable {
+    private readonly InputHandler inputHandler;
+    private readonly SWRigidbody2D rigidbody;
 
-        private void Turn(float amount)
-        {
-            var torque = 3 * -amount;
-            rigidbody.AddTorque(torque);
-        }
+    private MoveHandler(InputHandler inputHandler, SWRigidbody2D rigidbody) {
+      this.inputHandler = inputHandler;
+      this.rigidbody = rigidbody;
     }
+
+    public void Tick() {
+      if (!inputHandler.IsPossessed) return;
+      Turn(inputHandler.Movement.x);
+    }
+
+    private void Turn(float amount) {
+      var torque = 3 * -amount;
+      rigidbody.AddTorque(torque);
+    }
+  }
 }

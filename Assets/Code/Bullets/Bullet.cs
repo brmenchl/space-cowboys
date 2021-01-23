@@ -1,69 +1,59 @@
-using System;
-using System.Threading;
-using Code.Ship;
-using Cysharp.Threading.Tasks;
-using UnityEngine;
-using Zenject;
+namespace Code.Bullets {
+  using System;
+  using System.Threading;
 
-namespace Code.Bullets
-{
-    public class Bullet : MonoBehaviour, IPoolable<IMemoryPool>
-    {
-        private CancellationTokenSource disposeLifeTimeCancelToken;
-        private IMemoryPool pool;
-        private Settings settings;
+  using Cysharp.Threading.Tasks;
 
-        private void Update()
-        {
-            transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
-        }
+  using Ship;
 
-        public void OnTriggerEnter2D(Collider2D other)
-        {
-            var shipView = other.attachedRigidbody.GetComponent<ShipView>();
+  using UnityEngine;
 
-            if (shipView == null) return;
+  using Zenject;
 
-            shipView.Facade.Damage(settings.damage);
-            pool.Despawn(this);
-        }
+  public class Bullet : MonoBehaviour, IPoolable<IMemoryPool> {
+    private CancellationTokenSource disposeLifeTimeCancelToken;
+    private IMemoryPool pool;
+    private Settings settings;
 
-        public void OnDespawned()
-        {
-            pool = null;
-            transform.position = Vector3.zero;
-            disposeLifeTimeCancelToken.Cancel();
-        }
+    private void Update() => transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
 
-        public void OnSpawned(IMemoryPool pool)
-        {
-            this.pool = pool;
-            disposeLifeTimeCancelToken = new CancellationTokenSource();
-            DisposeAfterLifeTime().Forget();
-        }
+    public void OnTriggerEnter2D(Collider2D other) {
+      var shipView = other.attachedRigidbody.GetComponent<ShipView>();
 
-        [Inject]
-        private void Inject(Settings settings)
-        {
-            this.settings = settings;
-        }
+      if (shipView == null) return;
 
-        private async UniTaskVoid DisposeAfterLifeTime()
-        {
-            await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime)).WithCancellation(disposeLifeTimeCancelToken.Token);
-            pool.Despawn(this);
-        }
-
-        public class Factory : PlaceholderFactory<Bullet>
-        {
-        }
-
-        [Serializable]
-        public class Settings
-        {
-            public float speed;
-            public float lifeTime;
-            public float damage;
-        }
+      shipView.Facade.Damage(settings.damage);
+      pool.Despawn(this);
     }
+
+    public void OnDespawned() {
+      pool = null;
+      transform.position = Vector3.zero;
+      disposeLifeTimeCancelToken.Cancel();
+    }
+
+    public void OnSpawned(IMemoryPool pool) {
+      this.pool = pool;
+      disposeLifeTimeCancelToken = new CancellationTokenSource();
+      DisposeAfterLifeTime().Forget();
+    }
+
+    [Inject]
+    private void Inject(Settings settings) => this.settings = settings;
+
+    private async UniTaskVoid DisposeAfterLifeTime() {
+      await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime)).WithCancellation(disposeLifeTimeCancelToken.Token);
+      pool.Despawn(this);
+    }
+
+    public class Factory : PlaceholderFactory<Bullet> {
+    }
+
+    [Serializable]
+    public class Settings {
+      public float speed;
+      public float lifeTime;
+      public float damage;
+    }
+  }
 }

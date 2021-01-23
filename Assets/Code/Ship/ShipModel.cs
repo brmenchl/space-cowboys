@@ -1,21 +1,16 @@
-using Code.Utilities.ScreenWrap;
-using UnityEngine;
+namespace Code.Ship {
+  using UnityEngine;
 
-namespace Code.Ship
-{
-    public class ShipModel
-    {
-        private readonly GameObject gameObject;
+  using Utilities.ScreenWrap;
 
-        public ShipModel(SWRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation)
-        {
-            rigidbody2D.SetPositionAndRotation(position, rotation);
-            gameObject = rigidbody2D.gameObject;
-        }
+  public class ShipModel {
+    private readonly GameObject gameObject;
 
-        public void Die()
-        {
-            Object.Destroy(gameObject);
-        }
+    public ShipModel(SWRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation) {
+      rigidbody2D.SetPositionAndRotation(position, rotation);
+      gameObject = rigidbody2D.gameObject;
     }
+
+    public void Die() => Object.Destroy(gameObject);
+  }
 }

@@ -87,13 +87,13 @@ namespace ModestTree
     {
         public static System.Array CreateArray(System.Type elementType, System.Collections.Generic.List<object> instances);
         public static System.Collections.IList CreateGenericList(System.Type elementType, System.Collections.Generic.List<object> instances);
+        [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1, TParam2, TParam3, TParam4, TParam5>(ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TParam5> action);
+        [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6>(ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> action);
         [System.Runtime.CompilerServices.Extension] public static string ToDebugString(System.Action action);
         [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1>(System.Action<TParam1> action);
         [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1, TParam2>(System.Action<TParam1, TParam2> action);
         [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1, TParam2, TParam3>(System.Action<TParam1, TParam2, TParam3> action);
         [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1, TParam2, TParam3, TParam4>(System.Action<TParam1, TParam2, TParam3, TParam4> action);
-        [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1, TParam2, TParam3, TParam4, TParam5>(System.Action<TParam1, TParam2, TParam3, TParam4, TParam5> action);
-        [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6>(System.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> action);
         [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1>(System.Func<TParam1> func);
         [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1, TParam2>(System.Func<TParam1, TParam2> func);
         [System.Runtime.CompilerServices.Extension] public static string ToDebugString<TParam1, TParam2, TParam3>(System.Func<TParam1, TParam2, TParam3> func);
@@ -149,6 +149,34 @@ namespace ModestTree
 
 namespace ModestTree.Util
 {
+    public delegate void Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10);
+
+    public delegate void Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11);
+
+    public delegate void Action<T1, T2, T3, T4, T5>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
+
+    public delegate void Action<T1, T2, T3, T4, T5, T6>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6);
+
+    public delegate void Action<T1, T2, T3, T4, T5, T6, T7>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
+
+    public delegate void Action<T1, T2, T3, T4, T5, T6, T7, T8>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8);
+
+    public delegate void Action<T1, T2, T3, T4, T5, T6, T7, T8, T9>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9);
+
+    public delegate TResult Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9);
+
+    public delegate TResult Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10);
+
+    public delegate TResult Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11);
+
+    public delegate TResult Func<T1, T2, T3, T4, T5, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5);
+
+    public delegate TResult Func<T1, T2, T3, T4, T5, T6, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6);
+
+    public delegate TResult Func<T1, T2, T3, T4, T5, T6, T7, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7);
+
+    public delegate TResult Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8);
+
     [System.AttributeUsage(32767, AllowMultiple = false)] public class PreserveAttribute : System.Attribute
     {
         public PreserveAttribute() {}
@@ -1122,7 +1150,7 @@ namespace Zenject
         public FactoryFromBinder(Zenject.DiContainer container, Zenject.BindInfo bindInfo, Zenject.FactoryBindInfo factoryBindInfo) {}
         public Zenject.ConditionCopyNonLazyBinder FromFactory<TSubFactory>() where TSubFactory : Zenject.IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TContract>;
         public Zenject.ArgConditionCopyNonLazyBinder FromIFactory(System.Action<Zenject.ConcreteBinderGeneric<Zenject.IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TContract>>> factoryBindGenerator);
-        public Zenject.ConditionCopyNonLazyBinder FromMethod(System.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TContract> method);
+        public Zenject.ConditionCopyNonLazyBinder FromMethod(ModestTree.Util.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TContract> method);
         public Zenject.FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TContract> FromSubContainerResolve();
         public Zenject.FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TContract> FromSubContainerResolve(object subIdentifier);
     }
@@ -1158,7 +1186,7 @@ namespace Zenject
     {
         public FactoryFromBinder(Zenject.DiContainer container, Zenject.BindInfo bindInfo, Zenject.FactoryBindInfo factoryBindInfo) {}
         public Zenject.ConditionCopyNonLazyBinder FromFactory<TSubFactory>() where TSubFactory : Zenject.IFactory<TParam1, TParam2, TParam3, TParam4, TContract>;
-        public Zenject.ConditionCopyNonLazyBinder FromMethod(System.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TContract> method);
+        public Zenject.ConditionCopyNonLazyBinder FromMethod(ModestTree.Util.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TContract> method);
         public Zenject.FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TContract> FromSubContainerResolve();
         public Zenject.FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TContract> FromSubContainerResolve(object subIdentifier);
     }
@@ -1167,7 +1195,7 @@ namespace Zenject
     {
         public FactoryFromBinder(Zenject.DiContainer container, Zenject.BindInfo bindInfo, Zenject.FactoryBindInfo factoryBindInfo) {}
         public Zenject.ConditionCopyNonLazyBinder FromFactory<TSubFactory>() where TSubFactory : Zenject.IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TContract>;
-        public Zenject.ConditionCopyNonLazyBinder FromMethod(System.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TContract> method);
+        public Zenject.ConditionCopyNonLazyBinder FromMethod(ModestTree.Util.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TContract> method);
         public Zenject.FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TContract> FromSubContainerResolve();
         public Zenject.FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TContract> FromSubContainerResolve(object subIdentifier);
     }
@@ -1176,7 +1204,7 @@ namespace Zenject
     {
         public FactoryFromBinder(Zenject.DiContainer container, Zenject.BindInfo bindInfo, Zenject.FactoryBindInfo factoryBindInfo) {}
         public Zenject.ConditionCopyNonLazyBinder FromFactory<TSubFactory>() where TSubFactory : Zenject.IFactory<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract>;
-        public Zenject.ConditionCopyNonLazyBinder FromMethod(System.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract> method);
+        public Zenject.ConditionCopyNonLazyBinder FromMethod(ModestTree.Util.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract> method);
         public Zenject.FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract> FromSubContainerResolve();
         public Zenject.FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract> FromSubContainerResolve(object subIdentifier);
     }
@@ -1311,11 +1339,11 @@ namespace Zenject
     [Zenject.NoReflectionBaking] public class FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TContract> : Zenject.FactorySubContainerBinderWithParams<TContract>
     {
         public FactorySubContainerBinder(Zenject.DiContainer bindContainer, Zenject.BindInfo bindInfo, Zenject.FactoryBindInfo factoryBindInfo, object subIdentifier) {}
-        public Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewGameObjectMethod(System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(System.Func<Zenject.InjectContext, UnityEngine.Object> prefabGetter, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(UnityEngine.Object prefab, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceMethod(string resourcePath, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
+        public Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewGameObjectMethod(ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(System.Func<Zenject.InjectContext, UnityEngine.Object> prefabGetter, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(UnityEngine.Object prefab, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceMethod(string resourcePath, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod);
     }
 
     [Zenject.NoReflectionBaking] public class FactorySubContainerBinder<TParam1, TContract> : Zenject.FactorySubContainerBinderWithParams<TContract>
@@ -1351,31 +1379,31 @@ namespace Zenject
     [Zenject.NoReflectionBaking] public class FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TContract> : Zenject.FactorySubContainerBinderWithParams<TContract>
     {
         public FactorySubContainerBinder(Zenject.DiContainer bindContainer, Zenject.BindInfo bindInfo, Zenject.FactoryBindInfo factoryBindInfo, object subIdentifier) {}
-        public Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewGameObjectMethod(System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(System.Func<Zenject.InjectContext, UnityEngine.Object> prefabGetter, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(UnityEngine.Object prefab, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceMethod(string resourcePath, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
+        public Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewGameObjectMethod(ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(System.Func<Zenject.InjectContext, UnityEngine.Object> prefabGetter, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(UnityEngine.Object prefab, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceMethod(string resourcePath, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod);
     }
 
     [Zenject.NoReflectionBaking] public class FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TContract> : Zenject.FactorySubContainerBinderWithParams<TContract>
     {
         public FactorySubContainerBinder(Zenject.DiContainer bindContainer, Zenject.BindInfo bindInfo, Zenject.FactoryBindInfo factoryBindInfo, object subIdentifier) {}
-        public Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewGameObjectMethod(System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(System.Func<Zenject.InjectContext, UnityEngine.Object> prefabGetter, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(UnityEngine.Object prefab, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceMethod(string resourcePath, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
+        public Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewGameObjectMethod(ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(System.Func<Zenject.InjectContext, UnityEngine.Object> prefabGetter, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(UnityEngine.Object prefab, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceMethod(string resourcePath, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod);
     }
 
     [Zenject.NoReflectionBaking] public class FactorySubContainerBinder<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TContract> : Zenject.FactorySubContainerBinderWithParams<TContract>
     {
         public FactorySubContainerBinder(Zenject.DiContainer bindContainer, Zenject.BindInfo bindInfo, Zenject.FactoryBindInfo factoryBindInfo, object subIdentifier) {}
-        public Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewGameObjectMethod(System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(System.Func<Zenject.InjectContext, UnityEngine.Object> prefabGetter, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(UnityEngine.Object prefab, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
-        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceMethod(string resourcePath, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
+        public Zenject.ScopeConcreteIdArgConditionCopyNonLazyBinder ByMethod(ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewGameObjectMethod(ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(System.Func<Zenject.InjectContext, UnityEngine.Object> prefabGetter, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabMethod(UnityEngine.Object prefab, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
+        public Zenject.NameTransformScopeConcreteIdArgConditionCopyNonLazyBinder ByNewPrefabResourceMethod(string resourcePath, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod);
     }
 
     [Zenject.NoReflectionBaking] public class FactorySubContainerBinderBase<TContract>
@@ -2450,7 +2478,7 @@ namespace Zenject
     {
         public virtual bool IsCached { get; }
         public virtual bool TypeVariesBasedOnMemberType { get; }
-        public MethodProviderWithContainer(System.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TValue> method) {}
+        public MethodProviderWithContainer(ModestTree.Util.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10, TValue> method) {}
         public virtual void GetAllInstancesWithInjectSplit(Zenject.InjectContext context, System.Collections.Generic.List<Zenject.TypeValuePair> args, out System.Action injectAction, System.Collections.Generic.List<object> buffer);
         public virtual System.Type GetInstanceType(Zenject.InjectContext context);
     }
@@ -2486,7 +2514,7 @@ namespace Zenject
     {
         public virtual bool IsCached { get; }
         public virtual bool TypeVariesBasedOnMemberType { get; }
-        public MethodProviderWithContainer(System.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TValue> method) {}
+        public MethodProviderWithContainer(ModestTree.Util.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TValue> method) {}
         public virtual void GetAllInstancesWithInjectSplit(Zenject.InjectContext context, System.Collections.Generic.List<Zenject.TypeValuePair> args, out System.Action injectAction, System.Collections.Generic.List<object> buffer);
         public virtual System.Type GetInstanceType(Zenject.InjectContext context);
     }
@@ -2495,7 +2523,7 @@ namespace Zenject
     {
         public virtual bool IsCached { get; }
         public virtual bool TypeVariesBasedOnMemberType { get; }
-        public MethodProviderWithContainer(System.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TValue> method) {}
+        public MethodProviderWithContainer(ModestTree.Util.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TValue> method) {}
         public virtual void GetAllInstancesWithInjectSplit(Zenject.InjectContext context, System.Collections.Generic.List<Zenject.TypeValuePair> args, out System.Action injectAction, System.Collections.Generic.List<object> buffer);
         public virtual System.Type GetInstanceType(Zenject.InjectContext context);
     }
@@ -2504,7 +2532,7 @@ namespace Zenject
     {
         public virtual bool IsCached { get; }
         public virtual bool TypeVariesBasedOnMemberType { get; }
-        public MethodProviderWithContainer(System.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> method) {}
+        public MethodProviderWithContainer(ModestTree.Util.Func<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> method) {}
         public virtual void GetAllInstancesWithInjectSplit(Zenject.InjectContext context, System.Collections.Generic.List<Zenject.TypeValuePair> args, out System.Action injectAction, System.Collections.Generic.List<object> buffer);
         public virtual System.Type GetInstanceType(Zenject.InjectContext context);
     }
@@ -3666,29 +3694,29 @@ namespace Zenject
 
     [Zenject.NoReflectionBaking] public class StaticMemoryPool<TParam1, TParam2, TParam3, TParam4, TValue> : Zenject.StaticMemoryPoolBase<TValue>, Zenject.IDespawnableMemoryPool<TValue>, Zenject.IMemoryPool, Zenject.IMemoryPool<TParam1, TParam2, TParam3, TParam4, TValue> where TValue : class, new()
     {
-        public System.Action<TParam1, TParam2, TParam3, TParam4, TValue> OnSpawnMethod { set; }
-        public StaticMemoryPool(System.Action<TParam1, TParam2, TParam3, TParam4, TValue> onSpawnMethod, System.Action<TValue> onDespawnedMethod = default(System.Action<TValue>)) {}
+        public ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TValue> OnSpawnMethod { set; }
+        public StaticMemoryPool(ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TValue> onSpawnMethod, System.Action<TValue> onDespawnedMethod = default(System.Action<TValue>)) {}
         public virtual TValue Spawn(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4);
     }
 
     [Zenject.NoReflectionBaking] public class StaticMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> : Zenject.StaticMemoryPoolBase<TValue>, Zenject.IDespawnableMemoryPool<TValue>, Zenject.IMemoryPool, Zenject.IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> where TValue : class, new()
     {
-        public System.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> OnSpawnMethod { set; }
-        public StaticMemoryPool(System.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> onSpawnMethod, System.Action<TValue> onDespawnedMethod = default(System.Action<TValue>)) {}
+        public ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> OnSpawnMethod { set; }
+        public StaticMemoryPool(ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TValue> onSpawnMethod, System.Action<TValue> onDespawnedMethod = default(System.Action<TValue>)) {}
         public virtual TValue Spawn(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5);
     }
 
     [Zenject.NoReflectionBaking] public class StaticMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> : Zenject.StaticMemoryPoolBase<TValue>, Zenject.IDespawnableMemoryPool<TValue>, Zenject.IMemoryPool, Zenject.IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> where TValue : class, new()
     {
-        public System.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> OnSpawnMethod { set; }
-        public StaticMemoryPool(System.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> onSpawnMethod, System.Action<TValue> onDespawnedMethod = default(System.Action<TValue>)) {}
+        public ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> OnSpawnMethod { set; }
+        public StaticMemoryPool(ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TValue> onSpawnMethod, System.Action<TValue> onDespawnedMethod = default(System.Action<TValue>)) {}
         public virtual TValue Spawn(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6);
     }
 
     [Zenject.NoReflectionBaking] public class StaticMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> : Zenject.StaticMemoryPoolBase<TValue>, Zenject.IDespawnableMemoryPool<TValue>, Zenject.IMemoryPool, Zenject.IMemoryPool<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> where TValue : class, new()
     {
-        public System.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> OnSpawnMethod { set; }
-        public StaticMemoryPool(System.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> onSpawnMethod, System.Action<TValue> onDespawnedMethod = default(System.Action<TValue>)) {}
+        public ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> OnSpawnMethod { set; }
+        public StaticMemoryPool(ModestTree.Util.Action<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TValue> onSpawnMethod, System.Action<TValue> onDespawnedMethod = default(System.Action<TValue>)) {}
         public virtual TValue Spawn(TParam1 p1, TParam2 p2, TParam3 p3, TParam4 p4, TParam5 p5, TParam6 p6, TParam7 p7);
     }
 
@@ -3800,7 +3828,7 @@ namespace Zenject
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> : Zenject.SubContainerCreatorByMethodBase
     {
-        public SubContainerCreatorByMethod(Zenject.DiContainer container, Zenject.SubContainerCreatorBindInfo containerBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installMethod) {}
+        public SubContainerCreatorByMethod(Zenject.DiContainer container, Zenject.SubContainerCreatorBindInfo containerBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installMethod) {}
         public virtual Zenject.DiContainer CreateSubContainer(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.InjectContext context, out System.Action injectAction);
     }
 
@@ -3818,19 +3846,19 @@ namespace Zenject
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4> : Zenject.SubContainerCreatorByMethodBase
     {
-        public SubContainerCreatorByMethod(Zenject.DiContainer container, Zenject.SubContainerCreatorBindInfo containerBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installMethod) {}
+        public SubContainerCreatorByMethod(Zenject.DiContainer container, Zenject.SubContainerCreatorBindInfo containerBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installMethod) {}
         public virtual Zenject.DiContainer CreateSubContainer(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.InjectContext context, out System.Action injectAction);
     }
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4, TParam5> : Zenject.SubContainerCreatorByMethodBase
     {
-        public SubContainerCreatorByMethod(Zenject.DiContainer container, Zenject.SubContainerCreatorBindInfo containerBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installMethod) {}
+        public SubContainerCreatorByMethod(Zenject.DiContainer container, Zenject.SubContainerCreatorBindInfo containerBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installMethod) {}
         public virtual Zenject.DiContainer CreateSubContainer(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.InjectContext context, out System.Action injectAction);
     }
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> : Zenject.SubContainerCreatorByMethodBase
     {
-        public SubContainerCreatorByMethod(Zenject.DiContainer container, Zenject.SubContainerCreatorBindInfo containerBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installMethod) {}
+        public SubContainerCreatorByMethod(Zenject.DiContainer container, Zenject.SubContainerCreatorBindInfo containerBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installMethod) {}
         public virtual Zenject.DiContainer CreateSubContainer(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.InjectContext context, out System.Action injectAction);
     }
 
@@ -3867,7 +3895,7 @@ namespace Zenject
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByNewGameObjectMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> : Zenject.SubContainerCreatorByNewGameObjectDynamicContext
     {
-        public SubContainerCreatorByNewGameObjectMethod(Zenject.DiContainer container, Zenject.GameObjectCreationParameters gameObjectBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod) {}
+        public SubContainerCreatorByNewGameObjectMethod(Zenject.DiContainer container, Zenject.GameObjectCreationParameters gameObjectBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod) {}
         protected virtual void AddInstallers(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.GameObjectContext context);
     }
 
@@ -3885,19 +3913,19 @@ namespace Zenject
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByNewGameObjectMethod<TParam1, TParam2, TParam3, TParam4> : Zenject.SubContainerCreatorByNewGameObjectDynamicContext
     {
-        public SubContainerCreatorByNewGameObjectMethod(Zenject.DiContainer container, Zenject.GameObjectCreationParameters gameObjectBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod) {}
+        public SubContainerCreatorByNewGameObjectMethod(Zenject.DiContainer container, Zenject.GameObjectCreationParameters gameObjectBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod) {}
         protected virtual void AddInstallers(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.GameObjectContext context);
     }
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByNewGameObjectMethod<TParam1, TParam2, TParam3, TParam4, TParam5> : Zenject.SubContainerCreatorByNewGameObjectDynamicContext
     {
-        public SubContainerCreatorByNewGameObjectMethod(Zenject.DiContainer container, Zenject.GameObjectCreationParameters gameObjectBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod) {}
+        public SubContainerCreatorByNewGameObjectMethod(Zenject.DiContainer container, Zenject.GameObjectCreationParameters gameObjectBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod) {}
         protected virtual void AddInstallers(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.GameObjectContext context);
     }
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByNewGameObjectMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> : Zenject.SubContainerCreatorByNewGameObjectDynamicContext
     {
-        public SubContainerCreatorByNewGameObjectMethod(Zenject.DiContainer container, Zenject.GameObjectCreationParameters gameObjectBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod) {}
+        public SubContainerCreatorByNewGameObjectMethod(Zenject.DiContainer container, Zenject.GameObjectCreationParameters gameObjectBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod) {}
         protected virtual void AddInstallers(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.GameObjectContext context);
     }
 
@@ -3933,7 +3961,7 @@ namespace Zenject
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByNewPrefabMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> : Zenject.SubContainerCreatorByNewPrefabDynamicContext
     {
-        public SubContainerCreatorByNewPrefabMethod(Zenject.DiContainer container, Zenject.IPrefabProvider prefabProvider, Zenject.GameObjectCreationParameters gameObjectBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod) {}
+        public SubContainerCreatorByNewPrefabMethod(Zenject.DiContainer container, Zenject.IPrefabProvider prefabProvider, Zenject.GameObjectCreationParameters gameObjectBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6, TParam7, TParam8, TParam9, TParam10> installerMethod) {}
         protected virtual void AddInstallers(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.GameObjectContext context);
     }
 
@@ -3951,19 +3979,19 @@ namespace Zenject
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByNewPrefabMethod<TParam1, TParam2, TParam3, TParam4> : Zenject.SubContainerCreatorByNewPrefabDynamicContext
     {
-        public SubContainerCreatorByNewPrefabMethod(Zenject.DiContainer container, Zenject.IPrefabProvider prefabProvider, Zenject.GameObjectCreationParameters gameObjectBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod) {}
+        public SubContainerCreatorByNewPrefabMethod(Zenject.DiContainer container, Zenject.IPrefabProvider prefabProvider, Zenject.GameObjectCreationParameters gameObjectBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4> installerMethod) {}
         protected virtual void AddInstallers(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.GameObjectContext context);
     }
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByNewPrefabMethod<TParam1, TParam2, TParam3, TParam4, TParam5> : Zenject.SubContainerCreatorByNewPrefabDynamicContext
     {
-        public SubContainerCreatorByNewPrefabMethod(Zenject.DiContainer container, Zenject.IPrefabProvider prefabProvider, Zenject.GameObjectCreationParameters gameObjectBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod) {}
+        public SubContainerCreatorByNewPrefabMethod(Zenject.DiContainer container, Zenject.IPrefabProvider prefabProvider, Zenject.GameObjectCreationParameters gameObjectBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5> installerMethod) {}
         protected virtual void AddInstallers(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.GameObjectContext context);
     }
 
     [Zenject.NoReflectionBaking] public class SubContainerCreatorByNewPrefabMethod<TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> : Zenject.SubContainerCreatorByNewPrefabDynamicContext
     {
-        public SubContainerCreatorByNewPrefabMethod(Zenject.DiContainer container, Zenject.IPrefabProvider prefabProvider, Zenject.GameObjectCreationParameters gameObjectBindInfo, System.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod) {}
+        public SubContainerCreatorByNewPrefabMethod(Zenject.DiContainer container, Zenject.IPrefabProvider prefabProvider, Zenject.GameObjectCreationParameters gameObjectBindInfo, ModestTree.Util.Action<Zenject.DiContainer, TParam1, TParam2, TParam3, TParam4, TParam5, TParam6> installerMethod) {}
         protected virtual void AddInstallers(System.Collections.Generic.List<Zenject.TypeValuePair> args, Zenject.GameObjectContext context);
     }
 

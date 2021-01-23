@@ -1,16 +1,12 @@
-using UnityEngine;
-using Zenject;
+namespace Code.Ship {
+  using UnityEngine;
 
-namespace Code.Ship
-{
-    public class ShipView : MonoBehaviour
-    {
-        public ShipFacade Facade { get; private set; }
+  using Zenject;
 
-        [Inject]
-        public void Inject(ShipFacade facade)
-        {
-            Facade = facade;
-        }
-    }
+  public class ShipView : MonoBehaviour {
+    public ShipFacade Facade { get; private set; }
+
+    [Inject]
+    public void Inject(ShipFacade facade) => Facade = facade;
+  }
 }
