@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace Code.Cowboy
 {
-  public class CowboyModel
-  {
-    private readonly GameObject gameObject;
-
-    public CowboyModel(ScreenWrappingRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation)
+    public class CowboyModel
     {
-      rigidbody2D.SetPositionAndRotation(position, rotation);
-      gameObject = rigidbody2D.gameObject;
-    }
+        private readonly GameObject gameObject;
 
-    public void Die()
-    {
-      Object.Destroy(gameObject);
+        public CowboyModel(ScreenWrappingRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation)
+        {
+            rigidbody2D.SetPositionAndRotation(position, rotation);
+            gameObject = rigidbody2D.gameObject;
+        }
+
+        public void Die()
+        {
+            Object.Destroy(gameObject);
+        }
     }
-  }
 }

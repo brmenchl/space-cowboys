@@ -5,46 +5,46 @@ using Zenject;
 
 namespace Code.Ship
 {
-  public class ShipFacade : IPossessable
-  {
-    private readonly HealthHandler healthHandler;
-    private readonly InputHandler inputHandler;
-    private readonly ShootHandler shootHandler;
-
-    public ShipFacade(
-      InputHandler inputHandler,
-      ShootHandler shootHandler,
-      HealthHandler healthHandler)
+    public class ShipFacade : IPossessable
     {
-      this.shootHandler = shootHandler;
-      this.healthHandler = healthHandler;
-      this.inputHandler = inputHandler;
-    }
+        private readonly HealthHandler healthHandler;
+        private readonly InputHandler inputHandler;
+        private readonly ShootHandler shootHandler;
 
-    public bool IsPossessed => inputHandler.IsPossessed;
+        public ShipFacade(
+            InputHandler inputHandler,
+            ShootHandler shootHandler,
+            HealthHandler healthHandler)
+        {
+            this.shootHandler = shootHandler;
+            this.healthHandler = healthHandler;
+            this.inputHandler = inputHandler;
+        }
 
-    public void Possess(Pawn pawn)
-    {
-      inputHandler.Possess(pawn);
-    }
+        public bool IsPossessed => inputHandler.IsPossessed;
 
-    public void Depossess()
-    {
-      inputHandler.Depossess();
-    }
+        public void Possess(Pawn pawn)
+        {
+            inputHandler.Possess(pawn);
+        }
 
-    public void Shoot()
-    {
-      shootHandler.Shoot();
-    }
+        public void Depossess()
+        {
+            inputHandler.Depossess();
+        }
 
-    public void Damage(float damage)
-    {
-      healthHandler.Damage(damage);
-    }
+        public void Shoot()
+        {
+            shootHandler.Shoot();
+        }
 
-    public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade>
-    {
+        public void Damage(float damage)
+        {
+            healthHandler.Damage(damage);
+        }
+
+        public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade>
+        {
+        }
     }
-  }
 }

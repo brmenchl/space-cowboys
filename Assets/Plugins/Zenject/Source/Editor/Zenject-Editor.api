@@ -1,0 +1,160 @@
+// This file is generated. Do not modify by hand.
+// XML documentation file not found. To check if public methods have XML comments,
+// make sure the XML doc file is present and located next to the scraped dll
+namespace Zenject
+{
+    [Zenject.NoReflectionBaking] public class ContextEditor : Zenject.UnityInspectorListEditor
+    {
+        protected virtual string[] PropertyDescriptions { get; }
+        protected virtual string[] PropertyDisplayNames { get; }
+        protected virtual string[] PropertyNames { get; }
+        public ContextEditor() {}
+    }
+
+    public abstract class EditorStaticInstaller<T> : Zenject.InstallerBase where T : Zenject.EditorStaticInstaller<T>
+    {
+        protected EditorStaticInstaller() {}
+        public static void Install();
+    }
+
+    [UnityEditor.CustomEditor(typeof(Zenject.GameObjectContext))] [Zenject.NoReflectionBaking] public class GameObjectContextEditor : Zenject.RunnableContextEditor
+    {
+        public GameObjectContextEditor() {}
+        public virtual void OnEnable();
+        protected virtual void OnGui();
+    }
+
+    public static class ObjectGraphVisualizer
+    {
+        public static void OutputObjectGraphToFile(Zenject.DiContainer container, string outputPath, System.Collections.Generic.IEnumerable<System.Type> externalIgnoreTypes, System.Collections.Generic.IEnumerable<System.Type> contractTypes);
+    }
+
+    [UnityEditor.CustomEditor(typeof(Zenject.ProjectContext))] [Zenject.NoReflectionBaking] public class ProjectContextEditor : Zenject.ContextEditor
+    {
+        public ProjectContextEditor() {}
+        public virtual void OnEnable();
+        protected virtual void OnGui();
+    }
+
+    [Zenject.NoReflectionBaking] public class RunnableContextEditor : Zenject.ContextEditor
+    {
+        public RunnableContextEditor() {}
+        public virtual void OnEnable();
+        protected virtual void OnGui();
+    }
+
+    [UnityEditor.CanEditMultipleObjects] [UnityEditor.CustomEditor(typeof(Zenject.SceneContext))] [Zenject.NoReflectionBaking] public class SceneContextEditor : Zenject.RunnableContextEditor
+    {
+        public SceneContextEditor() {}
+        public virtual void OnEnable();
+        protected virtual void OnGui();
+    }
+
+    [UnityEditor.CustomEditor(typeof(Zenject.SceneDecoratorContext))] [Zenject.NoReflectionBaking] public class SceneDecoratorContextEditor : Zenject.ContextEditor
+    {
+        protected virtual string[] PropertyDescriptions { get; }
+        protected virtual string[] PropertyDisplayNames { get; }
+        protected virtual string[] PropertyNames { get; }
+        public SceneDecoratorContextEditor() {}
+        public virtual void OnEnable();
+        protected virtual void OnGui();
+    }
+
+    public abstract class UnityInspectorListEditor : UnityEditor.Editor
+    {
+        protected abstract string[] PropertyDescriptions { get; }
+        protected abstract string[] PropertyDisplayNames { get; }
+        protected abstract string[] PropertyNames { get; }
+        protected UnityInspectorListEditor() {}
+        public virtual void OnEnable();
+        protected virtual void OnGui();
+        public virtual void OnInspectorGUI();
+    }
+
+    public abstract class ZenjectEditorWindow : UnityEditor.EditorWindow
+    {
+        protected Zenject.DiContainer Container { get; }
+        protected ZenjectEditorWindow() {}
+        protected virtual void ExecuteFullReload();
+        protected virtual void Initialize();
+        public abstract void InstallBindings();
+        public virtual void OnDisable();
+        public virtual void OnEnable();
+        public virtual void OnGUI();
+        public virtual void Update();
+    }
+}
+
+namespace Zenject.Internal
+{
+    public class DefaultSceneContractConfig : UnityEngine.ScriptableObject
+    {
+        public System.Collections.Generic.List<Zenject.Internal.DefaultSceneContractConfig.ContractInfo> DefaultContracts;
+        public const string ResourcePath = ZenjectDefaultSceneContractConfig;
+        public DefaultSceneContractConfig() {}
+        public class ContractInfo
+        {
+            public string ContractName;
+            public UnityEditor.SceneAsset Scene;
+            public ContractInfo() {}
+        }
+    }
+
+    [UnityEditor.InitializeOnLoad] public static class SceneParentAutomaticLoader
+    {
+        public static void ValidateMultiSceneSetupAndLoadDefaultSceneParents();
+        public class LoadedSceneInfo
+        {
+            public Zenject.SceneDecoratorContext DecoratorContext;
+            public UnityEngine.SceneManagement.Scene Scene;
+            public Zenject.SceneContext SceneContext;
+            public LoadedSceneInfo() {}
+        }
+    }
+
+    public static class ZenMenuItems
+    {
+        public static string AddCSharpClassTemplate(string friendlyName, string defaultFileName, string templateStr);
+        public static string AddCSharpClassTemplate(string friendlyName, string defaultFileName, string templateStr, string folderPath);
+        [UnityEditor.MenuItem(@"GameObject/Zenject/Decorator Context", false, 9)] public static void CreateDecoratorContext(UnityEditor.MenuCommand menuCommand);
+        [UnityEditor.MenuItem(@"Assets/Create/Zenject/Default Scene Contract Config", false, 80)] public static void CreateDefaultSceneContractConfig();
+        [UnityEditor.MenuItem(@"Assets/Create/Zenject/Editor Window", false, 20)] public static void CreateEditorWindow();
+        [UnityEditor.MenuItem(@"GameObject/Zenject/Game Object Context", false, 9)] public static void CreateGameObjectContext(UnityEditor.MenuCommand menuCommand);
+        [UnityEditor.MenuItem(@"Assets/Create/Zenject/Installer", false, 1)] public static void CreateInstaller();
+        [UnityEditor.MenuItem(@"Assets/Create/Zenject/Integration Test", false, 60)] public static void CreateIntegrationTest();
+        [UnityEditor.MenuItem(@"Assets/Create/Zenject/Mono Installer", false, 1)] public static void CreateMonoInstaller();
+        [UnityEditor.MenuItem(@"Assets/Create/Zenject/Project Context", false, 40)] public static void CreateProjectContext();
+        [UnityEditor.MenuItem(@"Edit/Zenject/Create Project Context")] public static void CreateProjectContextInDefaultLocation();
+        [UnityEditor.MenuItem(@"GameObject/Zenject/Scene Context", false, 9)] public static void CreateSceneContext(UnityEditor.MenuCommand menuCommand);
+        [UnityEditor.MenuItem(@"Assets/Create/Zenject/Scene Test", false, 60)] public static void CreateSceneTest();
+        [UnityEditor.MenuItem(@"Assets/Create/Zenject/Scriptable Object Installer", false, 1)] public static void CreateScriptableObjectInstaller();
+        [UnityEditor.MenuItem(@"Assets/Create/Zenject/Unit Test", false, 60)] public static void CreateUnitTest();
+        [UnityEditor.MenuItem(@"Edit/Zenject/Help...")] public static void OpenDocumentation();
+        [UnityEditor.MenuItem(@"Edit/Zenject/Validate All Active Scenes")] public static void ValidateAllActiveScenes();
+        [UnityEditor.MenuItem(@"Edit/Zenject/Validate Current Scenes #&v")] public static void ValidateCurrentScene();
+        [UnityEditor.MenuItem(@"Edit/Zenject/Validate Then Run #&r")] public static void ValidateCurrentSceneThenRun();
+    }
+
+    public static class ZenUnityEditorUtil
+    {
+        public static string ConvertAssetPathToAbsolutePath(string assetPath);
+        public static string ConvertFullAbsolutePathToAssetPath(string fullPath);
+        public static string GetCurrentDirectoryAbsolutePathFromSelection();
+        public static string GetCurrentDirectoryAssetPathFromSelection();
+        public static Zenject.SceneDecoratorContext GetDecoratorContextForScene(UnityEngine.SceneManagement.Scene scene);
+        public static Zenject.SceneContext GetSceneContextForScene(UnityEngine.SceneManagement.Scene scene);
+        public static System.Collections.Generic.List<string> GetSelectedAssetPathsInProjectsTab();
+        public static System.Collections.Generic.List<string> GetSelectedFilePathsInProjectsTab();
+        public static System.Collections.Generic.List<string> GetSelectedFolderPathsInProjectsTab();
+        public static System.Collections.Generic.List<string> GetSelectedPathsInProjectsTab();
+        public static void RunCurrentSceneSetup();
+        public static void SaveScriptableObjectAsset(string path, UnityEngine.ScriptableObject asset);
+        public static bool SaveThenRunPreserveSceneSetup(System.Action action);
+        public static Zenject.SceneDecoratorContext TryGetDecoratorContextForScene(UnityEngine.SceneManagement.Scene scene);
+        public static Zenject.SceneContext TryGetSceneContextForScene(UnityEngine.SceneManagement.Scene scene);
+        public static string TryGetSelectedFilePathInProjectsTab();
+        public static string TryGetSelectedFolderPathInProjectsTab();
+        public static int ValidateAllActiveScenes();
+        public static void ValidateCurrentSceneSetup();
+    }
+}

@@ -3,35 +3,35 @@ using UnityEngine;
 
 namespace Code.Player.Input
 {
-  public class InputHandler : IDisposable
-  {
-    private Pawn pawn;
-
-    public bool IsPossessed => pawn != null;
-
-    public Vector2 Movement
+    public class InputHandler : IDisposable
     {
-      get
-      {
-        if (!IsPossessed) throw new Exception("InputHandler is not possessed.");
+        private Pawn pawn;
 
-        return pawn.InputState.Movement;
-      }
-    }
+        public bool IsPossessed => pawn != null;
 
-    public void Dispose()
-    {
-      if (IsPossessed) pawn.OnPossessableDestroy();
-    }
+        public Vector2 Movement
+        {
+            get
+            {
+                if (!IsPossessed) throw new Exception("InputHandler is not possessed.");
 
-    public void Depossess()
-    {
-      pawn = null;
-    }
+                return pawn.inputState.movement;
+            }
+        }
 
-    public void Possess(Pawn pawn)
-    {
-      this.pawn = pawn;
+        public void Dispose()
+        {
+            if (IsPossessed) pawn.OnPossessableDestroy();
+        }
+
+        public void Depossess()
+        {
+            pawn = null;
+        }
+
+        public void Possess(Pawn pawn)
+        {
+            this.pawn = pawn;
+        }
     }
-  }
 }

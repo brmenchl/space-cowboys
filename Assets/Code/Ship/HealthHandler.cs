@@ -2,29 +2,29 @@ using System;
 
 namespace Code.Ship
 {
-  public class HealthHandler
-  {
-    private readonly ShipModel model;
-
-    private float health;
-
-    public HealthHandler(ShipModel model, Settings settings)
+    public class HealthHandler
     {
-      this.model = model;
-      health = settings.startingHealth;
-    }
+        private readonly ShipModel model;
 
-    public void Damage(float damage)
-    {
-      health -= damage;
+        private float health;
 
-      if (health <= 0f) model.Die();
-    }
+        public HealthHandler(ShipModel model, Settings settings)
+        {
+            this.model = model;
+            health = settings.startingHealth;
+        }
 
-    [Serializable]
-    public class Settings
-    {
-      public float startingHealth;
+        public void Damage(float damage)
+        {
+            health -= damage;
+
+            if (health <= 0f) model.Die();
+        }
+
+        [Serializable]
+        public class Settings
+        {
+            public float startingHealth;
+        }
     }
-  }
 }

@@ -1,17 +1,13 @@
-using Code.Ship;
-using UnityEngine;
-using Zenject;
-
 namespace Code.Player.Input
 {
-  public interface IPossessable
-  {
-    bool IsPossessed { get; }
+    public interface IPossessable
+    {
+        bool IsPossessed { get; }
 
-    void Possess(Pawn pawn);
+        void Possess(Pawn pawn);
 
-    void Depossess();
+        void Depossess();
 
-    void Shoot();
-  }
+        void Shoot();
+    }
 }

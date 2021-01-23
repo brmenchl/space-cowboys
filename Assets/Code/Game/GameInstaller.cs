@@ -6,29 +6,29 @@ using Zenject;
 
 namespace Code.Game
 {
-  public class GameInstaller : MonoInstaller
-  {
-    [SerializeField] private GameObject shipPrefab;
-    [SerializeField] private GameObject cowboyPrefab;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private GameObject pawnPrefab;
-
-    public override void InstallBindings()
+    public class GameInstaller : MonoInstaller
     {
-      Container.BindInterfacesTo<GameRunner>().AsSingle();
+        [SerializeField] private GameObject shipPrefab;
+        [SerializeField] private GameObject cowboyPrefab;
+        [SerializeField] private GameObject bulletPrefab;
+        [SerializeField] private GameObject pawnPrefab;
 
-      Container.BindFactory<Vector3, Quaternion, ShipFacade, ShipFacade.Factory>()
-        .FromSubContainerResolve()
-        .ByNewPrefabInstaller<ShipInstaller>(shipPrefab);
+        public override void InstallBindings()
+        {
+            Container.BindInterfacesTo<GameRunner>().AsSingle();
 
-      Container.BindFactory<Vector3, Quaternion, CowboyFacade, CowboyFacade.Factory>()
-        .FromSubContainerResolve()
-        .ByNewPrefabInstaller<CowboyInstaller>(cowboyPrefab);
+            Container.BindFactory<Vector3, Quaternion, ShipFacade, ShipFacade.Factory>()
+                .FromSubContainerResolve()
+                .ByNewPrefabInstaller<ShipInstaller>(shipPrefab);
 
-      Container.BindInstance(bulletPrefab).WhenInjectedInto<ShipInstaller>();
-      Container.BindInstance(bulletPrefab).WhenInjectedInto<CowboyInstaller>();
+            Container.BindFactory<Vector3, Quaternion, CowboyFacade, CowboyFacade.Factory>()
+                .FromSubContainerResolve()
+                .ByNewPrefabInstaller<CowboyInstaller>(cowboyPrefab);
 
-      Container.BindFactory<string, Pawn, Pawn.Factory>().FromComponentInNewPrefab(pawnPrefab);
+            Container.BindInstance(bulletPrefab).WhenInjectedInto<ShipInstaller>();
+            Container.BindInstance(bulletPrefab).WhenInjectedInto<CowboyInstaller>();
+
+            Container.BindFactory<string, Pawn, Pawn.Factory>().FromComponentInNewPrefab(pawnPrefab);
+        }
     }
-  }
 }

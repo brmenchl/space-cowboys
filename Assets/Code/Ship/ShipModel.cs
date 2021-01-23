@@ -3,19 +3,19 @@ using UnityEngine;
 
 namespace Code.Ship
 {
-  public class ShipModel
-  {
-    private readonly GameObject gameObject;
-
-    public ShipModel(ScreenWrappingRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation)
+    public class ShipModel
     {
-      rigidbody2D.SetPositionAndRotation(position, rotation);
-      gameObject = rigidbody2D.gameObject;
-    }
+        private readonly GameObject gameObject;
 
-    public void Die()
-    {
-      Object.Destroy(gameObject);
+        public ShipModel(ScreenWrappingRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation)
+        {
+            rigidbody2D.SetPositionAndRotation(position, rotation);
+            gameObject = rigidbody2D.gameObject;
+        }
+
+        public void Die()
+        {
+            Object.Destroy(gameObject);
+        }
     }
-  }
 }
