@@ -4,14 +4,14 @@ using Zenject;
 
 namespace Code.Ship {
   public class ShipFacade : IPossessable {
-    private readonly HealthHandler healthHandler;
+    private readonly ShipModel model;
     private readonly InputHandler inputHandler;
 
     public ShipFacade(
-      InputHandler inputHandler,
-      HealthHandler healthHandler
+      ShipModel model,
+      InputHandler inputHandler
     ) {
-      this.healthHandler = healthHandler;
+      this.model = model;
       this.inputHandler = inputHandler;
     }
 
@@ -20,7 +20,7 @@ namespace Code.Ship {
     public void Depossess() =>
       inputHandler.Depossess();
 
-    public void Damage(float damage) => healthHandler.Damage(damage);
+    public void Damage(float damage) => model.Damage(damage);
 
     public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade> {
     }

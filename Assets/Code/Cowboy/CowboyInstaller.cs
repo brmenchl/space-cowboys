@@ -24,7 +24,6 @@ namespace Code.Cowboy {
       Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle().NonLazy();
       Container.Bind<MoveHandler>().AsSingle().NonLazy();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
-      Container.Bind<HealthHandler>().AsSingle().NonLazy();
 
       Container.BindFactory<Vector3, Quaternion, Bullet, Bullet.Factory>()
         .FromMonoPoolableMemoryPool(x =>

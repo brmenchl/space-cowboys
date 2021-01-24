@@ -9,7 +9,7 @@ namespace Code.Game {
     public Bullet.Settings bullet;
     public MoveHandler.Settings moving;
     public ShootHandler.Settings shooting;
-    public HealthHandler.Settings health;
+    public ShipModel.Settings health;
 
     public override void InstallBindings() {
       Container.BindInstance(bullet).IfNotBound();
