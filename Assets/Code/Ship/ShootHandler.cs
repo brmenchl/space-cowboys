@@ -21,12 +21,11 @@ namespace Code.Ship {
       inputHandler.OnShoot += throttledShoot.Call;
     }
 
-    private void Shoot() {
-      var bullet = bulletFactory.Create();
-      var bTrans = bullet.transform;
-      bTrans.position = rigidbody.transform.position + (rigidbody.Transform.up * settings.muzzleDistance);
-      bTrans.rotation = rigidbody.Transform.rotation;
-    }
+    private void Shoot() =>
+      bulletFactory.Create(
+        rigidbody.transform.position + (rigidbody.Transform.up * settings.muzzleDistance),
+        rigidbody.Transform.rotation
+      );
 
     [Serializable]
     public class Settings {

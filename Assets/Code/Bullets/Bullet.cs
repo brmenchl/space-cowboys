@@ -9,7 +9,7 @@ using Zenject;
 namespace Code.Bullets {
   using static Prelude;
 
-  public class Bullet : MonoBehaviour, IPoolable<IMemoryPool>, IDisposable {
+  public class Bullet : MonoBehaviour, IPoolable<Vector3, Quaternion, IMemoryPool>, IDisposable {
     private CancellationTokenSource disposeLifeTimeCancelToken;
     private IMemoryPool pool;
     private Settings settings;
@@ -25,8 +25,11 @@ namespace Code.Bullets {
 
     public void Dispose() => pool.Despawn(this);
 
-    public void OnSpawned(IMemoryPool pool) {
+    public void OnSpawned(Vector3 pos, Quaternion rot, IMemoryPool pool) {
       this.pool = pool;
+      var trans = transform;
+      trans.position = pos;
+      trans.rotation = rot;
       disposeLifeTimeCancelToken = new CancellationTokenSource();
       DisposeAfterLifeTime().Forget();
     }
@@ -45,7 +48,7 @@ namespace Code.Bullets {
       pool.Despawn(this);
     }
 
-    public class Factory : PlaceholderFactory<Bullet> {
+    public class Factory : PlaceholderFactory<Vector3, Quaternion, Bullet> {
     }
 
     [Serializable]

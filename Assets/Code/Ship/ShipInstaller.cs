@@ -27,7 +27,7 @@ namespace Code.Ship {
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
       Container.Bind<HealthHandler>().AsSingle();
 
-      Container.BindFactory<Bullet, Bullet.Factory>()
+      Container.BindFactory<Vector3, Quaternion, Bullet, Bullet.Factory>()
         .FromMonoPoolableMemoryPool(x =>
           x
             .WithInitialSize(10)

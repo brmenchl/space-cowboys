@@ -26,7 +26,7 @@ namespace Code.Cowboy {
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
       Container.Bind<HealthHandler>().AsSingle().NonLazy();
 
-      Container.BindFactory<Bullet, Bullet.Factory>()
+      Container.BindFactory<Vector3, Quaternion, Bullet, Bullet.Factory>()
         .FromMonoPoolableMemoryPool(x =>
           x
             .WithInitialSize(10)

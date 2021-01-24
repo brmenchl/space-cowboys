@@ -21,10 +21,7 @@ namespace Code.Cowboy {
     }
 
     public void Shoot() {
-      var bullet = bulletFactory.Create();
-      var bTrans = bullet.transform;
-      bTrans.position = rigidbody.transform.position + (rigidbody.Transform.up * 10); //settings.muzzleDistance;
-      bTrans.rotation = rigidbody.Transform.rotation;
+      bulletFactory.Create(rigidbody.transform.position + (rigidbody.Transform.up * 10), rigidbody.Transform.rotation);
       PushBack();
     }
 
