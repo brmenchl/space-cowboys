@@ -1,4 +1,3 @@
-using System;
 using Code.Player.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,10 +6,9 @@ using Zenject;
 namespace Code.Player {
   [RequireComponent(typeof(PlayerInput))]
   public class Pawn : MonoBehaviour {
-    public readonly InputState inputState = new InputState();
     private string controlScheme;
+    public InputState inputState;
     private PlayerInput playerInput;
-    private IPossessable possessable;
 
     private void Start() {
       playerInput = gameObject.GetComponent<PlayerInput>();
@@ -19,27 +17,18 @@ namespace Code.Player {
     }
 
     [Inject]
-    public void Construct(string controlScheme) => this.controlScheme = controlScheme;
-
-    public void Possess(IPossessable newPossessable) {
-      if (newPossessable == null || newPossessable.IsPossessed) throw new Exception("Cannot possess gameObject");
-
-      possessable?.Depossess();
-      newPossessable.Possess(this);
-      possessable = newPossessable;
+    public void Inject(string controlScheme, InputState inputState) {
+      this.controlScheme = controlScheme;
+      this.inputState = inputState;
     }
 
-    public void OnPossessableDestroy() => possessable = null;
-
     private void OnActionTriggered(InputAction.CallbackContext context) {
-      if (possessable == null) return;
-
       switch (context.action.name) {
         case "Movement":
           inputState.movement = context.ReadValue<Vector2>();
           break;
         case "Shoot":
-          possessable.Shoot();
+          inputState.isShooting = context.ReadValue<float>() != 0;
           break;
       }
     }

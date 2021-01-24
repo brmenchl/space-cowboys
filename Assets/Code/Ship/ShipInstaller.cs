@@ -24,7 +24,7 @@ namespace Code.Ship {
 
       Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle().NonLazy();
       Container.BindInterfacesTo<MoveHandler>().AsSingle();
-      Container.Bind<ShootHandler>().AsSingle().NonLazy();
+      Container.BindInterfacesTo<ShootHandler>().AsSingle().NonLazy();
       Container.Bind<HealthHandler>().AsSingle().NonLazy();
 
       Container.BindFactory<Bullet, Bullet.Factory>()

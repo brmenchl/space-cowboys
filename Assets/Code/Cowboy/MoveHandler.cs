@@ -12,10 +12,10 @@ namespace Code.Cowboy {
       this.rigidbody = rigidbody;
     }
 
-    public void Tick() {
-      if (!inputHandler.IsPossessed) return;
-      Turn(inputHandler.Movement.x);
-    }
+    public void Tick() =>
+      inputHandler.IfPossessed(state => {
+        Turn(state.movement.x);
+      });
 
     private void Turn(float amount) {
       var torque = 3 * -amount;

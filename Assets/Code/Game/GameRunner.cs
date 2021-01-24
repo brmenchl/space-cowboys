@@ -1,5 +1,6 @@
 using Code.Cowboy;
 using Code.Player;
+using Code.Player.Input;
 using Code.Ship;
 using UnityEngine;
 using Zenject;
@@ -18,16 +19,16 @@ namespace Code.Game {
 
     public void Initialize() {
       var cowboy = cowboyFactory.Create(Vector3.zero, Quaternion.identity);
-      var player1 = pawnFactory.Create("WASDKeyboard");
-      player1.Possess(cowboy);
+      var player1 = pawnFactory.Create(ControlScheme.wasdKeyboard);
+      cowboy.Possess(player1);
 
-      // var ship = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
-      // var player1 = pawnFactory.Create("WASDKeyboard");
-      // player1.Possess(ship);
+      // var ship1 = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
+      // var player1 = pawnFactory.Create(ControlScheme.wasdKeyboard");
+      // ship1.Possess(player1);
 
       var ship2 = shipFactory.Create(new Vector3(3, 0, 0), Quaternion.identity);
-      var player2 = pawnFactory.Create("ArrowsKeyboard");
-      player2.Possess(ship2);
+      var player2 = pawnFactory.Create(ControlScheme.arrowsKeyboard);
+      ship2.Possess(player2);
     }
   }
 }

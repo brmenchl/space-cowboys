@@ -14,9 +14,6 @@ namespace Code.Bullets {
     private IMemoryPool pool;
     private Settings settings;
 
-    [Inject]
-    public void Inject(Settings settings) => this.settings = settings;
-
     private void Update() => transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
 
     private void OnTriggerEnter2D(Collider2D other) =>
@@ -39,6 +36,9 @@ namespace Code.Bullets {
       transform.position = Vector3.zero;
       disposeLifeTimeCancelToken.Cancel();
     }
+
+    [Inject]
+    public void Inject(Settings settings) => this.settings = settings;
 
     private async UniTaskVoid DisposeAfterLifeTime() {
       await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime)).WithCancellation(disposeLifeTimeCancelToken.Token);

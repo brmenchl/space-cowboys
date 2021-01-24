@@ -1,11 +1,14 @@
 using System;
 using Code.Bullets;
+using Code.Player.Input;
 using Code.Utilities.ScreenWrap;
 using Cysharp.Threading.Tasks;
+using Zenject;
 
 namespace Code.Ship {
-  public class ShootHandler {
+  public class ShootHandler : ITickable {
     private readonly Bullet.Factory bulletFactory;
+    private readonly InputHandler inputHandler;
     private readonly SWRigidbody2D rigidbody;
     private readonly Settings settings;
 
@@ -13,13 +16,20 @@ namespace Code.Ship {
 
     public ShootHandler(Settings settings,
       SWRigidbody2D rigidbody,
-      Bullet.Factory bulletFactory) {
+      Bullet.Factory bulletFactory,
+      InputHandler inputHandler) {
       this.bulletFactory = bulletFactory;
+      this.inputHandler = inputHandler;
       this.settings = settings;
       this.rigidbody = rigidbody;
     }
 
-    public async void Shoot() {
+    public void Tick() =>
+      inputHandler.IfPossessed(state => {
+        if (state.isShooting) Shoot().Forget();
+      });
+
+    private async UniTaskVoid Shoot() {
       if (!canShoot) return;
 
       canShoot = false;

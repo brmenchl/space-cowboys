@@ -1,15 +1,16 @@
 using Code.Cowboy;
 using Code.Player;
+using Code.Player.Input;
 using Code.Ship;
 using UnityEngine;
 using Zenject;
 
 namespace Code.Game {
   public class GameInstaller : MonoInstaller {
-    [SerializeField] private GameObject shipPrefab = null;
-    [SerializeField] private GameObject cowboyPrefab = null;
-    [SerializeField] private GameObject bulletPrefab = null;
-    [SerializeField] private GameObject pawnPrefab = null;
+    [SerializeField] private GameObject shipPrefab;
+    [SerializeField] private GameObject cowboyPrefab;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private GameObject pawnPrefab;
 
     public override void InstallBindings() {
       Container.BindInterfacesTo<GameRunner>().AsSingle();
@@ -26,6 +27,7 @@ namespace Code.Game {
       Container.BindInstance(bulletPrefab).WhenInjectedInto<CowboyInstaller>();
 
       Container.BindFactory<string, Pawn, Pawn.Factory>().FromComponentInNewPrefab(pawnPrefab);
+      Container.Bind<InputState>().AsTransient();
     }
   }
 }

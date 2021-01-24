@@ -15,21 +15,15 @@ namespace Code.Ship {
       this.rigidbody = rigidbody;
     }
 
-    public void Tick() {
-      if (!inputHandler.IsPossessed) return;
-      Thrust(inputHandler.Movement.y);
-      Turn(inputHandler.Movement.x);
-    }
+    public void Tick() =>
+      inputHandler.IfPossessed(state => {
+        Thrust(state.movement.y);
+        Turn(state.movement.x);
+      });
 
-    private void Thrust(float amount) {
-      var force = rigidbody.Transform.up * settings.speed * amount;
-      rigidbody.AddForce(force);
-    }
+    private void Thrust(float amount) => rigidbody.AddForce(rigidbody.Transform.up * settings.speed * amount);
 
-    private void Turn(float amount) {
-      var torque = settings.turnSpeed * -amount;
-      rigidbody.AddTorque(torque);
-    }
+    private void Turn(float amount) => rigidbody.AddTorque(settings.turnSpeed * -amount);
 
     [Serializable]
     public class Settings {

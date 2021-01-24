@@ -1,26 +1,20 @@
 using System;
-using UnityEngine;
+using LanguageExt;
+using static LanguageExt.Prelude;
 
 namespace Code.Player.Input {
-  public class InputHandler : IDisposable {
-    private Pawn pawn;
+  public class InputHandler {
+    private Option<Pawn> pawn;
 
-    public bool IsPossessed => pawn != null;
+    public bool IsPossessed => isSome(pawn);
+    public void IfPossessed(Action<InputState> onPossessed) => ifSome(pawn, p => onPossessed(p.inputState));
 
-    public Vector2 Movement {
-      get {
-        if (!IsPossessed) throw new Exception("InputHandler is not possessed.");
+    public void Depossess() => pawn = None;
 
-        return pawn.inputState.movement;
-      }
-    }
-
-    public void Dispose() {
-      if (IsPossessed) pawn.OnPossessableDestroy();
-    }
-
-    public void Depossess() => pawn = null;
-
-    public void Possess(Pawn pawn) => this.pawn = pawn;
+    public void Possess(Pawn p) =>
+      pawn.BiIter(
+        _ => throw new Exception("Cannot possess a game object that is already possessed"),
+        _ => pawn = Some(p)
+      );
   }
 }
