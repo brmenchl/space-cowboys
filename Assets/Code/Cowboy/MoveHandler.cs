@@ -1,21 +1,14 @@
 using Code.Player.Input;
 using Code.Utilities.ScreenWrap;
-using Zenject;
 
 namespace Code.Cowboy {
-  public class MoveHandler : ITickable {
-    private readonly InputHandler inputHandler;
+  public class MoveHandler {
     private readonly SWRigidbody2D rigidbody;
 
     private MoveHandler(InputHandler inputHandler, SWRigidbody2D rigidbody) {
-      this.inputHandler = inputHandler;
       this.rigidbody = rigidbody;
+      inputHandler.OnTurn += Turn;
     }
-
-    public void Tick() =>
-      inputHandler.IfPossessed(state => {
-        Turn(state.movement.x);
-      });
 
     private void Turn(float amount) {
       var torque = 3 * -amount;

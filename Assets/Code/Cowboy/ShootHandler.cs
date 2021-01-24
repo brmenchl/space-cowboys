@@ -1,5 +1,6 @@
 using System;
 using Code.Bullets;
+using Code.Player.Input;
 using Code.Utilities.ScreenWrap;
 using Cysharp.Threading.Tasks;
 
@@ -13,12 +14,12 @@ namespace Code.Cowboy {
     private bool canShoot = true;
 
     public ShootHandler(
-      // Settings settings,
       SWRigidbody2D rigidbody,
-      Bullet.Factory bulletFactory) {
+      Bullet.Factory bulletFactory,
+      InputHandler inputHandler) {
       this.bulletFactory = bulletFactory;
-      // this.settings = settings;
       this.rigidbody = rigidbody;
+      inputHandler.OnShoot += Shoot;
     }
 
     public async void Shoot() {
