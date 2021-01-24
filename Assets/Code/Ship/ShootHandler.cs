@@ -17,7 +17,8 @@ namespace Code.Ship {
       this.bulletFactory = bulletFactory;
       this.settings = settings;
       this.rigidbody = rigidbody;
-      inputHandler.OnShoot += FireRateHelper.ThrottleByRate(Shoot, this.settings.fireRate);
+      var throttledShoot = ThrottledFunction.ThrottleByRate(Shoot, this.settings.fireRate);
+      inputHandler.OnShoot += throttledShoot.Call;
     }
 
     private void Shoot() {

@@ -16,7 +16,8 @@ namespace Code.Cowboy {
       InputHandler inputHandler) {
       this.bulletFactory = bulletFactory;
       this.rigidbody = rigidbody;
-      inputHandler.OnShoot += FireRateHelper.ThrottleByRate(Shoot, 5);
+      var throttledShoot = ThrottledFunction.ThrottleByRate(Shoot, 5);
+      inputHandler.OnShoot += throttledShoot.Call;
     }
 
     public void Shoot() {
