@@ -22,10 +22,10 @@ namespace Code.Ship {
       Container.Bind<ShipModel>().AsSingle().WithArguments(position, rotation).NonLazy();
       Container.Bind<SWRigidbody2D>().FromComponentOnRoot();
 
-      Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle().NonLazy();
+      Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle();
       Container.BindInterfacesTo<MoveHandler>().AsSingle();
-      Container.BindInterfacesTo<ShootHandler>().AsSingle().NonLazy();
-      Container.Bind<HealthHandler>().AsSingle().NonLazy();
+      Container.BindInterfacesTo<ShootHandler>().AsSingle();
+      Container.Bind<HealthHandler>().AsSingle();
 
       Container.BindFactory<Bullet, Bullet.Factory>()
         .FromMonoPoolableMemoryPool(x =>

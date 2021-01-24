@@ -1,5 +1,4 @@
 using Code.Cowboy;
-using Code.Player;
 using Code.Player.Input;
 using Code.Ship;
 using UnityEngine;

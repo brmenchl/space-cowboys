@@ -1,9 +1,8 @@
-using Code.Player.Input;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Code.Player {
+namespace Code.Player.Input {
   [RequireComponent(typeof(PlayerInput))]
   public class Pawn : MonoBehaviour {
     private string controlScheme;

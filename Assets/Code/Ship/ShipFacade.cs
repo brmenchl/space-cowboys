@@ -1,4 +1,3 @@
-using Code.Player;
 using Code.Player.Input;
 using UnityEngine;
 using Zenject;
