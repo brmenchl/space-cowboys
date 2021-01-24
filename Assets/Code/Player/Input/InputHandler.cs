@@ -26,7 +26,7 @@ namespace Code.Player.Input {
     public void Possess(Pawn p) =>
       pawn.BiIter(
         _ => throw new Exception("Cannot possess a game object that is already possessed"),
-        _ => pawn = Some(p)
+        _ => pawn = p
       );
   }
 }

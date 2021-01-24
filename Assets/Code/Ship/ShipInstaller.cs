@@ -23,8 +23,8 @@ namespace Code.Ship {
       Container.Bind<SWRigidbody2D>().FromComponentOnRoot();
 
       Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle();
-      Container.BindInterfacesTo<MoveHandler>().AsSingle();
-      Container.BindInterfacesTo<ShootHandler>().AsSingle();
+      Container.Bind<MoveHandler>().AsSingle().NonLazy();
+      Container.Bind<ShootHandler>().AsSingle().NonLazy();
       Container.Bind<HealthHandler>().AsSingle();
 
       Container.BindFactory<Bullet, Bullet.Factory>()

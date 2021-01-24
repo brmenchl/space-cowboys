@@ -1,16 +1,14 @@
 using System;
 using Code.Bullets;
 using Code.Player.Input;
+using Code.Utilities;
 using Code.Utilities.ScreenWrap;
-using Cysharp.Threading.Tasks;
 
 namespace Code.Ship {
   public class ShootHandler {
     private readonly Bullet.Factory bulletFactory;
     private readonly SWRigidbody2D rigidbody;
     private readonly Settings settings;
-
-    private bool canShoot = true;
 
     public ShootHandler(Settings settings,
       SWRigidbody2D rigidbody,
@@ -19,20 +17,14 @@ namespace Code.Ship {
       this.bulletFactory = bulletFactory;
       this.settings = settings;
       this.rigidbody = rigidbody;
-      inputHandler.OnShoot += Shoot;
+      inputHandler.OnShoot += FireRateHelper.ThrottleByRate(Shoot, this.settings.fireRate);
     }
 
-    // Actions cannot be UniTaskVoid
-    private async void Shoot() {
-      if (!canShoot) return;
-
-      canShoot = false;
+    private void Shoot() {
       var bullet = bulletFactory.Create();
       var bTrans = bullet.transform;
       bTrans.position = rigidbody.transform.position + (rigidbody.Transform.up * settings.muzzleDistance);
       bTrans.rotation = rigidbody.Transform.rotation;
-      await UniTask.Delay(TimeSpan.FromSeconds(1 / settings.fireRate));
-      canShoot = true;
     }
 
     [Serializable]

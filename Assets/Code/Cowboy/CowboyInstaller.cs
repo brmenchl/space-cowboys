@@ -22,7 +22,7 @@ namespace Code.Cowboy {
       Container.Bind<SWRigidbody2D>().FromComponentOnRoot();
 
       Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle().NonLazy();
-      Container.BindInterfacesTo<MoveHandler>().AsSingle();
+      Container.Bind<MoveHandler>().AsSingle().NonLazy();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
       Container.Bind<HealthHandler>().AsSingle().NonLazy();
 
