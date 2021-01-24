@@ -5,18 +5,18 @@ using Zenject;
 namespace Code.Player.Input {
   [RequireComponent(typeof(PlayerInput))]
   public class Pawn : MonoBehaviour {
-    private string controlScheme;
+    private ControlScheme controlScheme;
     public InputState inputState;
     private PlayerInput playerInput;
 
     private void Start() {
       playerInput = gameObject.GetComponent<PlayerInput>();
-      playerInput.SwitchCurrentControlScheme(controlScheme);
+      playerInput.SwitchCurrentControlScheme(controlScheme.ToString());
       playerInput.onActionTriggered += OnActionTriggered;
     }
 
     [Inject]
-    public void Inject(string controlScheme, InputState inputState) {
+    public void Inject(ControlScheme controlScheme, InputState inputState) {
       this.controlScheme = controlScheme;
       this.inputState = inputState;
     }
@@ -30,9 +30,6 @@ namespace Code.Player.Input {
           inputState.isShooting = context.ReadValue<float>() != 0;
           break;
       }
-    }
-
-    public class Factory : PlaceholderFactory<string, Pawn> {
     }
   }
 }

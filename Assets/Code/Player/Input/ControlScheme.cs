@@ -1,6 +1,21 @@
+using System;
+
 namespace Code.Player.Input {
-  public sealed class ControlScheme {
-    public const string wasdKeyboard = "WASDKeyboard";
-    public const string arrowsKeyboard = "ArrowsKeyboard";
+  public enum ControlScheme {
+    WasdKeyboard,
+    ArrowsKeyboard
+  }
+
+  public static class ControlSchemeExtensions {
+    public static string ToString(this ControlScheme controlScheme) {
+      switch (controlScheme) {
+        case ControlScheme.WasdKeyboard:
+          return "WASDKeyboard";
+        case ControlScheme.ArrowsKeyboard:
+          return "ArrowsKeyboard";
+        default:
+          throw new ArgumentOutOfRangeException(nameof(controlScheme), controlScheme, null);
+      }
+    }
   }
 }

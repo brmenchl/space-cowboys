@@ -1,15 +1,20 @@
 using Code.Player.Input;
-using UnityEngine;
 using Zenject;
 
 namespace Code.Player {
-  public class PlayerInstaller : Installer<GameObject, PlayerInstaller> {
-    private readonly GameObject pawnPrefab;
+  public class PlayerInstaller : Installer<ControlScheme, PlayerInstaller> {
+    private readonly ControlScheme controlScheme;
+    private readonly IPossessable startingPossessable;
 
-    public PlayerInstaller(GameObject pawnPrefab) => this.pawnPrefab = pawnPrefab;
+    public PlayerInstaller(ControlScheme controlScheme, IPossessable startingPossessable) {
+      this.controlScheme = controlScheme;
+      this.startingPossessable = startingPossessable;
+    }
 
     public override void InstallBindings() {
-      Container.BindFactory<string, Pawn, Pawn.Factory>().FromComponentInNewPrefab(pawnPrefab);
+      Container.Bind<PlayerController>().AsSingle().WithArguments(startingPossessable);
+      Container.Bind<ControlScheme>().FromInstance(controlScheme).AsSingle();
+      Container.Bind<Pawn>().FromComponentOnRoot().WithArguments(controlScheme);
       Container.Bind<InputState>().AsTransient().WhenInjectedInto<Pawn>();
     }
   }

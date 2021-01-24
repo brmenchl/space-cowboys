@@ -4,8 +4,8 @@ using Zenject;
 
 namespace Code.Ship {
   public class ShipFacade : IPossessable {
-    private readonly ShipModel model;
     private readonly InputHandler inputHandler;
+    private readonly ShipModel model;
 
     public ShipFacade(
       ShipModel model,
