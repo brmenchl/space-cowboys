@@ -1,4 +1,5 @@
 using Code.Bullets;
+using Code.Game;
 using Code.Player.Input;
 using Code.Utilities.ScreenWrap;
 using UnityEngine;
@@ -11,8 +12,8 @@ namespace Code.Ship {
     private Quaternion rotation;
 
     [Inject]
-    private void Inject(GameObject bulletPrefab, Vector3 position, Quaternion rotation) {
-      this.bulletPrefab = bulletPrefab;
+    private void Inject(PrefabRegistry prefabRegistry, Vector3 position, Quaternion rotation) {
+      bulletPrefab = prefabRegistry.bulletPrefab;
       this.position = position;
       this.rotation = rotation;
     }

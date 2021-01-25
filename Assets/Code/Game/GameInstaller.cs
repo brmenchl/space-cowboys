@@ -1,4 +1,3 @@
-using Code.Cowboy;
 using Code.Player;
 using Code.Player.Input;
 using Code.Ship;
@@ -7,28 +6,20 @@ using Zenject;
 
 namespace Code.Game {
   public class GameInstaller : MonoInstaller {
-    [SerializeField] private GameObject shipPrefab;
-    [SerializeField] private GameObject cowboyPrefab;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private GameObject pawnPrefab;
+    [SerializeField] private PrefabRegistry prefabRegistry;
 
     public override void InstallBindings() {
       Container.BindInterfacesTo<GameRunner>().AsSingle();
+      Container.Bind<PrefabRegistry>().FromInstance(prefabRegistry);
 
       Container.BindFactory<ControlScheme, IPossessable, PlayerController, PlayerController.Factory>()
         .FromSubContainerResolve()
-        .ByNewPrefabInstaller<PlayerInstaller>(pawnPrefab);
+        .ByNewPrefabInstaller<PlayerInstaller>(prefabRegistry.pawnPrefab)
+        .UnderTransformGroup("Players");
 
       Container.BindFactory<Vector3, Quaternion, ShipFacade, ShipFacade.Factory>()
         .FromSubContainerResolve()
-        .ByNewPrefabInstaller<ShipInstaller>(shipPrefab);
-
-      Container.BindFactory<Vector3, Quaternion, CowboyFacade, CowboyFacade.Factory>()
-        .FromSubContainerResolve()
-        .ByNewPrefabInstaller<CowboyInstaller>(cowboyPrefab);
-
-      Container.BindInstance(bulletPrefab).WhenInjectedInto<ShipInstaller>();
-      Container.BindInstance(bulletPrefab).WhenInjectedInto<CowboyInstaller>();
+        .ByNewPrefabInstaller<ShipInstaller>(prefabRegistry.shipPrefab);
     }
   }
 }
