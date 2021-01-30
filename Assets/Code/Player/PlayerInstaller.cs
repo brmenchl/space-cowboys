@@ -7,8 +7,8 @@ using Zenject;
 namespace Code.Player {
   public class PlayerInstaller : Installer<ControlScheme, PlayerInstaller> {
     private readonly ControlScheme controlScheme;
-    private readonly IControllable startingControllable;
     private readonly GameObject cowboyPrefab;
+    private readonly IControllable startingControllable;
 
     public PlayerInstaller(ControlScheme controlScheme,
       IControllable startingControllable,

@@ -14,13 +14,13 @@ namespace Code.Ship {
       this.shootHandler = shootHandler;
     }
 
-    public void Damage(float damage) => model.Damage(damage);
-
     public void Thrust(float amount) => moveHandler.Thrust(amount);
 
     public void Turn(float amount) => moveHandler.Turn(amount);
 
     public void Shoot() => shootHandler.Shoot();
+
+    public void Damage(float damage) => model.Damage(damage);
 
     public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade> {
     }

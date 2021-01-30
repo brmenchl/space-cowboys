@@ -22,11 +22,9 @@ namespace Code.Player {
       // Apply force
     }
 
-    private void Die() {
-      Debug.Log("This player is dead");
-      // De-spawn cowboy?
-    }
+    private void Die() => Debug.Log("This player is dead");
 
+    // De-spawn cowboy?
     public class Factory : PlaceholderFactory<ControlScheme, IControllable, PlayerController> {
     }
   }

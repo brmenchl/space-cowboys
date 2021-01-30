@@ -20,9 +20,7 @@ namespace Code.Ship {
       if (health <= 0f) Die();
     }
 
-    private void Die() {
-      Object.Destroy(gameObject);
-    }
+    private void Die() => Object.Destroy(gameObject);
 
     [Serializable]
     public class Settings {

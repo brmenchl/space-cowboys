@@ -17,10 +17,10 @@ namespace Code.Game {
 
     public void Initialize() {
       var ship1 = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
-      var player1 = playerFactory.Create(ControlScheme.WasdKeyboard, ship1);
+      playerFactory.Create(ControlScheme.WasdKeyboard, ship1);
 
       var ship2 = shipFactory.Create(new Vector3(3, 0, 0), Quaternion.identity);
-      var player2 = playerFactory.Create(ControlScheme.ArrowsKeyboard, ship2);
+      playerFactory.Create(ControlScheme.ArrowsKeyboard, ship2);
     }
   }
 }

@@ -1,6 +1,6 @@
 using LanguageExt;
-using static LanguageExt.Prelude;
 using Zenject;
+using static LanguageExt.Prelude;
 
 namespace Code.Player.Input {
   public class InputHandler : ITickable {
@@ -9,9 +9,6 @@ namespace Code.Player.Input {
 
     public InputHandler(Pawn pawn) => this.pawn = pawn;
 
-    public void Possess(IControllable controllable) => this.controllable = Optional(controllable);
-    public void Depossess() => controllable = None;
-
     public void Tick() =>
       ifSome(controllable,
         c => {
@@ -19,5 +16,8 @@ namespace Code.Player.Input {
           c.Turn(pawn.inputState.movement.x);
           if (pawn.inputState.isShooting) c.Shoot();
         });
+
+    public void Possess(IControllable controllable) => this.controllable = Optional(controllable);
+    public void Depossess() => controllable = None;
   }
 }
