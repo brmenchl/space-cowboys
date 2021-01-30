@@ -13,7 +13,7 @@ namespace Code.Cowboy {
     }
 
     public void Thrust(float amount) {
-      //
+      // noop
     }
 
     public void Turn(float amount) => moveHandler.Turn(amount);

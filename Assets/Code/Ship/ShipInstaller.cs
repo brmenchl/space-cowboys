@@ -1,18 +1,13 @@
-using Code.Bullets;
-using Code.Game;
 using Code.Utilities.ScreenWrap;
 using UnityEngine;
 using Zenject;
 
 namespace Code.Ship {
   public class ShipInstaller : Installer<ShipInstaller> {
-    private GameObject bulletPrefab;
-    private Vector3 position;
-    private Quaternion rotation;
+    private readonly Vector3 position;
+    private readonly Quaternion rotation;
 
-    [Inject]
-    private void Inject(PrefabRegistry prefabRegistry, Vector3 position, Quaternion rotation) {
-      bulletPrefab = prefabRegistry.bulletPrefab;
+    public ShipInstaller(Vector3 position, Quaternion rotation) {
       this.position = position;
       this.rotation = rotation;
     }
@@ -24,14 +19,6 @@ namespace Code.Ship {
 
       Container.Bind<MoveHandler>().AsSingle().NonLazy();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
-
-      Container.BindFactory<Vector3, Quaternion, Bullet, Bullet.Factory>()
-        .FromMonoPoolableMemoryPool(x =>
-          x
-            .WithInitialSize(10)
-            .FromComponentInNewPrefab(bulletPrefab)
-            .UnderTransformGroup("Bullets")
-        );
     }
   }
 }

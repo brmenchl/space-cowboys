@@ -1,3 +1,4 @@
+using Code.Bullets;
 using Code.Player;
 using Code.Player.Input;
 using Code.Ship;
@@ -11,6 +12,7 @@ namespace Code.Game {
     public override void InstallBindings() {
       Container.BindInterfacesTo<GameRunner>().AsSingle();
       Container.Bind<PrefabRegistry>().FromInstance(prefabRegistry);
+      BulletInstaller.Install(Container);
 
       Container.BindFactory<ControlScheme, IControllable, PlayerController, PlayerController.Factory>()
         .FromSubContainerResolve()
