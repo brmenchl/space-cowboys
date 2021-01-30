@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-    "com.unity.2d.common": "2.0.2",
-    "com.unity.2d.pixel-perfect": "2.0.4",
+    "com.unity.2d.common": "2.1.0",
+    "com.unity.2d.pixel-perfect": "2.1.0",
     "com.unity.coding": "0.1.0-preview.20",
     "com.unity.ide.rider": "3.0.3",
     "com.unity.ide.vscode": "1.2.3",
