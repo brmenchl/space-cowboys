@@ -17,6 +17,7 @@ namespace Code.Cowboy {
       Container.Bind<CowboyFacade>().AsSingle();
       Container.Bind<CowboyModel>().AsSingle().WithArguments(position, rotation).NonLazy();
       Container.Bind<SWRigidbody2D>().FromComponentOnRoot();
+      Container.Bind<Transform>().FromComponentOnRoot();
 
       Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle().NonLazy();
       Container.Bind<MoveHandler>().AsSingle().NonLazy();

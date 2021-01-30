@@ -8,7 +8,8 @@ namespace Code.Ship {
     private readonly MoveHandler moveHandler;
     private readonly ShootHandler shootHandler;
 
-    public ShipFacade(ShipModel model, MoveHandler moveHandler, ShootHandler shootHandler) {
+    public ShipFacade(ShipModel model, MoveHandler moveHandler, ShootHandler shootHandler, Transform transform) {
+      this.transform = transform;
       this.model = model;
       this.moveHandler = moveHandler;
       this.shootHandler = shootHandler;
@@ -19,6 +20,7 @@ namespace Code.Ship {
     public void Turn(float amount) => moveHandler.Turn(amount);
 
     public void Shoot() => shootHandler.Shoot();
+    public Transform transform { get; }
 
     public void Damage(float damage) => model.Damage(damage);
 
