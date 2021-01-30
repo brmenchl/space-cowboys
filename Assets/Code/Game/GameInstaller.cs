@@ -1,4 +1,5 @@
 using Code.Bullets;
+using Code.Cowboy;
 using Code.Player;
 using Code.Player.Input;
 using Code.Ship;
@@ -22,6 +23,10 @@ namespace Code.Game {
       Container.BindFactory<Vector3, Quaternion, ShipFacade, ShipFacade.Factory>()
         .FromSubContainerResolve()
         .ByNewPrefabInstaller<ShipInstaller>(prefabRegistry.shipPrefab);
+
+      Container.BindFactory<Vector3, Quaternion, CowboyFacade, CowboyFacade.Factory>()
+        .FromSubContainerResolve()
+        .ByNewPrefabInstaller<CowboyInstaller>(prefabRegistry.cowboyPrefab);
     }
   }
 }

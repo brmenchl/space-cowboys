@@ -1,20 +1,21 @@
 using Code.Bullets;
 using Code.Utilities;
-using Code.Utilities.ScreenWrap;
+using UnityEngine;
 
 namespace Code.Cowboy {
   public class ShootHandler {
     private readonly Bullet.Factory bulletFactory;
-
-    // private readonly Settings settings;
-    private readonly SWRigidbody2D rigidbody;
+    private readonly Rigidbody2D rigidbody;
     private readonly ThrottledFunction throttledShoot;
+    private readonly Transform transform;
 
     public ShootHandler(
-      SWRigidbody2D rigidbody,
+      Transform transform,
+      Rigidbody2D rigidbody,
       Bullet.Factory bulletFactory) {
-      this.bulletFactory = bulletFactory;
+      this.transform = transform;
       this.rigidbody = rigidbody;
+      this.bulletFactory = bulletFactory;
       throttledShoot = ThrottledFunction.ThrottleByRate(DoShoot, 5);
     }
 
@@ -22,12 +23,12 @@ namespace Code.Cowboy {
       throttledShoot.Call();
 
     private void DoShoot() {
-      bulletFactory.Create(rigidbody.transform.position + (rigidbody.Transform.up * 10), rigidbody.Transform.rotation);
+      bulletFactory.Create(rigidbody.transform.position + (transform.up * 10), transform.rotation);
       PushBack();
     }
 
     private void PushBack() {
-      var force = rigidbody.Transform.up * -1 * 10;
+      var force = transform.up * -1 * 10;
       rigidbody.AddForce(force);
     }
 

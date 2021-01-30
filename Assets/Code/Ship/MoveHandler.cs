@@ -1,17 +1,19 @@
 using System;
-using Code.Utilities.ScreenWrap;
+using UnityEngine;
 
 namespace Code.Ship {
   public class MoveHandler {
-    private readonly SWRigidbody2D rigidbody;
+    private readonly Rigidbody2D rigidbody;
     private readonly Settings settings;
+    private readonly Transform transform;
 
-    private MoveHandler(Settings settings, SWRigidbody2D rigidbody) {
-      this.settings = settings;
+    private MoveHandler(Transform transform, Rigidbody2D rigidbody, Settings settings) {
+      this.transform = transform;
       this.rigidbody = rigidbody;
+      this.settings = settings;
     }
 
-    public void Thrust(float amount) => rigidbody.AddForce(rigidbody.Transform.up * settings.speed * amount);
+    public void Thrust(float amount) => rigidbody.AddForce(transform.up * settings.speed * amount);
 
     public void Turn(float amount) => rigidbody.AddTorque(settings.turnSpeed * -amount);
 

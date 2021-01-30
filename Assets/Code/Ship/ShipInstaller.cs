@@ -1,4 +1,3 @@
-using Code.Utilities.ScreenWrap;
 using UnityEngine;
 using Zenject;
 
@@ -15,7 +14,7 @@ namespace Code.Ship {
     public override void InstallBindings() {
       Container.Bind<ShipFacade>().AsSingle();
       Container.Bind<ShipModel>().AsSingle().WithArguments(position, rotation).NonLazy();
-      Container.Bind<SWRigidbody2D>().FromComponentOnRoot();
+      Container.Bind<Rigidbody2D>().FromComponentOnRoot();
       Container.Bind<Transform>().FromComponentOnRoot();
 
       Container.Bind<MoveHandler>().AsSingle().NonLazy();

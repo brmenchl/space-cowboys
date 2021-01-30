@@ -1,5 +1,4 @@
 using System;
-using Code.Utilities.ScreenWrap;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -8,9 +7,10 @@ namespace Code.Ship {
     private readonly GameObject gameObject;
     private float health;
 
-    public ShipModel(SWRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation, Settings settings) {
-      rigidbody2D.SetPositionAndRotation(position, rotation);
-      gameObject = rigidbody2D.gameObject;
+    public ShipModel(Transform transform, Vector3 position, Quaternion rotation, Settings settings) {
+      transform.position = position;
+      transform.rotation = rotation;
+      gameObject = transform.gameObject;
       health = settings.startingHealth;
     }
 

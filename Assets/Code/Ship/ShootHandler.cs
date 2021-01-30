@@ -1,21 +1,22 @@
 using System;
 using Code.Bullets;
 using Code.Utilities;
-using Code.Utilities.ScreenWrap;
+using UnityEngine;
 
 namespace Code.Ship {
   public class ShootHandler {
     private readonly Bullet.Factory bulletFactory;
-    private readonly SWRigidbody2D rigidbody;
     private readonly Settings settings;
     private readonly ThrottledFunction throttledShoot;
+    private readonly Transform transform;
 
-    public ShootHandler(Settings settings,
-      SWRigidbody2D rigidbody,
+    public ShootHandler(
+      Transform transform,
+      Settings settings,
       Bullet.Factory bulletFactory) {
       this.bulletFactory = bulletFactory;
       this.settings = settings;
-      this.rigidbody = rigidbody;
+      this.transform = transform;
       throttledShoot = ThrottledFunction.ThrottleByRate(DoShoot, this.settings.fireRate);
     }
 
@@ -24,8 +25,8 @@ namespace Code.Ship {
 
     private void DoShoot() =>
       bulletFactory.Create(
-        rigidbody.transform.position + (rigidbody.Transform.up * settings.muzzleDistance),
-        rigidbody.Transform.rotation
+        transform.position + (transform.up * settings.muzzleDistance),
+        transform.rotation
       );
 
     [Serializable]

@@ -1,5 +1,3 @@
-using Code.Player.Input;
-using Code.Utilities.ScreenWrap;
 using UnityEngine;
 using Zenject;
 
@@ -16,10 +14,9 @@ namespace Code.Cowboy {
     public override void InstallBindings() {
       Container.Bind<CowboyFacade>().AsSingle();
       Container.Bind<CowboyModel>().AsSingle().WithArguments(position, rotation).NonLazy();
-      Container.Bind<SWRigidbody2D>().FromComponentOnRoot();
+      Container.Bind<Rigidbody2D>().FromComponentOnRoot();
       Container.Bind<Transform>().FromComponentOnRoot();
 
-      Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle().NonLazy();
       Container.Bind<MoveHandler>().AsSingle().NonLazy();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
     }

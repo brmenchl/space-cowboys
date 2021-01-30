@@ -1,4 +1,3 @@
-using Code.Utilities.ScreenWrap;
 using UnityEngine;
 
 namespace Code.Cowboy {
@@ -6,9 +5,10 @@ namespace Code.Cowboy {
     private readonly GameObject gameObject;
     private float health;
 
-    public CowboyModel(SWRigidbody2D rigidbody2D, Vector3 position, Quaternion rotation) {
-      rigidbody2D.SetPositionAndRotation(position, rotation);
-      gameObject = rigidbody2D.gameObject;
+    public CowboyModel(Transform transform, Vector3 position, Quaternion rotation) {
+      transform.position = position;
+      transform.rotation = rotation;
+      gameObject = transform.gameObject;
       health = 50;
     }
 
