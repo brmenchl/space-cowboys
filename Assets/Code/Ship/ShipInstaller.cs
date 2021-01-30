@@ -23,7 +23,6 @@ namespace Code.Ship {
       Container.Bind<ShipModel>().AsSingle().WithArguments(position, rotation).NonLazy();
       Container.Bind<SWRigidbody2D>().FromComponentOnRoot();
 
-      Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle();
       Container.Bind<MoveHandler>().AsSingle().NonLazy();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
 

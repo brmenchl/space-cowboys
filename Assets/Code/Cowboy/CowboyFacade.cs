@@ -3,15 +3,22 @@ using UnityEngine;
 using Zenject;
 
 namespace Code.Cowboy {
-  public class CowboyFacade : IPossessable {
-    private readonly InputHandler inputHandler;
+  public class CowboyFacade : IControllable {
+    private readonly MoveHandler moveHandler;
+    private readonly ShootHandler shootHandler;
 
-    public CowboyFacade(InputHandler inputHandler) =>
-      this.inputHandler = inputHandler;
+    public CowboyFacade(MoveHandler moveHandler, ShootHandler shootHandler) {
+      this.moveHandler = moveHandler;
+      this.shootHandler = shootHandler;
+    }
 
-    public void Possess(Pawn pawn) => inputHandler.Possess(pawn);
+    public void Thrust(float amount) {
+      //
+    }
 
-    public void Depossess() => inputHandler.Depossess();
+    public void Turn(float amount) => moveHandler.Turn(amount);
+
+    public void Shoot() => shootHandler.Shoot();
 
     public class Factory : PlaceholderFactory<Vector3, Quaternion, CowboyFacade> {
     }

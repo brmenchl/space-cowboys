@@ -1,32 +1,23 @@
-using System;
 using LanguageExt;
-using Zenject;
 using static LanguageExt.Prelude;
+using Zenject;
 
 namespace Code.Player.Input {
   public class InputHandler : ITickable {
-    private Option<Pawn> pawn;
+    private readonly Pawn pawn;
+    private Option<IControllable> controllable;
 
-    public bool IsPossessed => isSome(pawn);
+    public InputHandler(Pawn pawn) => this.pawn = pawn;
+
+    public void Possess(IControllable controllable) => this.controllable = Optional(controllable);
+    public void Depossess() => controllable = None;
 
     public void Tick() =>
-      IfPossessed(state => {
-        OnThrust?.Invoke(state.movement.y);
-        OnTurn?.Invoke(state.movement.x);
-        if (state.isShooting) OnShoot?.Invoke();
-      });
-
-    public event Action<float> OnThrust;
-    public event Action<float> OnTurn;
-    public event Action OnShoot;
-    public void IfPossessed(Action<InputState> onPossessed) => ifSome(pawn, p => onPossessed(p.inputState));
-
-    public void Depossess() => pawn = None;
-
-    public void Possess(Pawn p) =>
-      pawn.BiIter(
-        _ => throw new Exception("Cannot possess a game object that is already possessed"),
-        _ => pawn = p
-      );
+      ifSome(controllable,
+        c => {
+          c.Thrust(pawn.inputState.movement.y);
+          c.Turn(pawn.inputState.movement.x);
+          if (pawn.inputState.isShooting) c.Shoot();
+        });
   }
 }

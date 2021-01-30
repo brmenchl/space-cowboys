@@ -1,6 +1,5 @@
 using System;
 using Code.Bullets;
-using Code.Player.Input;
 using Code.Utilities;
 using Code.Utilities.ScreenWrap;
 
@@ -9,19 +8,21 @@ namespace Code.Ship {
     private readonly Bullet.Factory bulletFactory;
     private readonly SWRigidbody2D rigidbody;
     private readonly Settings settings;
+    private readonly ThrottledFunction throttledShoot;
 
     public ShootHandler(Settings settings,
       SWRigidbody2D rigidbody,
-      Bullet.Factory bulletFactory,
-      InputHandler inputHandler) {
+      Bullet.Factory bulletFactory) {
       this.bulletFactory = bulletFactory;
       this.settings = settings;
       this.rigidbody = rigidbody;
-      var throttledShoot = ThrottledFunction.ThrottleByRate(Shoot, this.settings.fireRate);
-      inputHandler.OnShoot += throttledShoot.Call;
+      throttledShoot = ThrottledFunction.ThrottleByRate(DoShoot, this.settings.fireRate);
     }
 
-    private void Shoot() =>
+    public void Shoot() =>
+      throttledShoot.Call();
+
+    private void DoShoot() =>
       bulletFactory.Create(
         rigidbody.transform.position + (rigidbody.Transform.up * settings.muzzleDistance),
         rigidbody.Transform.rotation

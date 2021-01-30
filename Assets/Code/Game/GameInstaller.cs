@@ -12,7 +12,7 @@ namespace Code.Game {
       Container.BindInterfacesTo<GameRunner>().AsSingle();
       Container.Bind<PrefabRegistry>().FromInstance(prefabRegistry);
 
-      Container.BindFactory<ControlScheme, IPossessable, PlayerController, PlayerController.Factory>()
+      Container.BindFactory<ControlScheme, IControllable, PlayerController, PlayerController.Factory>()
         .FromSubContainerResolve()
         .ByNewPrefabInstaller<PlayerInstaller>(prefabRegistry.pawnPrefab)
         .UnderTransformGroup("Players");

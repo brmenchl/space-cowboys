@@ -4,13 +4,11 @@ using Zenject;
 
 namespace Code.Player {
   public class PlayerController {
-    private readonly Pawn pawn;
     private float health;
 
-    public PlayerController(Pawn pawn, IPossessable startingPossessable) {
-      this.pawn = pawn;
+    public PlayerController(InputHandler inputHandler, IControllable startingControllable) {
       health = 100f;
-      startingPossessable.Possess(pawn);
+      inputHandler.Possess(startingControllable);
     }
 
     public void Damage(float damage) {
@@ -29,7 +27,7 @@ namespace Code.Player {
       // De-spawn cowboy?
     }
 
-    public class Factory : PlaceholderFactory<ControlScheme, IPossessable, PlayerController> {
+    public class Factory : PlaceholderFactory<ControlScheme, IControllable, PlayerController> {
     }
   }
 }

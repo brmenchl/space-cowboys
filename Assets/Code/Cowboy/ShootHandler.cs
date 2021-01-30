@@ -1,5 +1,4 @@
 using Code.Bullets;
-using Code.Player.Input;
 using Code.Utilities;
 using Code.Utilities.ScreenWrap;
 
@@ -9,18 +8,20 @@ namespace Code.Cowboy {
 
     // private readonly Settings settings;
     private readonly SWRigidbody2D rigidbody;
+    private readonly ThrottledFunction throttledShoot;
 
     public ShootHandler(
       SWRigidbody2D rigidbody,
-      Bullet.Factory bulletFactory,
-      InputHandler inputHandler) {
+      Bullet.Factory bulletFactory) {
       this.bulletFactory = bulletFactory;
       this.rigidbody = rigidbody;
-      var throttledShoot = ThrottledFunction.ThrottleByRate(Shoot, 5);
-      inputHandler.OnShoot += throttledShoot.Call;
+      throttledShoot = ThrottledFunction.ThrottleByRate(DoShoot, 5);
     }
 
-    public void Shoot() {
+    public void Shoot() =>
+      throttledShoot.Call();
+
+    private void DoShoot() {
       bulletFactory.Create(rigidbody.transform.position + (rigidbody.Transform.up * 10), rigidbody.Transform.rotation);
       PushBack();
     }
