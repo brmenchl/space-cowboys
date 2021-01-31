@@ -3,8 +3,8 @@ using Zenject;
 
 namespace Code.Input {
   public class InputHandler : ITickable {
-    private readonly Pawn pawn;
     private readonly ControllableState controllableState;
+    private readonly Pawn pawn;
 
     public InputHandler(Pawn pawn, ControllableState controllableState) {
       this.pawn = pawn;

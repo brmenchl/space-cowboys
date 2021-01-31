@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace Code.Player {
   public class HealthManager {
-    private float health = 100f;
     private readonly ControllableState controllableState;
+    private float health = 100f;
 
     public HealthManager(ControllableState controllableState) => this.controllableState = controllableState;
 
