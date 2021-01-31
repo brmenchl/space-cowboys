@@ -1,15 +1,16 @@
-using Code.Player.Input;
+using System;
+using Code.Input;
+using Code.Player;
 using UnityEngine;
 using Zenject;
 
 namespace Code.Ship {
-  public class ShipFacade : IControllable {
+  public class ShipFacade : IControllable, IEjectable {
     private readonly ShipModel model;
     private readonly MoveHandler moveHandler;
     private readonly ShootHandler shootHandler;
 
-    public ShipFacade(ShipModel model, MoveHandler moveHandler, ShootHandler shootHandler, Transform transform) {
-      this.transform = transform;
+    public ShipFacade(ShipModel model, MoveHandler moveHandler, ShootHandler shootHandler) {
       this.model = model;
       this.moveHandler = moveHandler;
       this.shootHandler = shootHandler;
@@ -20,7 +21,9 @@ namespace Code.Ship {
     public void Turn(float amount) => moveHandler.Turn(amount);
 
     public void Shoot() => shootHandler.Shoot();
-    public Transform transform { get; }
+    public void Alt() => OnEjected?.Invoke(model.transform.position);
+
+    public event Action<Vector2> OnEjected;
 
     public void Damage(float damage) => model.Damage(damage);
 

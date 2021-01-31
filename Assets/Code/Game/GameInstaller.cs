@@ -1,7 +1,7 @@
 using Code.Bullets;
 using Code.Cowboy;
+using Code.Input;
 using Code.Player;
-using Code.Player.Input;
 using Code.Ship;
 using UnityEngine;
 using Zenject;
@@ -15,7 +15,7 @@ namespace Code.Game {
       Container.Bind<PrefabRegistry>().FromInstance(prefabRegistry);
       BulletInstaller.Install(Container);
 
-      Container.BindFactory<ControlScheme, IControllable, PlayerController, PlayerController.Factory>()
+      Container.BindFactory<ControlScheme, IControllable, PlayerFacade, PlayerFacade.Factory>()
         .FromSubContainerResolve()
         .ByNewPrefabInstaller<PlayerInstaller>(prefabRegistry.pawnPrefab)
         .UnderTransformGroup("Players");

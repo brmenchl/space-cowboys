@@ -4,23 +4,23 @@ using Object = UnityEngine.Object;
 
 namespace Code.Ship {
   public class ShipModel {
-    private readonly GameObject gameObject;
+    public readonly Transform transform;
     private float health;
 
     public ShipModel(Transform transform, Vector3 position, Quaternion rotation, Settings settings) {
+      this.transform = transform;
       transform.position = position;
       transform.rotation = rotation;
-      gameObject = transform.gameObject;
       health = settings.startingHealth;
     }
 
     public void Damage(float damage) {
       health -= damage;
 
-      if (health <= 0f) Die();
+      if (health <= 0f) Destroy();
     }
 
-    private void Die() => Object.Destroy(gameObject);
+    private void Destroy() => Object.Destroy(transform.gameObject);
 
     [Serializable]
     public class Settings {

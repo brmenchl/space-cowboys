@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
 
-namespace Code.Player.Input {
+namespace Code.Input {
   [RequireComponent(typeof(PlayerInput))]
   public class Pawn : MonoBehaviour {
     private ControlScheme controlScheme;
@@ -14,6 +15,8 @@ namespace Code.Player.Input {
       playerInput.SwitchCurrentControlScheme(controlScheme.ToString());
       playerInput.onActionTriggered += OnActionTriggered;
     }
+
+    public event Action OnAlt;
 
     [Inject]
     public void Inject(ControlScheme controlScheme, InputState inputState) {
@@ -28,6 +31,9 @@ namespace Code.Player.Input {
           break;
         case "Shoot":
           inputState.isShooting = context.ReadValue<float>() != 0;
+          break;
+        case "Alt":
+          OnAlt?.Invoke();
           break;
       }
     }

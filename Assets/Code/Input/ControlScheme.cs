@@ -1,6 +1,6 @@
 using System;
 
-namespace Code.Player.Input {
+namespace Code.Input {
   public enum ControlScheme {
     WasdKeyboard,
     ArrowsKeyboard

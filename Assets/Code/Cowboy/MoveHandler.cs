@@ -10,5 +10,10 @@ namespace Code.Cowboy {
       var torque = 3 * -amount;
       rigidbody.AddTorque(torque);
     }
+
+    public void Eject() {
+      const int amount = 10;
+      rigidbody.AddForce(amount * Random.insideUnitCircle.normalized, ForceMode2D.Impulse);
+    }
   }
 }

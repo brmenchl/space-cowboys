@@ -1,4 +1,4 @@
-namespace Code.Player.Input {
+namespace Code.Input {
   public interface IPossessable {
     void Possess(Pawn pawn);
 

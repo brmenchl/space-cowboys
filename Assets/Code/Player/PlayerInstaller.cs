@@ -1,4 +1,4 @@
-using Code.Player.Input;
+using Code.Input;
 using Zenject;
 
 namespace Code.Player {
@@ -15,11 +15,12 @@ namespace Code.Player {
     }
 
     public override void InstallBindings() {
-      Container.Bind<PlayerController>().AsSingle().WithArguments(startingControllable);
-      Container.Bind<ControlScheme>().FromInstance(controlScheme).AsSingle();
-      Container.Bind<Pawn>().FromComponentOnRoot();
-      Container.Bind<InputState>().AsSingle().WhenInjectedInto<Pawn>();
-      Container.BindInterfacesAndSelfTo<InputHandler>().AsSingle();
+      InputInstaller.Install(Container, controlScheme);
+      Container.Bind<PlayerFacade>().AsSingle();
+      Container.Bind<HealthManager>().AsSingle();
+      Container.Bind<EjectionManager>().AsSingle();
+      Container.Bind<ControllableState>().AsSingle().WithArguments(startingControllable);
+      Container.Bind<ControllableListener>().AsSingle().NonLazy();
     }
   }
 }
