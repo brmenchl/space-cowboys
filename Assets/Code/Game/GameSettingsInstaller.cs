@@ -7,15 +7,22 @@ namespace Code.Game {
   [CreateAssetMenu(fileName = "GameSettingsInstaller", menuName = "Installers/GameSettingsInstaller")]
   public class GameSettingsInstaller : ScriptableObjectInstaller<GameSettingsInstaller> {
     public Bullet.Settings bullet;
-    public MoveHandler.Settings moving;
-    public ShootHandler.Settings shooting;
-    public ShipModel.Settings health;
+    public MoveHandler.Settings shipMovement;
+    public Cowboy.MoveHandler.Settings cowboyMovement;
+    public ShootHandler.Settings shipShooting;
+    public Cowboy.ShootHandler.Settings cowboyShooting;
+    public Player.HealthManager.Settings playerHealth;
+    public ShipModel.Settings shipHealth;
 
     public override void InstallBindings() {
       Container.BindInstance(bullet).IfNotBound();
-      Container.BindInstance(moving).IfNotBound();
-      Container.BindInstance(shooting).IfNotBound();
-      Container.BindInstance(health).IfNotBound();
+      Container.BindInstance(shipMovement).IfNotBound();
+      Container.BindInstance(cowboyMovement).IfNotBound();
+      Container.BindInstance(shipShooting).IfNotBound();
+      Container.BindInstance(cowboyShooting).IfNotBound();
+      Container.BindInstance(cowboyShooting).IfNotBound();
+      Container.BindInstance(playerHealth).IfNotBound();
+      Container.BindInstance(shipHealth).IfNotBound();
     }
   }
 }

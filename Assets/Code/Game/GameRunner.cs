@@ -23,6 +23,8 @@ namespace Code.Game {
 
       var ship2 = shipFactory.Create(new Vector3(3, 0, 0), Quaternion.identity);
       playerFactory.Create(ControlScheme.ArrowsKeyboard, ship2);
+
+      shipFactory.Create(new Vector3(3, 5, 0), Quaternion.identity);
     }
   }
 }

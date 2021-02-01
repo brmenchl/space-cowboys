@@ -1,3 +1,4 @@
+using System;
 using Code.Bullets;
 using Code.Utilities;
 using UnityEngine;
@@ -8,35 +9,38 @@ namespace Code.Cowboy {
     private readonly Rigidbody2D rigidbody;
     private readonly ThrottledFunction throttledShoot;
     private readonly Transform transform;
+    private readonly Settings settings;
 
     public ShootHandler(
       Transform transform,
       Rigidbody2D rigidbody,
-      Bullet.Factory bulletFactory) {
+      Bullet.Factory bulletFactory,
+      Settings settings) {
       this.transform = transform;
       this.rigidbody = rigidbody;
       this.bulletFactory = bulletFactory;
-      throttledShoot = ThrottledFunction.ThrottleByRate(DoShoot, 5);
+      this.settings = settings;
+      throttledShoot = ThrottledFunction.ThrottleByRate(DoShoot, settings.fireRate);
     }
 
     public void Shoot() =>
       throttledShoot.Call();
 
     private void DoShoot() {
-      bulletFactory.Create(rigidbody.transform.position + (transform.up * 10), transform.rotation);
+      bulletFactory.Create(
+        rigidbody.transform.position + (transform.up * settings.muzzleDistance),
+        transform.rotation
+      );
       PushBack();
     }
 
-    private void PushBack() {
-      var force = transform.up * -1 * 10;
-      rigidbody.AddForce(force);
-    }
+    private void PushBack() => rigidbody.AddForce(transform.up * -1 * settings.pushBackForce);
 
-    // [Serializable]
-    // public class Settings
-    // {
-    //   public float muzzleDistance;
-    //   public float fireRate;
-    // }
+    [Serializable]
+    public class Settings {
+      public float muzzleDistance;
+      public float fireRate;
+      public float pushBackForce;
+    }
   }
 }

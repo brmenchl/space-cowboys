@@ -16,11 +16,20 @@ MonoBehaviour:
     speed: 20
     lifeTime: 1
     damage: 5
-  moving:
-    speed: 8
-    turnSpeed: 0.8
-  shooting:
+  shipMovement:
+    speed: 6
+    turnSpeed: 1
+  cowboyMovement:
+    turnSpeed: 3
+    ejectForce: 5
+  shipShooting:
     muzzleDistance: 1
-    fireRate: 4
-  health:
+    fireRate: 5
+  cowboyShooting:
+    muzzleDistance: 1
+    fireRate: 2
+    pushBackForce: 8
+  playerHealth:
     startingHealth: 100
+  shipHealth:
+    startingHealth: 50

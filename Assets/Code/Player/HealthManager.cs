@@ -1,11 +1,15 @@
+using System;
 using UnityEngine;
 
 namespace Code.Player {
   public class HealthManager {
     private readonly ControllableState controllableState;
-    private float health = 100f;
+    private float health;
 
-    public HealthManager(ControllableState controllableState) => this.controllableState = controllableState;
+    public HealthManager(ControllableState controllableState, Settings settings) {
+      this.controllableState = controllableState;
+      health = settings.startingHealth;
+    }
 
     public void Damage(float damage) {
       health -= damage;
@@ -16,5 +20,10 @@ namespace Code.Player {
       controllableState.IfIsControlling(c => {
         Debug.Log("You Dead");
       });
+
+    [Serializable]
+    public class Settings {
+      public float startingHealth;
+    }
   }
 }
