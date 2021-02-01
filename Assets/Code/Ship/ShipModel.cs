@@ -14,13 +14,18 @@ namespace Code.Ship {
       health = settings.startingHealth;
     }
 
+    public event Action OnDestroyed;
+
     public void Damage(float damage) {
       health -= damage;
 
       if (health <= 0f) Destroy();
     }
 
-    private void Destroy() => Object.Destroy(transform.gameObject);
+    private void Destroy() {
+      OnDestroyed?.Invoke();
+      Object.Destroy(transform.gameObject);
+    }
 
     [Serializable]
     public class Settings {

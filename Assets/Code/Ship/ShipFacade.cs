@@ -14,17 +14,17 @@ namespace Code.Ship {
       this.model = model;
       this.moveHandler = moveHandler;
       this.shootHandler = shootHandler;
+      model.OnDestroyed += Eject;
     }
 
     public void Thrust(float amount) => moveHandler.Thrust(amount);
-
     public void Turn(float amount) => moveHandler.Turn(amount);
-
     public void Shoot() => shootHandler.Shoot();
-    public void Alt() => OnEjected?.Invoke(model.transform.position);
+    public void Alt() => Eject();
 
     public event Action<Vector2> OnEjected;
 
+    private void Eject() => OnEjected?.Invoke(model.transform.position);
     public void Damage(float damage) => model.Damage(damage);
 
     public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade> {
