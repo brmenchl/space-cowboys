@@ -1,4 +1,5 @@
 using Code.Bullets;
+using Code.Lasso;
 using Code.Ship;
 using UnityEngine;
 using Zenject;
@@ -13,6 +14,8 @@ namespace Code.Game {
     public Cowboy.ShootHandler.Settings cowboyShooting;
     public Player.HealthManager.Settings playerHealth;
     public ShipModel.Settings shipHealth;
+    public LassoTip.Settings lasso;
+    public Lasso.Lasso.Settings lasso2;
 
     public override void InstallBindings() {
       Container.BindInstance(bullet).IfNotBound();
@@ -23,6 +26,8 @@ namespace Code.Game {
       Container.BindInstance(cowboyShooting).IfNotBound();
       Container.BindInstance(playerHealth).IfNotBound();
       Container.BindInstance(shipHealth).IfNotBound();
+      Container.BindInstance(lasso).IfNotBound();
+      Container.BindInstance(lasso2).IfNotBound();
     }
   }
 }

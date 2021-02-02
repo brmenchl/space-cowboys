@@ -40,12 +40,23 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.xr": "1.0.0",
+    "com.unity.editoriterationprofiler": "0.1.1-preview"
   },
   "testables": [
     "com.unity.collections",
     "com.unity.entities",
     "com.unity.jobs",
     "com.unity.rendering.hybrid"
+  ],
+  "scopedRegistries": [
+    {
+      "name": "package.openupm.com",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.openupm",
+        "com.unity.editoriterationprofiler"
+      ]
+    }
   ]
 }

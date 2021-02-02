@@ -17,7 +17,7 @@ namespace Code.Bullets {
     private void Update() => transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
 
     private void OnTriggerEnter2D(Collider2D other) =>
-      Optional(other.attachedRigidbody.GetComponent<ShipView>()).IfSome(view => {
+      Optional(other.gameObject.GetComponent<ShipView>()).IfSome(view => {
         view.Facade.Damage(settings.damage);
         Dispose();
       });

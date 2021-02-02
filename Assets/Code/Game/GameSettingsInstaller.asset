@@ -33,3 +33,8 @@ MonoBehaviour:
     startingHealth: 100
   shipHealth:
     startingHealth: 50
+  lasso:
+    speed: 5
+    lifeTime: 2
+  lasso2:
+    reelForce: 5

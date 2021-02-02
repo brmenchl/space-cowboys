@@ -8,5 +8,6 @@ namespace Code.Game {
     public GameObject cowboyPrefab;
     public GameObject bulletPrefab;
     public GameObject pawnPrefab;
+    public GameObject lassoPrefab;
   }
 }
