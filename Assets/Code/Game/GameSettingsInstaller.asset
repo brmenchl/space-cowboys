@@ -28,7 +28,7 @@ MonoBehaviour:
   cowboyShooting:
     muzzleDistance: 1
     fireRate: 2
-    pushBackForce: 8
+    pushBackForce: 500
   playerHealth:
     startingHealth: 100
   shipHealth:
