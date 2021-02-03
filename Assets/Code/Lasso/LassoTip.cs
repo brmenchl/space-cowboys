@@ -1,22 +1,18 @@
 using System;
 using Code.Ship;
 using Cysharp.Threading.Tasks;
-using LanguageExt;
 using UnityEngine;
 using Zenject;
 
 namespace Code.Lasso {
-  using static Prelude;
-
   public class LassoTip : MonoBehaviour {
     private Settings settings;
 
     private void Update() => transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
 
-    private void OnTriggerEnter2D(Collider2D other) =>
-      Optional(other.gameObject.GetComponent<ShipView>()).IfSome(view => {
-        OnHooked?.Invoke(other.attachedRigidbody);
-      });
+    private void OnTriggerEnter2D(Collider2D other) {
+      if (other.gameObject.GetComponent<ShipView>() != null) OnHooked?.Invoke(other.attachedRigidbody);
+    }
 
     public event Action<Rigidbody2D> OnHooked;
     public event Action OnHookTimeout;

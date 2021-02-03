@@ -1,5 +1,6 @@
 using Code.Bullets;
 using Code.Lasso;
+using Code.Player;
 using Code.Ship;
 using UnityEngine;
 using Zenject;
@@ -12,7 +13,7 @@ namespace Code.Game {
     public Cowboy.MoveHandler.Settings cowboyMovement;
     public ShootHandler.Settings shipShooting;
     public Cowboy.ShootHandler.Settings cowboyShooting;
-    public Player.HealthManager.Settings playerHealth;
+    public HealthManager.Settings playerHealth;
     public ShipModel.Settings shipHealth;
     public LassoTip.Settings lasso;
     public Lasso.Lasso.Settings lasso2;

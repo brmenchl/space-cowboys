@@ -4,14 +4,18 @@ using Zenject;
 
 namespace Code.Lasso {
   public class Lasso : MonoBehaviour {
-    private Settings settings;
     private DistanceJoint2D distanceJoint2D;
+    private bool isReeling;
     private LassoEnds lassoEnds;
     private LassoTip lassoTip;
     private LassoTip.Factory lassoTipFactory;
-    private bool isReeling;
+    private Settings settings;
 
     public void Start() => Fire();
+
+    public void FixedUpdate() {
+      if (isReeling) distanceJoint2D.distance -= settings.reelForce * Time.fixedDeltaTime;
+    }
 
     [Inject]
     public void Inject(
@@ -25,12 +29,6 @@ namespace Code.Lasso {
       this.lassoEnds = lassoEnds;
       this.distanceJoint2D = distanceJoint2D;
       lassoEnds.start = transform;
-    }
-
-    public void FixedUpdate() {
-      if (isReeling) {
-        distanceJoint2D.distance -= settings.reelForce * Time.fixedDeltaTime;
-      }
     }
 
     private void Fire() {

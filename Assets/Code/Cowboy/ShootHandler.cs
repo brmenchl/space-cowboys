@@ -7,9 +7,9 @@ namespace Code.Cowboy {
   public class ShootHandler {
     private readonly Bullet.Factory bulletFactory;
     private readonly Rigidbody2D rigidbody;
+    private readonly Settings settings;
     private readonly ThrottledFunction throttledShoot;
     private readonly Transform transform;
-    private readonly Settings settings;
 
     public ShootHandler(
       Transform transform,

@@ -2,12 +2,10 @@
   "dependencies": {
     "com.cysharp.unitask": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.unity.2d.common": "2.1.0",
-    "com.unity.2d.pixel-perfect": "2.1.0",
     "com.unity.coding": "0.1.0-preview.20",
     "com.unity.ide.rider": "3.0.3",
     "com.unity.ide.vscode": "1.2.3",
     "com.unity.inputsystem": "1.0.2",
-    "com.unity.quicksearch": "2.0.2",
     "com.unity.textmeshpro": "2.1.3",
     "com.unity.ugui": "1.0.0",
     "com.unity.modules.ai": "1.0.0",
@@ -40,8 +38,7 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0",
-    "com.unity.editoriterationprofiler": "0.1.1-preview"
+    "com.unity.modules.xr": "1.0.0"
   },
   "testables": [
     "com.unity.collections",

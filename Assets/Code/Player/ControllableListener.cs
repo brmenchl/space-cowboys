@@ -1,5 +1,4 @@
 using Code.Input;
-using LanguageExt;
 using UnityEngine;
 
 namespace Code.Player {
@@ -18,9 +17,9 @@ namespace Code.Player {
       controllableState.IfIsControlling(Subscribe);
     }
 
-    private void HandleNew(Option<IControllable> oldControllable, Option<IControllable> newControllable) {
-      oldControllable.IfSome(Unsubscribe);
-      newControllable.IfSome(Subscribe);
+    private void HandleNew(IControllable oldControllable, IControllable newControllable) {
+      Unsubscribe(oldControllable);
+      Subscribe(newControllable);
     }
 
     private void Unsubscribe(IControllable controllable) {
