@@ -17,8 +17,8 @@ MonoBehaviour:
     lifeTime: 1
     damage: 5
   shipMovement:
-    speed: 6
-    turnSpeed: 1
+    speed: 170
+    turnSpeed: 60
   cowboyMovement:
     turnSpeed: 3
     ejectForce: 5

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1038800068497274158}
   - component: {fileID: 3728068531082347286}
   - component: {fileID: 339861895463956907}
+  - component: {fileID: 2215106026842987987}
   m_Layer: 0
   m_Name: Cowboy
   m_TagString: Untagged
@@ -131,5 +132,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64c13eba35e0b7dd1b872b1b6a83c88c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2215106026842987987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728747806077742917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a86ce85e55884a00bfddc2d013e3e7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

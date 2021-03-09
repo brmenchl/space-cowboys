@@ -8,7 +8,9 @@ using Zenject;
 
 namespace Code.Game {
   public class GameInstaller : MonoInstaller {
+#pragma warning disable 0649
     [SerializeField] private PrefabRegistry prefabRegistry;
+#pragma warning restore 0649
 
     public override void InstallBindings() {
       Container.BindInterfacesTo<GameRunner>().AsSingle();

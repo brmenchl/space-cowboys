@@ -43,9 +43,12 @@ namespace Code.Lasso {
       if (isHookable(other)) {
         cancellationTokenSource.Cancel();
         distanceJoint2D.connectedBody = other.attachedRigidbody;
+        distanceJoint2D.enableCollision = true;
         distanceJoint2D.enabled = true;
         state = LassoState.Reeling;
-        tr.parent = other.transform;
+        var otherTr = other.transform;
+        lassoEnds.end = otherTr;
+        tr.parent = otherTr;
       }
     }
 

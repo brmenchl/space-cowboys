@@ -22,7 +22,6 @@ namespace Code.Player {
       controllableState.Control(cowboy);
     }
 
-
     public void Board(IControllable toBeBoarded) =>
       controllableState.IfIsControlling(c => {
         if (CanBoard(c, toBeBoarded)) {
