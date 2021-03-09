@@ -1,72 +1,82 @@
 using System;
+using System.Threading;
+using Code.Option;
+using Code.Ship;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
 namespace Code.Lasso {
   public class Lasso : MonoBehaviour {
+    public enum LassoState {
+      None,
+      Firing,
+      Reeling
+    }
+
+    private CancellationTokenSource cancellationTokenSource;
     private DistanceJoint2D distanceJoint2D;
-    private bool isReeling;
     private LassoEnds lassoEnds;
-    private LassoTip lassoTip;
-    private LassoTip.Factory lassoTipFactory;
     private Settings settings;
+    private Transform tr;
 
-    public void Start() => Fire();
+    public LassoState state { get; private set; } = LassoState.None;
 
-    public void FixedUpdate() {
-      if (isReeling) distanceJoint2D.distance -= settings.reelForce * Time.fixedDeltaTime;
+    private void Update() {
+      switch (state) {
+        case LassoState.Firing:
+          tr.Translate(tr.up * (settings.speed * Time.deltaTime), Space.World);
+          break;
+        case LassoState.Reeling:
+          distanceJoint2D.distance -= settings.speed * Time.deltaTime;
+          break;
+        case LassoState.None:
+          break;
+        default:
+          throw new ArgumentOutOfRangeException();
+      }
+    }
+
+    private void OnDestroy() => Destroy(distanceJoint2D);
+
+    private void OnTriggerEnter2D(Collider2D other) {
+      if (isHookable(other)) {
+        cancellationTokenSource.Cancel();
+        distanceJoint2D.connectedBody = other.attachedRigidbody;
+        distanceJoint2D.enabled = true;
+        state = LassoState.Reeling;
+        tr.parent = other.transform;
+      }
     }
 
     [Inject]
-    public void Inject(
-      Settings settings,
-      LassoTip.Factory lassoTipFactory,
-      LassoEnds lassoEnds,
-      DistanceJoint2D distanceJoint2D
-    ) {
+    private void Inject(Settings settings, LassoEnds lassoEnds) {
       this.settings = settings;
-      this.lassoTipFactory = lassoTipFactory;
       this.lassoEnds = lassoEnds;
-      this.distanceJoint2D = distanceJoint2D;
-      lassoEnds.start = transform;
+      tr = transform;
+      this.lassoEnds.start = tr.parent;
+      this.lassoEnds.end = tr;
+      Fire().Forget();
     }
 
-    private void Fire() {
-      lassoTip = lassoTipFactory.Create(transform.position, Quaternion.identity);
-      lassoTip.OnHooked += Hook;
-      lassoTip.OnHookTimeout += Dispose;
-      lassoEnds.end = lassoTip.transform;
+    private async UniTaskVoid Fire() {
+      cancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy());
+      distanceJoint2D = tr.parent.gameObject.AddComponent<DistanceJoint2D>();
+      distanceJoint2D.enabled = false;
+      state = LassoState.Firing;
+      await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime)).WithCancellation(cancellationTokenSource.Token);
+      Destroy(gameObject);
     }
 
-    private void Hook(Rigidbody2D reelSubject) {
-      Unsubscribe();
-      Destroy(lassoTip.gameObject);
-      var anchorPoint = new GameObject();
-      var anchorRB = anchorPoint.AddComponent<Rigidbody2D>();
-      anchorRB.gravityScale = 0;
-      anchorRB.bodyType = RigidbodyType2D.Kinematic;
-      anchorPoint.transform.SetParent(reelSubject.transform);
-      lassoEnds.end = anchorPoint.transform;
-      distanceJoint2D.connectedBody = anchorRB;
-      isReeling = true;
-    }
-
-    private void Dispose() {
-      Unsubscribe();
-      Destroy(this);
-    }
-
-    private void Unsubscribe() {
-      lassoTip.OnHooked -= Hook;
-      lassoTip.OnHookTimeout -= Dispose;
-    }
+    private static bool isHookable(Component other) => other.gameObject.TryGetComponent<ShipView>().isSome;
 
     [Serializable]
     public class Settings {
-      public float reelForce;
+      public float speed;
+      public float lifeTime;
     }
 
-    // public class Factory : PlaceholderFactory<Transform, Lasso> {
-    // }
+    public class Factory : PlaceholderFactory<Lasso> {
+    }
   }
 }

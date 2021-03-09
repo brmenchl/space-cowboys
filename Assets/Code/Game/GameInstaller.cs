@@ -27,9 +27,6 @@ namespace Code.Game {
       Container.BindFactory<Vector3, Quaternion, CowboyFacade, CowboyFacade.Factory>()
         .FromSubContainerResolve()
         .ByNewPrefabInstaller<CowboyInstaller>(prefabRegistry.cowboyPrefab);
-
-      // Container.BindFactory<Transform, Lasso.Lasso, Lasso.Lasso.Factory>()
-      //   .FromComponentInNewPrefab(prefabRegistry.lassoPrefab);
     }
   }
 }

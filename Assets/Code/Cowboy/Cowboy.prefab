@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7728747806077742923}
   - component: {fileID: -3112337713976558492}
-  - component: {fileID: 339861895463956907}
   - component: {fileID: 1038800068497274158}
   - component: {fileID: 3728068531082347286}
+  - component: {fileID: 339861895463956907}
   m_Layer: 0
   m_Name: Cowboy
   m_TagString: Untagged
@@ -55,18 +55,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &339861895463956907
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7728747806077742917}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c13eba35e0b7dd1b872b1b6a83c88c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &1038800068497274158
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -133,3 +121,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &339861895463956907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7728747806077742917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64c13eba35e0b7dd1b872b1b6a83c88c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
