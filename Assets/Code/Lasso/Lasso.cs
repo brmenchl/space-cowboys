@@ -67,7 +67,7 @@ namespace Code.Lasso {
       distanceJoint2D = tr.parent.gameObject.AddComponent<DistanceJoint2D>();
       distanceJoint2D.enabled = false;
       state = LassoState.Firing;
-      await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime)).WithCancellation(cancellationTokenSource.Token);
+      await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime), cancellationToken: cancellationTokenSource.Token);
       Destroy(gameObject);
     }
 

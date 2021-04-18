@@ -42,7 +42,7 @@ namespace Code.Bullets {
     public void Inject(Settings settings) => this.settings = settings;
 
     private async UniTaskVoid DisposeAfterLifeTime() {
-      await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime)).WithCancellation(disposeLifeTimeCancelToken.Token);
+      await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime), cancellationToken: disposeLifeTimeCancelToken.Token);
       Dispose();
     }
 
