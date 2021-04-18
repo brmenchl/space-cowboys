@@ -17,8 +17,8 @@ MonoBehaviour:
     lifeTime: 1
     damage: 5
   shipMovement:
-    speed: 170
-    turnSpeed: 60
+    speed: 1100
+    turnSpeed: 300
   cowboyMovement:
     turnSpeed: 3
     ejectForce: 5
@@ -34,5 +34,5 @@ MonoBehaviour:
   shipHealth:
     startingHealth: 50
   lasso:
-    speed: 8
-    lifeTime: 1
+    speed: 10
+    lifeTime: 0.8
