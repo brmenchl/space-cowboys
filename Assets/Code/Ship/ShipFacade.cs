@@ -24,7 +24,7 @@ namespace Code.Ship {
 
     public event Action<Vector2> OnEjected;
 
-    private void Eject() => OnEjected?.Invoke(model.transform.position);
+    public void Eject() => OnEjected?.Invoke(model.transform.position);
     public void Damage(float damage) => model.Damage(damage);
 
     public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade> {

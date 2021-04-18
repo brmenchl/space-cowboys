@@ -24,13 +24,11 @@ namespace Code.Player {
 
     public void Board(IControllable toBeBoarded) =>
       controllableState.IfIsControlling(c => {
-        if (CanBoard(c, toBeBoarded)) {
-          (c as CowboyFacade)?.Destroy();
+        if (c is CowboyFacade cf && toBeBoarded is IEjectable ejectable) {
+          ejectable.Eject();
+          cf.Destroy();
           controllableState.Control(toBeBoarded);
         }
       });
-
-    private bool CanBoard(IControllable controllable, IControllable toBeBoarded) =>
-      controllable is CowboyFacade && toBeBoarded is ShipFacade;
   }
 }

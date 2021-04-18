@@ -8,6 +8,7 @@ namespace Code.Player {
   }
 
   public interface IEjectable {
+    public void Eject();
     event Action<Vector2> OnEjected;
   }
 
