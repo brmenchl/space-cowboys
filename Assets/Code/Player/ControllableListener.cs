@@ -1,5 +1,7 @@
 using Code.Input;
 using UnityEngine;
+using Cysharp.Threading.Tasks.Linq;
+using Code.Option;
 
 namespace Code.Player {
   public class ControllableListener {
@@ -13,13 +15,13 @@ namespace Code.Player {
     ) {
       this.ejectionManager = ejectionManager;
       this.healthManager = healthManager;
-      controllableState.OnNewControllable += HandleNew;
+      UniTaskAsyncEnumerable.Pairwise(controllableState.controllable).Subscribe(HandleNew);
       controllableState.IfIsControlling(Subscribe);
     }
 
-    private void HandleNew(IControllable oldControllable, IControllable newControllable) {
-      Unsubscribe(oldControllable);
-      Subscribe(newControllable);
+    private void HandleNew((Option<IControllable> oldControllable, Option<IControllable> newControllable) c) {
+      c.oldControllable.MatchSome(Unsubscribe);
+      c.newControllable.MatchSome(Subscribe);
     }
 
     private void Unsubscribe(IControllable controllable) {

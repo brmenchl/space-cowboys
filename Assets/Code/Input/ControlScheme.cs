@@ -14,7 +14,7 @@ namespace Code.Input {
         case ControlScheme.ArrowsKeyboard:
           return "ArrowsKeyboard";
         default:
-          throw new ArgumentOutOfRangeException(nameof(controlScheme), controlScheme, null);
+          throw new ArgumentOutOfRangeException(nameof(controlScheme), controlScheme, "");
       }
     }
   }
