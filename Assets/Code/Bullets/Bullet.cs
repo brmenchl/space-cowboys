@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using Code.Option;
 using Code.Ship;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -14,11 +15,10 @@ namespace Code.Bullets {
     private void Update() => transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
 
     private void OnTriggerEnter2D(Collider2D other) {
-      var view = other.gameObject.GetComponent<ShipView>();
-      if (view != null) {
+      other.gameObject.TryGetComponent<ShipView>().MatchSome(view => {
         view.Facade.Damage(settings.damage);
         Dispose();
-      }
+      });
     }
 
     public void Dispose() => pool.Despawn(this);

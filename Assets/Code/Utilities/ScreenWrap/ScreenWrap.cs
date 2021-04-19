@@ -1,3 +1,4 @@
+using Code.Option;
 using UnityEngine;
 
 namespace Code.Utilities.ScreenWrap {
@@ -6,9 +7,10 @@ namespace Code.Utilities.ScreenWrap {
     private Vector3 screenTopRight;
 
     public void Start() {
-      if (Camera.main is null) return;
-      screenBottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-      screenTopRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
+      Camera.main.ToOption().MatchSome(camera => {
+        screenBottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
+        screenTopRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
+      });
     }
 
     public void Update() {
