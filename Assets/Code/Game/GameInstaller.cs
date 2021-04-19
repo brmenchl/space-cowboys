@@ -21,6 +21,7 @@ namespace Code.Game {
         .FromSubContainerResolve()
         .ByNewPrefabInstaller<PlayerInstaller>(prefabRegistry.pawnPrefab)
         .UnderTransformGroup("Players");
+      Container.Bind<PlayerRegistry>().AsSingle();
 
       Container.BindFactory<Vector3, Quaternion, ShipFacade, ShipFacade.Factory>()
         .FromSubContainerResolve()
