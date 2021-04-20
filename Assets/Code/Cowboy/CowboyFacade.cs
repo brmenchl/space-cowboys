@@ -15,6 +15,7 @@ namespace Code.Cowboy {
     private readonly BoardEjectService boardEjectService;
     private Option<int> playerId = Option.None<int>();
     private Option<IDisposable> inputStreamDisposable;
+    private Option<IDisposable> lassoDisposable;
 
     public CowboyFacade(
       CowboyModel model,
@@ -36,8 +37,14 @@ namespace Code.Cowboy {
       inputStreamDisposable = inputStream.Subscribe(state => {
         moveHandler.Turn(state.movement.x);
         if (state.primary) shootHandler.Shoot();
-        if (state.alt) model.FireLasso().Forget();
       }).ToOption();
+      lassoDisposable = inputStream
+        .Select(s => s.alt)
+        .DistinctUntilChanged()
+        .Where(a => a)
+        .Skip(1)
+        .Subscribe(_ => model.FireLasso().Forget())
+        .ToOption();
     }
 
     public ControllableType Type => ControllableType.Cowboy;
@@ -46,6 +53,8 @@ namespace Code.Cowboy {
     public void ClearController() {
       inputStreamDisposable.MatchSome(d => d.Dispose());
       inputStreamDisposable = Option.None<IDisposable>();
+      lassoDisposable.MatchSome(d => d.Dispose());
+      lassoDisposable = Option.None<IDisposable>();
     }
 
     public void Destroy() => model.Destroy();

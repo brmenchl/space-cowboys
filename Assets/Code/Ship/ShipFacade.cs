@@ -45,7 +45,6 @@ namespace Code.Ship {
         .Select(s => s.alt)
         .DistinctUntilChanged()
         .Where(a => a)
-        .Do(a => Debug.Log(a))
         .Subscribe(_ => Eject())
         .ToOption();
     }
