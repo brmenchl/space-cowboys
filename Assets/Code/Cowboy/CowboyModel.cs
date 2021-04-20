@@ -1,8 +1,7 @@
 using System;
 using Code.Input;
-using Code.Option;
-using Code.Player;
 using Cysharp.Threading.Tasks;
+using External.Option;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -12,7 +11,6 @@ namespace Code.Cowboy {
     private readonly Lasso.Lasso.Factory lassoFactory;
     private bool hasFiredLasso;
     private Option<Lasso.Lasso> lasso;
-    private Option<IBoardable> reelSubject;
 
     public CowboyModel(
       Lasso.Lasso.Factory lassoFactory,
@@ -26,13 +24,14 @@ namespace Code.Cowboy {
       gameObject = transform.gameObject;
     }
 
+    public Transform Transform => gameObject.transform;
+
     public event Action<IControllable> OnBoarded;
 
     public void Destroy() => Object.Destroy(gameObject);
 
     public void TryBoard(IControllable other) {
       lasso.MatchSome(l => Object.Destroy(l.gameObject));
-      /*if (reelSubject.Exists(rs => other == rs))*/
       OnBoarded?.Invoke(other);
     }
 

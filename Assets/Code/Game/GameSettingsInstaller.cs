@@ -12,7 +12,7 @@ namespace Code.Game {
     public Cowboy.MoveHandler.Settings cowboyMovement;
     public ShootHandler.Settings shipShooting;
     public Cowboy.ShootHandler.Settings cowboyShooting;
-    public HealthManager.Settings playerHealth;
+    // public HealthManager.Settings playerHealth;
     public ShipModel.Settings shipHealth;
     public Lasso.Lasso.Settings lasso;
 
@@ -23,7 +23,6 @@ namespace Code.Game {
       Container.BindInstance(shipShooting).IfNotBound();
       Container.BindInstance(cowboyShooting).IfNotBound();
       Container.BindInstance(cowboyShooting).IfNotBound();
-      Container.BindInstance(playerHealth).IfNotBound();
       Container.BindInstance(shipHealth).IfNotBound();
       Container.BindInstance(lasso).IfNotBound();
     }

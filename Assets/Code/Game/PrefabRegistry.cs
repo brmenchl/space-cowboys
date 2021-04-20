@@ -7,7 +7,7 @@ namespace Code.Game {
     public GameObject shipPrefab;
     public GameObject cowboyPrefab;
     public GameObject bulletPrefab;
-    public GameObject pawnPrefab;
+    public GameObject controllerPrefab;
     public GameObject lassoPrefab;
   }
 }

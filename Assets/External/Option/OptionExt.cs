@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.Option {
+namespace External.Option {
   public static class OptionExt {
     /// <summary>
     /// Wraps an existing value in an Option&lt;T&gt; instance.

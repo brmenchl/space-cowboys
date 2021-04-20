@@ -4,19 +4,20 @@ using UnityEngine;
 using Zenject;
 
 namespace Code.Cowboy {
-  public class CowboyInstaller : Installer<CowboyInstaller> {
-    private readonly GameObject lassoPrefab;
-    private readonly Vector3 position;
-    private readonly Quaternion rotation;
+  public class CowboyInstaller : MonoInstaller<CowboyInstaller> {
+    private GameObject lassoPrefab;
+    private Vector3 position;
+    private Quaternion rotation;
 
-    public CowboyInstaller(Vector3 position, Quaternion rotation, PrefabRegistry prefabRegistry) {
+    [Inject]
+    public void Inject(Vector3 position, Quaternion rotation, PrefabRegistry prefabRegistry) {
       this.position = position;
       this.rotation = rotation;
       lassoPrefab = prefabRegistry.lassoPrefab;
     }
 
     public override void InstallBindings() {
-      Container.Bind<CowboyFacade>().AsSingle();
+      Container.BindInterfacesAndSelfTo<CowboyFacade>().AsSingle();
       Container.Bind<CowboyModel>().AsSingle().WithArguments(position, rotation).NonLazy();
       Container.Bind<Rigidbody2D>().FromComponentOnRoot();
       Container.Bind<Transform>().FromComponentOnRoot();

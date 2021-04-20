@@ -1,8 +1,8 @@
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace Code.Input {
   public class InputState {
-    public bool isShooting = false;
-    public Vector2 movement = Vector2.zero;
+    public readonly Dictionary<ControlScheme, ControllerInputStream> inputs =
+      new Dictionary<ControlScheme, ControllerInputStream>();
   }
 }

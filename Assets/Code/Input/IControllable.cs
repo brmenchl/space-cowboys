@@ -1,9 +1,18 @@
+using Cysharp.Threading.Tasks;
+using UnityEngine;
+
 namespace Code.Input {
   public interface IControllable {
-    void Thrust(float amount);
-    void Turn(float amount);
+    void UpdateController(int playerId, IUniTaskAsyncEnumerable<ControllerInputState> inputStream);
 
-    void Shoot();
-    void Alt();
+    ControllableType Type { get; }
+    Vector2 Position { get; }
+    void ClearController();
+    void Destroy();
+  }
+
+  public enum ControllableType {
+    Cowboy,
+    Vehicle
   }
 }

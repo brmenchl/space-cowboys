@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.Option {
+namespace External.Option {
   /// <summary>
   /// Provides a set of functions for creating optional values.
   /// </summary>

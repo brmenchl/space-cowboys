@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Code.Option {
+namespace External.Option {
   public static class LinqExt {
     public static Option<TResult>
       Select<TSource, TResult>(this Option<TSource> source, Func<TSource, TResult> selector) => source.Map(selector);

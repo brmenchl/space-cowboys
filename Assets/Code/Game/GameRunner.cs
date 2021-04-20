@@ -8,25 +8,27 @@ using Zenject;
 namespace Code.Game {
   public class GameRunner : IInitializable {
     private readonly CowboyFacade.Factory cowboyFactory;
-    private readonly PlayerFacade.Factory playerFactory;
     private readonly ShipFacade.Factory shipFactory;
+    private readonly PlayerService playerService;
 
     public GameRunner(
-      PlayerFacade.Factory playerFactory,
       ShipFacade.Factory shipFactory,
-      CowboyFacade.Factory cowboyFactory
+      CowboyFacade.Factory cowboyFactory,
+      PlayerService playerService
     ) {
-      this.playerFactory = playerFactory;
       this.shipFactory = shipFactory;
       this.cowboyFactory = cowboyFactory;
+      this.playerService = playerService;
     }
 
     public void Initialize() {
-      var ship1 = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
-      playerFactory.Create(ControlScheme.WasdKeyboard, ship1);
+      var ship = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
+      var player1 = playerService.AddPlayer(ControlScheme.WasdKeyboard);
+      playerService.Control(player1, ship);
 
       var cowboy = cowboyFactory.Create(new Vector3(0, -5, 0), Quaternion.identity);
-      playerFactory.Create(ControlScheme.ArrowsKeyboard, cowboy);
+      var player2 = playerService.AddPlayer(ControlScheme.ArrowsKeyboard);
+      playerService.Control(player2, cowboy);
     }
   }
 }

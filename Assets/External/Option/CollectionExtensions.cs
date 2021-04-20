@@ -2,8 +2,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace Code.Option {
+namespace External.Option {
   public static class CollectionExt {
     /// <summary>
     /// Flattens a sequence of optionals into a sequence containing all inner values.
@@ -90,6 +91,12 @@ namespace Code.Option {
           return element.Some();
 
       return Option.None<TSource>();
+    }
+
+    public static Option<int> FindIndexOrNone<TSource>(this IEnumerable<TSource> source, Predicate<TSource> predicate) {
+      if (source == null) throw new ArgumentNullException(nameof(source));
+      var index = source.ToList().FindIndex(predicate);
+      return index >= 0 ? index.Some() : Option.None<int>();
     }
 
     /// <summary>

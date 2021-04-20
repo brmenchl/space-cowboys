@@ -22,7 +22,7 @@ namespace Code.Ship {
       if (health <= 0f) Destroy();
     }
 
-    private void Destroy() {
+    public void Destroy() {
       OnDestroyed?.Invoke();
       Object.Destroy(transform.gameObject);
     }

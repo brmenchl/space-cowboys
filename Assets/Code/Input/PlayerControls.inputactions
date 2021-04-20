@@ -14,7 +14,7 @@
                     "interactions": ""
                 },
                 {
-                    "name": "Shoot",
+                    "name": "Primary",
                     "type": "Button",
                     "id": "826c600a-98b1-47ed-b962-4ec43123f07d",
                     "expectedControlType": "Button",
@@ -148,7 +148,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "ArrowsKeyboard",
-                    "action": "Shoot",
+                    "action": "Primary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -159,7 +159,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "WASDKeyboard",
-                    "action": "Shoot",
+                    "action": "Primary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

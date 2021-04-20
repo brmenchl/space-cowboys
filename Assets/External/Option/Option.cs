@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Code.Option {
+namespace External.Option {
   /// <summary>
   /// Represents an optional value.
   /// </summary>
@@ -20,7 +20,7 @@ namespace Code.Option {
       this.isSome = isSome;
     }
 
-    public static explicit operator T(Option<T> option) {
+    public static implicit operator T(Option<T> option) {
       if (option.isNone) throw new Exception("Cannot extract value from None");
       return option.value;
     }
@@ -176,7 +176,8 @@ namespace Code.Option {
     /// </summary>
     /// <param name="alternativeFactory">A factory function to create an alternative value.</param>
     /// <returns>A new optional, containing either the existing or alternative value.</returns>
-    public Option<T> Or(Func<T> alternativeFactory) => isSome ? this : Option.Some(alternativeFactory());
+    public Option<T> Or(Func<T> alternativeFactory) =>
+      isSome ? this : Option.Some(alternativeFactory());
 
     /// <summary>
     /// Uses an alternative optional, if no existing value is present.
@@ -259,6 +260,7 @@ namespace Code.Option {
     /// </summary>
     /// <param name="predicate">The predicate.</param>
     /// <returns>The filtered optional.</returns>
-    public Option<T> Filter(Func<T, bool> predicate) => isSome && !predicate(value) ? Option.None<T>() : this;
+    public Option<T> Filter(Func<T, bool> predicate) =>
+      isSome && !predicate(value) ? Option.None<T>() : this;
   }
 }
