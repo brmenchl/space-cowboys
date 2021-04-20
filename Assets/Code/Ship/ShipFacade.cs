@@ -20,13 +20,17 @@ namespace Code.Ship {
     public ShipFacade(BoardEjectService boardEjectService,
       ShipModel model,
       MoveHandler moveHandler,
-      ShootHandler shootHandler) {
+      ShootHandler shootHandler,
+      Sprite sprite) {
       this.boardEjectService = boardEjectService;
       this.model = model;
       this.moveHandler = moveHandler;
       this.shootHandler = shootHandler;
       model.OnDestroyed += Eject;
+      Sprite = sprite;
     }
+
+    public Sprite Sprite { get; }
 
     public void UpdateController(int playerId, IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
       this.playerId = playerId.ToOption();

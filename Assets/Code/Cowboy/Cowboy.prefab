@@ -179,3 +179,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1094d637b4d84510a6c9c079308ff7d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 3728068531082347286}
+  lassoPrefab: {fileID: 5225532558061927812, guid: e387f49e906294476aa4bff109273905, type: 3}

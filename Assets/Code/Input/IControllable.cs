@@ -5,6 +5,7 @@ namespace Code.Input {
   public interface IControllable {
     ControllableType Type { get; }
     Vector2 Position { get; }
+    Sprite Sprite { get; }
     void UpdateController(int playerId, IUniTaskAsyncEnumerable<ControllerInputState> inputStream);
     void ClearController();
     void Destroy();

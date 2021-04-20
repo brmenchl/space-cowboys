@@ -21,13 +21,17 @@ namespace Code.Cowboy {
       CowboyModel model,
       MoveHandler moveHandler,
       ShootHandler shootHandler,
-      BoardEjectService boardEjectService) {
+      BoardEjectService boardEjectService,
+      Sprite sprite) {
       this.model = model;
       model.OnBoarded += OnBoardedBinding;
       this.moveHandler = moveHandler;
       this.shootHandler = shootHandler;
       this.boardEjectService = boardEjectService;
+      Sprite = sprite;
     }
+
+    public Sprite Sprite { get; }
 
     public void UpdateController(int playerId, IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
       this.playerId = playerId.ToOption();

@@ -1,19 +1,19 @@
-using Code.Game;
 using Code.Lasso;
 using UnityEngine;
 using Zenject;
 
 namespace Code.Cowboy {
   public class CowboyInstaller : MonoInstaller<CowboyInstaller> {
-    private GameObject lassoPrefab;
+    [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private GameObject lassoPrefab;
+
     private Vector3 position;
     private Quaternion rotation;
 
     [Inject]
-    public void Inject(Vector3 position, Quaternion rotation, PrefabRegistry prefabRegistry) {
+    public void Inject(Vector3 position, Quaternion rotation) {
       this.position = position;
       this.rotation = rotation;
-      lassoPrefab = prefabRegistry.lassoPrefab;
     }
 
     public override void InstallBindings() {
@@ -23,6 +23,8 @@ namespace Code.Cowboy {
       Container.Bind<Transform>().FromComponentOnRoot();
       Container.Bind<MoveHandler>().AsSingle().NonLazy();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
+      Container.Bind<Sprite>().FromInstance(spriteRenderer.sprite);
+
       Container.BindFactory<Lasso.Lasso, Lasso.Lasso.Factory>()
         .FromSubContainerResolve()
         .ByNewPrefabInstaller<LassoInstaller>(lassoPrefab);
