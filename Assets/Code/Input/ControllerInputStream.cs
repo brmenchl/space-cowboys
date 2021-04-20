@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Code.Input {
   public class ControllerInputStream {
+    public readonly IUniTaskAsyncEnumerable<ControllerInputState> state;
+    public bool alt;
     public Vector2 movement = Vector2.zero;
     public bool primary;
-    public bool alt;
-    public readonly IUniTaskAsyncEnumerable<ControllerInputState> state;
 
     public ControllerInputStream() =>
       // ReSharper disable once InvokeAsExtensionMethod

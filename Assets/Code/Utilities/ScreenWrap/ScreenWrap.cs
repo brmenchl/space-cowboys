@@ -6,12 +6,11 @@ namespace Code.Utilities.ScreenWrap {
     private Vector3 screenBottomLeft;
     private Vector3 screenTopRight;
 
-    public void Start() {
+    public void Start() =>
       Camera.main.ToOption().MatchSome(camera => {
         screenBottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
         screenTopRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
       });
-    }
 
     public void Update() {
       var newPosition = transform.position;

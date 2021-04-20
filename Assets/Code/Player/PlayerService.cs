@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Code.Player {
   public class PlayerService {
-    private readonly PlayerState playerState;
     private readonly InputService inputService;
+    private readonly PlayerState playerState;
 
     public PlayerService(PlayerState playerState, InputService inputService) {
       this.playerState = playerState;

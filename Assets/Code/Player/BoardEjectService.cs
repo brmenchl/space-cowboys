@@ -3,6 +3,7 @@ using Code.Cowboy;
 using Code.Input;
 using External.Option;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Player {
   public class BoardEjectService {
@@ -21,8 +22,8 @@ namespace Code.Player {
           currentControllable => {
             var cowboy =
               cowboyFactory.Create(currentControllable.Position +
-                                   (UnityEngine.Random.insideUnitCircle.normalized * ejectDistance),
-                Quaternion.AngleAxis(UnityEngine.Random.Range(-180, 180), Vector3.forward));
+                                   (Random.insideUnitCircle.normalized * ejectDistance),
+                Quaternion.AngleAxis(Random.Range(-180, 180), Vector3.forward));
             cowboy.ApplyEjectForce();
             playerService.Control(playerId, cowboy);
           });

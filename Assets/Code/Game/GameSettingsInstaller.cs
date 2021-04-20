@@ -1,5 +1,4 @@
 using Code.Bullets;
-using Code.Player;
 using Code.Ship;
 using UnityEngine;
 using Zenject;
@@ -11,7 +10,9 @@ namespace Code.Game {
     public MoveHandler.Settings shipMovement;
     public Cowboy.MoveHandler.Settings cowboyMovement;
     public ShootHandler.Settings shipShooting;
+
     public Cowboy.ShootHandler.Settings cowboyShooting;
+
     // public HealthManager.Settings playerHealth;
     public ShipModel.Settings shipHealth;
     public Lasso.Lasso.Settings lasso;

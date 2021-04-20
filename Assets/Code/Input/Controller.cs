@@ -1,14 +1,14 @@
+using External.Option;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
-using External.Option;
 
 namespace Code.Input {
   [RequireComponent(typeof(PlayerInput))]
   public class Controller : MonoBehaviour {
     private ControlScheme controlScheme;
-    private PlayerInput playerInput;
     private InputService inputService;
+    private PlayerInput playerInput;
 
     private void Start() {
       playerInput = gameObject.TryGetComponent<PlayerInput>();

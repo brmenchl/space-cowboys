@@ -9,13 +9,13 @@ using Zenject;
 
 namespace Code.Ship {
   public class ShipFacade : IControllable, IDisposable {
+    private readonly BoardEjectService boardEjectService;
     private readonly ShipModel model;
     private readonly MoveHandler moveHandler;
     private readonly ShootHandler shootHandler;
-    private readonly BoardEjectService boardEjectService;
-    private Option<int> playerId = Option.None<int>();
-    private Option<IDisposable> inputStreamDisposable;
     private Option<IDisposable> ejectDisposable;
+    private Option<IDisposable> inputStreamDisposable;
+    private Option<int> playerId = Option.None<int>();
 
     public ShipFacade(BoardEjectService boardEjectService,
       ShipModel model,
@@ -26,12 +26,6 @@ namespace Code.Ship {
       this.moveHandler = moveHandler;
       this.shootHandler = shootHandler;
       model.OnDestroyed += Eject;
-    }
-
-    private void Eject() => boardEjectService.Eject(playerId);
-    public void Damage(float damage) => model.Damage(damage);
-
-    public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade> {
     }
 
     public void UpdateController(int playerId, IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
@@ -62,5 +56,11 @@ namespace Code.Ship {
     public void Destroy() => model.Destroy();
 
     public void Dispose() => ClearController();
+
+    private void Eject() => boardEjectService.Eject(playerId);
+    public void Damage(float damage) => model.Damage(damage);
+
+    public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade> {
+    }
   }
 }

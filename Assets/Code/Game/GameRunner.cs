@@ -8,8 +8,8 @@ using Zenject;
 namespace Code.Game {
   public class GameRunner : IInitializable {
     private readonly CowboyFacade.Factory cowboyFactory;
-    private readonly ShipFacade.Factory shipFactory;
     private readonly PlayerService playerService;
+    private readonly ShipFacade.Factory shipFactory;
 
     public GameRunner(
       ShipFacade.Factory shipFactory,
