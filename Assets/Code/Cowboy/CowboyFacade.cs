@@ -9,13 +9,13 @@ using Zenject;
 
 namespace Code.Cowboy {
   public class CowboyFacade : IControllable, IDisposable {
+    private readonly BoardEjectService boardEjectService;
     private readonly CowboyModel model;
     private readonly MoveHandler moveHandler;
     private readonly ShootHandler shootHandler;
-    private readonly BoardEjectService boardEjectService;
-    private Option<int> playerId = Option.None<int>();
     private Option<IDisposable> inputStreamDisposable;
     private Option<IDisposable> lassoDisposable;
+    private Option<int> playerId = Option.None<int>();
 
     public CowboyFacade(
       CowboyModel model,
@@ -28,8 +28,6 @@ namespace Code.Cowboy {
       this.shootHandler = shootHandler;
       this.boardEjectService = boardEjectService;
     }
-
-    public void ApplyEjectForce() => moveHandler.Eject();
 
     public void UpdateController(int playerId, IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
       this.playerId = playerId.ToOption();
@@ -59,9 +57,11 @@ namespace Code.Cowboy {
 
     public void Destroy() => model.Destroy();
 
-    private void OnBoardedBinding(IControllable controllable) => boardEjectService.Board(playerId, controllable);
-
     public void Dispose() => ClearController();
+
+    public void ApplyEjectForce() => moveHandler.Eject();
+
+    private void OnBoardedBinding(IControllable controllable) => boardEjectService.Board(playerId, controllable);
 
     public class Factory : PlaceholderFactory<Vector3, Quaternion, CowboyFacade> {
     }
