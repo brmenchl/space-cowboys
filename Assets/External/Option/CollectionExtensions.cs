@@ -7,8 +7,8 @@ using System.Linq;
 namespace External.Option {
   public static class CollectionExt {
     /// <summary>
-    /// Flattens a sequence of optionals into a sequence containing all inner values.
-    /// Empty elements are discarded.
+    ///   Flattens a sequence of optionals into a sequence containing all inner values.
+    ///   Empty elements are discarded.
     /// </summary>
     /// <param name="source">The sequence of optionals.</param>
     /// <returns>A flattened sequence of values.</returns>
@@ -20,9 +20,9 @@ namespace External.Option {
     }
 
     /// <summary>
-    /// Returns the value associated with the specified key if such exists.
-    /// A dictionary lookup will be used if available, otherwise falling
-    /// back to a linear scan of the enumerable.
+    ///   Returns the value associated with the specified key if such exists.
+    ///   A dictionary lookup will be used if available, otherwise falling
+    ///   back to a linear scan of the enumerable.
     /// </summary>
     /// <param name="source">The dictionary or enumerable in which to locate the key.</param>
     /// <param name="key">The key to locate.</param>
@@ -47,7 +47,7 @@ namespace External.Option {
     }
 
     /// <summary>
-    /// Returns the first element of a sequence if such exists.
+    ///   Returns the first element of a sequence if such exists.
     /// </summary>
     /// <param name="source">The sequence to return the first element from.</param>
     /// <returns>An Option&lt;T&gt; instance containing the first element if present.</returns>
@@ -75,8 +75,8 @@ namespace External.Option {
     }
 
     /// <summary>
-    /// Returns the first element of a sequence, satisfying a specified predicate,
-    /// if such exists.
+    ///   Returns the first element of a sequence, satisfying a specified predicate,
+    ///   if such exists.
     /// </summary>
     /// <param name="source">The sequence to return the first element from.</param>
     /// <param name="predicate">The predicate to filter by.</param>
@@ -100,7 +100,7 @@ namespace External.Option {
     }
 
     /// <summary>
-    /// Returns the last element of a sequence if such exists.
+    ///   Returns the last element of a sequence if such exists.
     /// </summary>
     /// <param name="source">The sequence to return the last element from.</param>
     /// <returns>An Option&lt;T&gt; instance containing the last element if present.</returns>
@@ -136,8 +136,8 @@ namespace External.Option {
     }
 
     /// <summary>
-    /// Returns the last element of a sequence, satisfying a specified predicate,
-    /// if such exists.
+    ///   Returns the last element of a sequence, satisfying a specified predicate,
+    ///   if such exists.
     /// </summary>
     /// <param name="source">The sequence to return the last element from.</param>
     /// <param name="predicate">The predicate to filter by.</param>
@@ -181,7 +181,7 @@ namespace External.Option {
     }
 
     /// <summary>
-    /// Returns an element at a specified position in a sequence if such exists.
+    ///   Returns an element at a specified position in a sequence if such exists.
     /// </summary>
     /// <param name="source">The sequence to return the element from.</param>
     /// <param name="index">The index in the sequence.</param>

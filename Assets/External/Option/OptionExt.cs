@@ -3,23 +3,23 @@
 namespace External.Option {
   public static class OptionExt {
     /// <summary>
-    /// Wraps an existing value in an Option&lt;T&gt; instance.
+    ///   Wraps an existing value in an Option&lt;T&gt; instance.
     /// </summary>
     /// <param name="value">The value to be wrapped.</param>
     /// <returns>An optional containing the specified value.</returns>
     public static Option<T> Some<T>(this T value) => Option.Some(value);
 
     /// <summary>
-    /// Creates an empty Option&lt;T&gt; instance from a specified value.
+    ///   Creates an empty Option&lt;T&gt; instance from a specified value.
     /// </summary>
     /// <param name="value">A value determining the type of the optional.</param>
     /// <returns>An empty optional.</returns>
     public static Option<T> None<T>(this T value) => Option.None<T>();
 
     /// <summary>
-    /// Creates an Option&lt;T&gt; instance from a specified value.
-    /// If the value does not satisfy the given predicate,
-    /// an empty optional is returned.
+    ///   Creates an Option&lt;T&gt; instance from a specified value.
+    ///   If the value does not satisfy the given predicate,
+    ///   an empty optional is returned.
     /// </summary>
     /// <param name="value">The value to wrap.</param>
     /// <param name="predicate">The predicate.</param>
@@ -28,7 +28,7 @@ namespace External.Option {
       predicate(value) ? Option.Some(value) : Option.None<T>();
 
     /// <summary>
-    /// Converts a Nullable&lt;T&gt; to an Option&lt;T&gt; instance.
+    ///   Converts a Nullable&lt;T&gt; to an Option&lt;T&gt; instance.
     /// </summary>
     /// <param name="value">The Nullable&lt;T&gt; instance.</param>
     /// <returns>The Option&lt;T&gt; instance.</returns>
@@ -36,7 +36,7 @@ namespace External.Option {
       value != null ? Option.Some(value) : Option.None<T>();
 
     /// <summary>
-    /// Converts a Nullable&lt;T&gt; to an Option&lt;T&gt; instance.
+    ///   Converts a Nullable&lt;T&gt; to an Option&lt;T&gt; instance.
     /// </summary>
     /// <param name="value">The Nullable&lt;T&gt; instance.</param>
     /// <returns>The Option&lt;T&gt; instance.</returns>
@@ -44,8 +44,8 @@ namespace External.Option {
       value.HasValue ? Option.Some(value.Value) : Option.None<T>();
 
     /// <summary>
-    /// Flattens two nested optionals into one. The resulting optional
-    /// will be empty if either the inner or outer optional is empty.
+    ///   Flattens two nested optionals into one. The resulting optional
+    ///   will be empty if either the inner or outer optional is empty.
     /// </summary>
     /// <param name="option">The nested optional.</param>
     /// <returns>A flattened optional.</returns>
