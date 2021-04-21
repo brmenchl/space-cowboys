@@ -16,18 +16,21 @@ namespace Code.Cowboy {
     private Option<IDisposable> inputStreamDisposable;
     private Option<IDisposable> lassoDisposable;
     private readonly SpriteRenderer renderer;
+    private readonly PlayerService playerService;
 
     public CowboyFacade(
       CowboyModel model,
       MoveHandler moveHandler,
       ShootHandler shootHandler,
       BoardEjectService boardEjectService,
+      PlayerService playerService,
       SpriteRenderer spriteRenderer) {
       this.model = model;
       model.OnBoarded += OnBoardedBinding;
       this.moveHandler = moveHandler;
       this.shootHandler = shootHandler;
       this.boardEjectService = boardEjectService;
+      this.playerService = playerService;
       renderer = spriteRenderer;
     }
 
@@ -49,9 +52,6 @@ namespace Code.Cowboy {
       renderer.color = playerTheme;
     }
 
-    public ControllableType Type => ControllableType.Cowboy;
-    public Vector2 Position => model.Transform.position;
-
     public void ClearController() {
       inputStreamDisposable.MatchSome(d => d.Dispose());
       inputStreamDisposable = Option.None<IDisposable>();
@@ -59,6 +59,9 @@ namespace Code.Cowboy {
       lassoDisposable = Option.None<IDisposable>();
       renderer.color = Color.white;
     }
+
+    public ControllableType Type => ControllableType.Cowboy;
+    public Vector2 Position => model.Transform.position;
 
     public void Destroy() => model.Destroy();
 
@@ -70,5 +73,7 @@ namespace Code.Cowboy {
 
     public class Factory : PlaceholderFactory<Vector3, Quaternion, CowboyFacade> {
     }
+
+    public void Damage(float value) => playerService.Damage(playerService.GetPlayerForControllable(this), value);
   }
 }

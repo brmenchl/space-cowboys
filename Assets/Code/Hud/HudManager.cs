@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Code.Players;
+using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using UnityEngine;
 using Zenject;
@@ -9,14 +10,11 @@ using Zenject;
 namespace Code.Hud {
   public class HudManager : MonoBehaviour {
     [SerializeField] private GameObject bottomHud;
-    private readonly List<CharacterHudCard> cards = new List<CharacterHudCard>();
     [Inject] private CharacterHudCard.Factory cardFactory;
     [Inject] private PlayerStreams playerStreams;
-    private IDisposable disposable;
+    private readonly List<CharacterHudCard> cards = new List<CharacterHudCard>();
 
-    private void Start() => disposable = playerStreams.CountStream.Subscribe(SyncCardList);
-
-    private void OnDestroy() => disposable.Dispose();
+    private void Start() => playerStreams.CountStream.Subscribe(SyncCardList, this.GetCancellationTokenOnDestroy());
 
     private void SyncCardList(List<Player> players) {
       foreach (var player in players.Skip(cards.Count)) {

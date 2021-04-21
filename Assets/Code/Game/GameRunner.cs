@@ -25,15 +25,17 @@ namespace Code.Game {
     public void Initialize() => Run().Forget();
 
     private async UniTaskVoid Run() {
-      var ship = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
+      var ship = shipFactory.Create(new Vector2(0, 0), Quaternion.AngleAxis(90, Vector3.forward));
       var player1 = playerService.AddPlayer(ControlScheme.WasdKeyboard);
       playerService.Control(player1, ship);
 
       await UniTask.Delay(1500);
 
-      var cowboy = cowboyFactory.Create(new Vector3(0, -5, 0), Quaternion.identity);
+      var cowboy = cowboyFactory.Create(new Vector2(0, -5), Quaternion.identity);
       var player2 = playerService.AddPlayer(ControlScheme.ArrowsKeyboard);
       playerService.Control(player2, cowboy);
+
+      shipFactory.Create(new Vector2(5, 0), Quaternion.identity);
     }
   }
 }
