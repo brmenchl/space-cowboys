@@ -23,7 +23,7 @@ namespace Code.Cowboy {
       Container.Bind<Transform>().FromComponentOnRoot();
       Container.Bind<MoveHandler>().AsSingle().NonLazy();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
-      Container.Bind<Sprite>().FromInstance(spriteRenderer.sprite);
+      Container.BindInstance(spriteRenderer);
 
       Container.BindFactory<Lasso.Lasso, Lasso.Lasso.Factory>()
         .FromSubContainerResolve()

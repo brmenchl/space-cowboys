@@ -15,23 +15,24 @@ namespace Code.Ship {
     private readonly ShootHandler shootHandler;
     private Option<IDisposable> ejectDisposable;
     private Option<IDisposable> inputStreamDisposable;
+    private readonly SpriteRenderer renderer;
 
     public ShipFacade(BoardEjectService boardEjectService,
       ShipModel model,
       MoveHandler moveHandler,
       ShootHandler shootHandler,
-      Sprite sprite) {
+      SpriteRenderer spriteRenderer) {
       this.boardEjectService = boardEjectService;
       this.model = model;
       this.moveHandler = moveHandler;
       this.shootHandler = shootHandler;
       model.OnDestroyed += Eject;
-      Sprite = sprite;
+      renderer = spriteRenderer;
     }
 
-    public Sprite Sprite { get; }
+    public Sprite Sprite => renderer.sprite;
 
-    public void UpdateController(IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
+    public void UpdateController(Color playerTheme, IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
       inputStreamDisposable = inputStream.Subscribe(state => {
         moveHandler.Thrust(state.movement.y);
         moveHandler.Turn(state.movement.x);
@@ -43,6 +44,7 @@ namespace Code.Ship {
         .Where(a => a)
         .Subscribe(_ => Eject())
         .ToOption();
+      renderer.color = playerTheme;
     }
 
     public ControllableType Type => ControllableType.Vehicle;
@@ -53,6 +55,7 @@ namespace Code.Ship {
       inputStreamDisposable = Option.None<IDisposable>();
       ejectDisposable.MatchSome(d => d.Dispose());
       ejectDisposable = Option.None<IDisposable>();
+      renderer.color = Color.white;
     }
 
     public void Destroy() => model.Destroy();

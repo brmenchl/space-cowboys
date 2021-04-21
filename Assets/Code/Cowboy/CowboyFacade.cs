@@ -15,24 +15,25 @@ namespace Code.Cowboy {
     private readonly ShootHandler shootHandler;
     private Option<IDisposable> inputStreamDisposable;
     private Option<IDisposable> lassoDisposable;
+    private readonly SpriteRenderer renderer;
 
     public CowboyFacade(
       CowboyModel model,
       MoveHandler moveHandler,
       ShootHandler shootHandler,
       BoardEjectService boardEjectService,
-      Sprite sprite) {
+      SpriteRenderer spriteRenderer) {
       this.model = model;
       model.OnBoarded += OnBoardedBinding;
       this.moveHandler = moveHandler;
       this.shootHandler = shootHandler;
       this.boardEjectService = boardEjectService;
-      Sprite = sprite;
+      renderer = spriteRenderer;
     }
 
-    public Sprite Sprite { get; }
+    public Sprite Sprite => renderer.sprite;
 
-    public void UpdateController(IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
+    public void UpdateController(Color playerTheme, IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
       ClearController();
       inputStreamDisposable = inputStream.Subscribe(state => {
         moveHandler.Turn(state.movement.x);
@@ -45,6 +46,7 @@ namespace Code.Cowboy {
         .Skip(1)
         .Subscribe(_ => model.FireLasso().Forget())
         .ToOption();
+      renderer.color = playerTheme;
     }
 
     public ControllableType Type => ControllableType.Cowboy;
@@ -55,6 +57,7 @@ namespace Code.Cowboy {
       inputStreamDisposable = Option.None<IDisposable>();
       lassoDisposable.MatchSome(d => d.Dispose());
       lassoDisposable = Option.None<IDisposable>();
+      renderer.color = Color.white;
     }
 
     public void Destroy() => model.Destroy();

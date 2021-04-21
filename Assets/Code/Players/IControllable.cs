@@ -7,7 +7,7 @@ namespace Code.Players {
     ControllableType Type { get; }
     Vector2 Position { get; }
     Sprite Sprite { get; }
-    void UpdateController(IUniTaskAsyncEnumerable<ControllerInputState> inputStream);
+    void UpdateController(Color playerTheme, IUniTaskAsyncEnumerable<ControllerInputState> inputStream);
     void ClearController();
     void Destroy();
   }
