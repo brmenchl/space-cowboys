@@ -90,6 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   avatar: {fileID: 2593413318564971544}
+  card: {fileID: 2593413318100550362}
 --- !u!1 &2593413318564971546
 GameObject:
   m_ObjectHideFlags: 0

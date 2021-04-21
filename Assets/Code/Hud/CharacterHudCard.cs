@@ -9,12 +9,14 @@ using Zenject;
 namespace Code.Hud {
   public class CharacterHudCard : MonoBehaviour {
     [SerializeField] private Image avatar;
+    [SerializeField] private Image card;
     [Inject] private Player player;
 
     private void Start() {
       var token = this.GetCancellationTokenOnDestroy();
       player.health.Subscribe(UpdateHealth, token);
       player.controllable.Subscribe(UpdateControllableDisplay, token);
+      card.color = player.theme;
     }
 
     private void UpdateHealth(float health) => Debug.Log($"{player.controllable} {health}");
