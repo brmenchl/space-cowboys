@@ -1,6 +1,6 @@
 using System;
 using Code.Input;
-using Code.Player;
+using Code.Players;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using External.Option;
@@ -15,7 +15,6 @@ namespace Code.Cowboy {
     private readonly ShootHandler shootHandler;
     private Option<IDisposable> inputStreamDisposable;
     private Option<IDisposable> lassoDisposable;
-    private Option<int> playerId = Option.None<int>();
 
     public CowboyFacade(
       CowboyModel model,
@@ -33,8 +32,7 @@ namespace Code.Cowboy {
 
     public Sprite Sprite { get; }
 
-    public void UpdateController(int playerId, IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
-      this.playerId = playerId.ToOption();
+    public void UpdateController(IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
       ClearController();
       inputStreamDisposable = inputStream.Subscribe(state => {
         moveHandler.Turn(state.movement.x);
@@ -65,7 +63,7 @@ namespace Code.Cowboy {
 
     public void ApplyEjectForce() => moveHandler.Eject();
 
-    private void OnBoardedBinding(IControllable controllable) => boardEjectService.Board(playerId, controllable);
+    private void OnBoardedBinding(IControllable controllable) => boardEjectService.Board(this, controllable);
 
     public class Factory : PlaceholderFactory<Vector3, Quaternion, CowboyFacade> {
     }

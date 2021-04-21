@@ -1,6 +1,6 @@
 using Code.Cowboy;
 using Code.Input;
-using Code.Player;
+using Code.Players;
 using Code.Ship;
 using UnityEngine;
 using Zenject;

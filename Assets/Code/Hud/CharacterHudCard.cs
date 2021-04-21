@@ -1,6 +1,6 @@
 using System;
 using Code.Input;
-using Code.Player;
+using Code.Players;
 using Cysharp.Threading.Tasks.Linq;
 using External.Option;
 using UnityEngine;
@@ -9,13 +9,13 @@ using Zenject;
 
 namespace Code.Hud {
   public class CharacterHudCard : MonoBehaviour {
-    private Player.Player player;
+    private Player player;
     private IDisposable disposable;
 
     [SerializeField] private Image avatar;
 
     [Inject]
-    public void Inject(int playerId, PlayerState playerState) => player = playerState.players[playerId];
+    public void Inject(Player player) => this.player = player;
 
     private void Start() {
       UpdateHud(player.health);
@@ -33,7 +33,7 @@ namespace Code.Hud {
     private void UpdateC(Option<IControllable> controllable) =>
       avatar.sprite = controllable.Match(c => c.Sprite, () => null);
 
-    public class Factory : PlaceholderFactory<int, CharacterHudCard> {
+    public class Factory : PlaceholderFactory<Player, CharacterHudCard> {
     }
   }
 }

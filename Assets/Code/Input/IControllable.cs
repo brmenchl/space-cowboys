@@ -6,7 +6,7 @@ namespace Code.Input {
     ControllableType Type { get; }
     Vector2 Position { get; }
     Sprite Sprite { get; }
-    void UpdateController(int playerId, IUniTaskAsyncEnumerable<ControllerInputState> inputStream);
+    void UpdateController(IUniTaskAsyncEnumerable<ControllerInputState> inputStream);
     void ClearController();
     void Destroy();
   }

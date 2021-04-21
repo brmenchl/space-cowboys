@@ -1,6 +1,6 @@
 using System;
 using Code.Input;
-using Code.Player;
+using Code.Players;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Linq;
 using External.Option;
@@ -15,7 +15,6 @@ namespace Code.Ship {
     private readonly ShootHandler shootHandler;
     private Option<IDisposable> ejectDisposable;
     private Option<IDisposable> inputStreamDisposable;
-    private Option<int> playerId = Option.None<int>();
 
     public ShipFacade(BoardEjectService boardEjectService,
       ShipModel model,
@@ -32,8 +31,7 @@ namespace Code.Ship {
 
     public Sprite Sprite { get; }
 
-    public void UpdateController(int playerId, IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
-      this.playerId = playerId.ToOption();
+    public void UpdateController(IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
       inputStreamDisposable = inputStream.Subscribe(state => {
         moveHandler.Thrust(state.movement.y);
         moveHandler.Turn(state.movement.x);
@@ -61,7 +59,7 @@ namespace Code.Ship {
 
     public void Dispose() => ClearController();
 
-    private void Eject() => boardEjectService.Eject(playerId);
+    private void Eject() => boardEjectService.Eject(this);
     public void Damage(float damage) => model.Damage(damage);
 
     public class Factory : PlaceholderFactory<Vector3, Quaternion, ShipFacade> {

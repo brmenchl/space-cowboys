@@ -1,7 +1,7 @@
 using Code.Input;
 using External.Option;
 
-namespace Code.Player {
+namespace Code.Players {
   public class Player {
     public readonly ControlScheme controlScheme;
     public Option<IControllable> controllable = Option.None<IControllable>();
