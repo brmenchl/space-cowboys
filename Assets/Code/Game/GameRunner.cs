@@ -2,6 +2,7 @@ using Code.Cowboy;
 using Code.Input;
 using Code.Players;
 using Code.Ship;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 
@@ -21,10 +22,14 @@ namespace Code.Game {
       this.playerService = playerService;
     }
 
-    public void Initialize() {
+    public void Initialize() => Run().Forget();
+
+    private async UniTaskVoid Run() {
       var ship = shipFactory.Create(new Vector3(0, 0, 0), Quaternion.AngleAxis(90, Vector3.forward));
       var player1 = playerService.AddPlayer(ControlScheme.WasdKeyboard);
       playerService.Control(player1, ship);
+
+      await UniTask.Delay(1500);
 
       var cowboy = cowboyFactory.Create(new Vector3(0, -5, 0), Quaternion.identity);
       var player2 = playerService.AddPlayer(ControlScheme.ArrowsKeyboard);

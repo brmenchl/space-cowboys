@@ -16,7 +16,7 @@ namespace Code.Players {
 
     public void Eject(IControllable controllable) =>
       playerService.GetPlayerForControllable(controllable).MatchSome(player => {
-        player.controllable
+        player.controllable.Value
           .CallValidated(c => c.Type == ControllableType.Vehicle,
             currentControllable => {
               var cowboy = cowboyFactory.Create(

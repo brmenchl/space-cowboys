@@ -20,13 +20,13 @@ namespace Code.Players {
     }
 
     public void Control(Player player, IControllable controllable) {
-      player.controllable.MatchSome(oldControllable => oldControllable.ClearController());
-      player.controllable = controllable.Some();
+      player.controllable.Value.MatchSome(oldControllable => oldControllable.ClearController());
+      player.controllable.Value = controllable.Some();
       controllable.UpdateController(inputService.GetInputStream(player.controlScheme));
     }
 
     public void Damage(Player player, float value) {
-      player.health -= value;
+      player.health.Value -= value;
       if (value <= 0f) Debug.Log("player is dead");
     }
 

@@ -1,11 +1,15 @@
 using Code.Input;
+using Cysharp.Threading.Tasks;
 using External.Option;
 
 namespace Code.Players {
   public class Player {
     public readonly ControlScheme controlScheme;
-    public Option<IControllable> controllable = Option.None<IControllable>();
-    public float health = 100f;
+
+    public AsyncReactiveProperty<Option<IControllable>> controllable =
+      new AsyncReactiveProperty<Option<IControllable>>(Option.None<IControllable>());
+
+    public AsyncReactiveProperty<float> health = new AsyncReactiveProperty<float>(100); // TODO: settings
 
     public Player(ControlScheme controlScheme) => this.controlScheme = controlScheme;
   }
