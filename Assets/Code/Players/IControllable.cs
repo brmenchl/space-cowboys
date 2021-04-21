@@ -1,7 +1,8 @@
+using Code.Input;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Code.Input {
+namespace Code.Players {
   public interface IControllable {
     ControllableType Type { get; }
     Vector2 Position { get; }

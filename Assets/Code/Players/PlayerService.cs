@@ -27,7 +27,7 @@ namespace Code.Players {
 
     public void Damage(Player player, float value) {
       player.health -= value;
-      if (value <= 0f) Debug.Log($"player is dead");
+      if (value <= 0f) Debug.Log("player is dead");
     }
 
     public Option<Player> GetPlayerForControllable(IControllable controllable) =>

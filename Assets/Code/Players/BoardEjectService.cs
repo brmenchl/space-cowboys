@@ -1,14 +1,13 @@
 using System;
 using Code.Cowboy;
-using Code.Input;
 using External.Option;
 using static Code.Utilities.TransformHelpers;
 
 namespace Code.Players {
   public class BoardEjectService {
+    private const int ejectDistance = 3; // TODO: settings;
     private readonly CowboyFacade.Factory cowboyFactory;
     private readonly PlayerService playerService;
-    private const int ejectDistance = 3; // TODO: settings;
 
     public BoardEjectService(CowboyFacade.Factory cowboyFactory, PlayerService playerService) {
       this.cowboyFactory = cowboyFactory;

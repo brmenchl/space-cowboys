@@ -8,17 +8,11 @@ using Zenject;
 
 namespace Code.Hud {
   public class HudManager : MonoBehaviour {
-    private CharacterHudCard.Factory cardFactory;
-    private PlayerStreams playerStreams;
-    private readonly List<CharacterHudCard> cards = new List<CharacterHudCard>();
-    private IDisposable disposable;
     [SerializeField] private GameObject bottomHud;
-
-    [Inject]
-    public void Inject(PlayerStreams playerStreams, CharacterHudCard.Factory cardFactory) {
-      this.playerStreams = playerStreams;
-      this.cardFactory = cardFactory;
-    }
+    private readonly List<CharacterHudCard> cards = new List<CharacterHudCard>();
+    [Inject] private CharacterHudCard.Factory cardFactory;
+    [Inject] private PlayerStreams playerStreams;
+    private IDisposable disposable;
 
     private void Start() => disposable = playerStreams.CountStream.Subscribe(SyncCardList);
 

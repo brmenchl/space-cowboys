@@ -42,7 +42,7 @@
 //     public void AddTorque(float torque) => rotationManager.AddTorque(torque);
 //
 //     public void SetPositionAndRotation(Vector3 position, Quaternion rotation) => transform.position = position;
-//     // rotationManager.Transform.rotation = rotation; // TODO: doesnt work, rotationManager not avail yet.
+//     // rotationManager.Transform.rotation = rotation; // doesnt work, rotationManager not avail yet.
 //
 //     #endregion
 //
