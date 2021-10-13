@@ -1,10 +1,8 @@
 using System;
 using System.Threading;
-using Code.Cowboy;
-using Code.Players;
+using Code.Option;
 using Code.Ship;
 using Cysharp.Threading.Tasks;
-using External.Option;
 using UnityEngine;
 using Zenject;
 
@@ -12,37 +10,36 @@ namespace Code.Bullets {
   public class Bullet : MonoBehaviour, IPoolable<Vector3, Quaternion, IMemoryPool>, IDisposable {
     private CancellationTokenSource disposeLifeTimeCancelToken;
     private IMemoryPool pool;
-    private Settings settings;
+    [Inject] private Settings settings;
+    private Transform t;
 
-    private void Update() => transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
+    private void Awake() {
+      t = transform;
+    }
+
+    private void Update() => t.Translate(t.up * (settings.speed * Time.deltaTime), Space.World);
 
     private void OnTriggerEnter2D(Collider2D other) {
-      other.gameObject.TryGetComponent<ShipView>().Match(
-        s => s.Facade.Damage(settings.damage),
-        () => other.gameObject.TryGetComponent<CowboyView>().MatchSome(c => c.Facade.Damage(settings.damage))
-      );
-      Dispose();
+      other.gameObject.TryGetComponent<ShipView>().MatchSome(view => {
+        view.Facade.Damage(settings.damage);
+        Dispose();
+      });
     }
 
     public void Dispose() => pool.Despawn(this);
 
     public void OnSpawned(Vector3 pos, Quaternion rot, IMemoryPool pool) {
       this.pool = pool;
-      var trans = transform;
-      trans.position = pos;
-      trans.rotation = rot;
+      t.SetPositionAndRotation(pos, rot);
       disposeLifeTimeCancelToken = new CancellationTokenSource();
       DisposeAfterLifeTime().Forget();
     }
 
     public void OnDespawned() {
       pool = null;
-      transform.position = Vector3.zero;
+      t.position = Vector3.zero;
       disposeLifeTimeCancelToken.Cancel();
     }
-
-    [Inject]
-    public void Inject(Settings settings) => this.settings = settings;
 
     private async UniTaskVoid DisposeAfterLifeTime() {
       await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime), cancellationToken: disposeLifeTimeCancelToken.Token);
