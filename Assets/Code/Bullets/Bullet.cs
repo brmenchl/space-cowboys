@@ -10,9 +10,14 @@ namespace Code.Bullets {
   public class Bullet : MonoBehaviour, IPoolable<Vector3, Quaternion, IMemoryPool>, IDisposable {
     private CancellationTokenSource disposeLifeTimeCancelToken;
     private IMemoryPool pool;
-    private Settings settings;
+    [Inject] private Settings settings;
+    private Transform t;
 
-    private void Update() => transform.Translate(transform.up * (settings.speed * Time.deltaTime), Space.World);
+    private void Awake() {
+      t = transform;
+    }
+
+    private void Update() => t.Translate(t.up * (settings.speed * Time.deltaTime), Space.World);
 
     private void OnTriggerEnter2D(Collider2D other) {
       other.gameObject.TryGetComponent<ShipView>().MatchSome(view => {
@@ -25,21 +30,16 @@ namespace Code.Bullets {
 
     public void OnSpawned(Vector3 pos, Quaternion rot, IMemoryPool pool) {
       this.pool = pool;
-      var trans = transform;
-      trans.position = pos;
-      trans.rotation = rot;
+      t.SetPositionAndRotation(pos, rot);
       disposeLifeTimeCancelToken = new CancellationTokenSource();
       DisposeAfterLifeTime().Forget();
     }
 
     public void OnDespawned() {
       pool = null;
-      transform.position = Vector3.zero;
+      t.position = Vector3.zero;
       disposeLifeTimeCancelToken.Cancel();
     }
-
-    [Inject]
-    public void Inject(Settings settings) => this.settings = settings;
 
     private async UniTaskVoid DisposeAfterLifeTime() {
       await UniTask.Delay(TimeSpan.FromSeconds(settings.lifeTime), cancellationToken: disposeLifeTimeCancelToken.Token);
