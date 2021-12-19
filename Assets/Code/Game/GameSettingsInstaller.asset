@@ -29,7 +29,7 @@ MonoBehaviour:
     muzzleDistance: 1
     fireRate: 2
     pushBackForce: 500
-  playerHealth:
+  playerSettings:
     startingHealth: 100
   shipHealth:
     startingHealth: 50
