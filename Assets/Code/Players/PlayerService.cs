@@ -1,4 +1,3 @@
-using System.Linq;
 using Code.Input;
 using External.Option;
 using UnityEngine;

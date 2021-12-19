@@ -23,8 +23,7 @@ namespace Code.Cowboy {
       throttledShoot = ThrottledFunction.ThrottleByRate(DoShoot, settings.fireRate);
     }
 
-    public void Shoot() =>
-      throttledShoot.Call();
+    public void Shoot() => throttledShoot.Call();
 
     private void DoShoot() {
       bulletFactory.Create(
