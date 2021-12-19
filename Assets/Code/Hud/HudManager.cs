@@ -14,7 +14,7 @@ namespace Code.Hud {
     [Inject] private PlayerStreams playerStreams;
     private readonly List<CharacterHudCard> cards = new List<CharacterHudCard>();
 
-    private void Start() => playerStreams.CountStream.Subscribe(SyncCardList, this.GetCancellationTokenOnDestroy());
+    private void Start() => playerStreams.countStream.Subscribe(SyncCardList, this.GetCancellationTokenOnDestroy());
 
     private void SyncCardList(List<Player> players) {
       foreach (var player in players.Skip(cards.Count)) {

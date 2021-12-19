@@ -1,3 +1,5 @@
+using Code.Input;
+using UnityEngine;
 using Zenject;
 
 namespace Code.Players {
@@ -5,8 +7,10 @@ namespace Code.Players {
     public override void InstallBindings() {
       Container.Bind<PlayerState>().AsSingle();
       Container.Bind<PlayerService>().AsSingle();
-      Container.Bind<PlayerStreams>().AsSingle();
+      Container.BindInterfacesAndSelfTo<PlayerStreams>().AsSingle();
       Container.Bind<BoardEjectService>().AsSingle();
+
+      Container.BindFactory<ControlScheme, Color, Player, Player.Factory>();
     }
   }
 }

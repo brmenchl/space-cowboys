@@ -60,6 +60,8 @@ namespace Code.Cowboy {
       renderer.color = Color.white;
     }
 
+    public Option<ReadOnlyAsyncReactiveProperty<float>> health => Option.None<ReadOnlyAsyncReactiveProperty<float>>();
+
     public ControllableType Type => ControllableType.Cowboy;
     public Vector2 Position => model.Transform.position;
 

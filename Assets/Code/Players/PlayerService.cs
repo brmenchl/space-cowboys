@@ -6,16 +6,18 @@ namespace Code.Players {
   public class PlayerService {
     private readonly InputService inputService;
     private readonly PlayerState playerState;
+    private readonly Player.Factory playerFactory;
     private static readonly Color[] playerColors = { Color.HSVToRGB(0.68f, 0.5f, 1f), Color.HSVToRGB(0f, 0.5f, 1f) };
 
-    public PlayerService(PlayerState playerState, InputService inputService) {
+    public PlayerService(PlayerState playerState, InputService inputService, Player.Factory playerFactory) {
       this.playerState = playerState;
       this.inputService = inputService;
+      this.playerFactory = playerFactory;
     }
 
     public Player AddPlayer(ControlScheme controlScheme) {
       inputService.AddController(controlScheme);
-      var player = new Player(controlScheme, playerColors[playerState.players.Count]);
+      var player = playerFactory.Create(controlScheme, playerColors[playerState.players.Count]);
       playerState.players.Add(player);
       return player;
     }

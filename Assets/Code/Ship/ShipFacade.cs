@@ -32,6 +32,8 @@ namespace Code.Ship {
 
     public Sprite Sprite => renderer.sprite;
 
+    public Option<ReadOnlyAsyncReactiveProperty<float>> health => model.healthPercentStream.ToOption();
+
     public void UpdateController(Color playerTheme, IUniTaskAsyncEnumerable<ControllerInputState> inputStream) {
       inputStreamDisposable = inputStream.Subscribe(state => {
         moveHandler.Thrust(state.movement.y);

@@ -1,29 +1,40 @@
 using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
 namespace Code.Ship {
   public class ShipModel {
     public readonly Transform transform;
-    private float health;
+    private readonly AsyncReactiveProperty<float> health;
+    private readonly CancellationTokenSource token = new CancellationTokenSource();
 
     public ShipModel(Transform transform, Vector3 position, Quaternion rotation, Settings settings) {
       this.transform = transform;
       transform.position = position;
       transform.rotation = rotation;
-      health = settings.startingHealth;
+      health = new AsyncReactiveProperty<float>(settings.startingHealth);
+      health.Subscribe(HandleChangeHealth, token.Token);
+      healthPercentStream = health.Select(h => h / settings.startingHealth).ToReadOnlyAsyncReactiveProperty(token.Token);
     }
 
     public event Action OnDestroyed;
 
-    public void Damage(float damage) {
-      health -= damage;
+    public ReadOnlyAsyncReactiveProperty<float> healthPercentStream;
 
-      if (health <= 0f) Destroy();
+    public void Damage(float damage) {
+      health.Value -= damage;
+    }
+
+    private void HandleChangeHealth(float value) {
+      if (health.Value <= 0f) Destroy();
     }
 
     public void Destroy() {
       OnDestroyed?.Invoke();
+      token.Cancel();
       Object.Destroy(transform.gameObject);
     }
 

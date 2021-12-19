@@ -1,5 +1,6 @@
 using Code.Input;
 using Cysharp.Threading.Tasks;
+using External.Option;
 using UnityEngine;
 
 namespace Code.Players {
@@ -7,6 +8,7 @@ namespace Code.Players {
     ControllableType Type { get; }
     Vector2 Position { get; }
     Sprite Sprite { get; }
+    Option<ReadOnlyAsyncReactiveProperty<float>> health { get; }
     void UpdateController(Color playerTheme, IUniTaskAsyncEnumerable<ControllerInputState> inputStream);
     void ClearController();
     void Destroy();
