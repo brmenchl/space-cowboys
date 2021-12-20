@@ -8,7 +8,7 @@ using UnityEngine;
 using Zenject;
 
 namespace Code.Cowboy {
-  public class CowboyFacade : IControllable, IDisposable {
+  public class CowboyFacade : IControllable, IDamageable, IDisposable {
     private readonly BoardEjectService boardEjectService;
     private readonly CowboyModel model;
     private readonly MoveHandler moveHandler;

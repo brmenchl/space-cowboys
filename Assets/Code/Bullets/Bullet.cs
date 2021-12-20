@@ -1,6 +1,5 @@
 using System;
 using System.Threading;
-using Code.Ship;
 using Cysharp.Threading.Tasks;
 using External.Option;
 using UnityEngine;
@@ -20,8 +19,8 @@ namespace Code.Bullets {
     private void Update() => t.Translate(t.up * (settings.speed * Time.deltaTime), Space.World);
 
     private void OnTriggerEnter2D(Collider2D other) {
-      other.gameObject.TryGetComponent<ShipView>().MatchSome(view => {
-        view.Facade.Damage(settings.damage);
+      other.gameObject.TryGetComponent<DamageableView>().MatchSome(damageableView => {
+        damageableView.Damage(settings.damage);
         Dispose();
       });
     }

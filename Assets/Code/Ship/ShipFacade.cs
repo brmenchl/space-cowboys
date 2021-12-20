@@ -8,7 +8,7 @@ using UnityEngine;
 using Zenject;
 
 namespace Code.Ship {
-  public class ShipFacade : IControllable, IDisposable {
+  public class ShipFacade : IControllable, IDamageable, IDisposable {
     private readonly BoardEjectService boardEjectService;
     private readonly ShipModel model;
     private readonly MoveHandler moveHandler;

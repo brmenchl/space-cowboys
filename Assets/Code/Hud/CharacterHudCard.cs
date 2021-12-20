@@ -23,7 +23,7 @@ namespace Code.Hud {
 
     private void Start() {
       var token = this.GetCancellationTokenOnDestroy();
-      player.health.Subscribe(UpdateHealth, token);
+      player.healthPercentStream.Subscribe(UpdateHealth, token);
       player.controllable.Subscribe(UpdateControllable, token);
       card.color = player.theme;
     }
@@ -32,7 +32,13 @@ namespace Code.Hud {
       controllableHealthStreamToken?.Cancel();
     }
 
-    private void UpdateHealth(float healthPercent) => healthBar.fillAmount = healthPercent;
+    private void UpdateHealth(float healthPercent) {
+      healthBar.fillAmount = healthPercent;
+      if (healthPercent <= 0f) {
+        Destroy(gameObject);
+      }
+    }
+
     private void UpdateControllableHealth(float healthPercent) => controllableHealthBar.fillAmount = healthPercent;
 
     private void UpdateControllable(Option<IControllable> controllable) {

@@ -22,6 +22,8 @@ namespace Code.Ship {
 
       Container.Bind<MoveHandler>().AsSingle().NonLazy();
       Container.Bind<ShootHandler>().AsSingle().NonLazy();
+      Container.Bind<ShipView>().FromNewComponentOnRoot().AsSingle().NonLazy();
+      Container.Bind<DamageableView>().FromNewComponentOnRoot().AsSingle().NonLazy();
     }
   }
 }

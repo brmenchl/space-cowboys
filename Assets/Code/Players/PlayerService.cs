@@ -1,3 +1,4 @@
+using System;
 using Code.Input;
 using External.Option;
 using UnityEngine;
@@ -30,7 +31,10 @@ namespace Code.Players {
 
     public void Damage(Player player, float value) {
       player.health.Value -= value;
-      if (value <= 0f) Debug.Log("player is dead");
+      if (player.health.Value <= 0f) {
+        player.controllable.Value.MatchSome(c => c.Destroy());
+        player.controllable.Value = Option.None<IControllable>();
+      }
     }
 
     public Option<Player> GetPlayerForControllable(IControllable controllable) =>

@@ -12,7 +12,6 @@ namespace Code.Players {
     void UpdateController(Color playerTheme, IUniTaskAsyncEnumerable<ControllerInputState> inputStream);
     void ClearController();
     void Destroy();
-    void Damage(float value);
   }
 
   public enum ControllableType {
