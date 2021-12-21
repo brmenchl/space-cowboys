@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Code.Players;
 using Cysharp.Threading.Tasks;
@@ -15,26 +16,32 @@ namespace Code.Hud {
     [SerializeField] private Image controllableHealthBar;
     [SerializeField] private CanvasGroup controllableHealthBarCg;
 
-    private Player player;
+    private Guid playerId;
     private CancellationTokenSource controllableHealthStreamToken;
+    private Player player;
+    private PlayerState playerState;
+    private PlayerStreams playerStreams;
 
     [Inject]
-    public void Inject(Player player) => this.player = player;
+    public void Inject(PlayerState playerState, PlayerStreams playerStreams, Guid playerId) {
+      this.playerState = playerState;
+      this.playerStreams = playerStreams;
+      this.playerId = playerId;
+    }
 
     private void Start() {
-      var token = this.GetCancellationTokenOnDestroy();
-      player.healthPercentStream.Subscribe(UpdateHealth, token);
-      player.controllable.Subscribe(UpdateControllable, token);
+      player = playerState
+        .GetPlayerById(playerId);
       card.color = player.theme;
+
+      playerStreams.GetHealthStreamById(playerId).Subscribe(UpdateHealth, this.GetCancellationTokenOnDestroy());
+      playerStreams.GetControllableStreamById(playerId)
+        .Subscribe(UpdateControllable, this.GetCancellationTokenOnDestroy());
     }
 
-    private void OnDestroy() {
-      controllableHealthStreamToken?.Cancel();
-    }
-
-    private void UpdateHealth(float healthPercent) {
-      healthBar.fillAmount = healthPercent;
-      if (healthPercent <= 0f) {
+    private void UpdateHealth(Health health) {
+      healthBar.fillAmount = health.Percent;
+      if (health.Percent <= 0f) {
         Destroy(gameObject);
       }
     }
@@ -52,7 +59,8 @@ namespace Code.Hud {
     private void BindControllableHealth(ReadOnlyAsyncReactiveProperty<float> healthStream) {
       controllableHealthBarCg.alpha = 1;
       controllableHealthStreamToken?.Cancel();
-      controllableHealthStreamToken = CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy());
+      controllableHealthStreamToken =
+        CancellationTokenSource.CreateLinkedTokenSource(this.GetCancellationTokenOnDestroy());
       healthStream.Subscribe(UpdateControllableHealth, controllableHealthStreamToken.Token);
     }
 
@@ -62,7 +70,6 @@ namespace Code.Hud {
     }
 
 
-    public class Factory : PlaceholderFactory<Player, CharacterHudCard> {
-    }
+    public class Factory : PlaceholderFactory<Guid, CharacterHudCard> { }
   }
 }

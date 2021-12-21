@@ -1,4 +1,4 @@
-using Code.Players;
+using System;
 using UnityEngine;
 using Zenject;
 
@@ -7,7 +7,7 @@ namespace Code.Hud {
     [SerializeField] private GameObject characterHudCard;
 
     public override void InstallBindings() =>
-      Container.BindFactory<Player, CharacterHudCard, CharacterHudCard.Factory>()
+      Container.BindFactory<Guid, CharacterHudCard, CharacterHudCard.Factory>()
         .FromComponentInNewPrefab(characterHudCard);
   }
 }
