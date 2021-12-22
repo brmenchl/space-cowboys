@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_EnablePreviewPackages: 1
-  m_EnablePackageDependencies: 0
+  m_EnablePackageDependencies: 1
   m_AdvancedSettingsExpanded: 1
   m_ScopedRegistriesSettingsExpanded: 1
   oneTimeWarningShown: 1
@@ -28,6 +28,7 @@ MonoBehaviour:
     m_Name: package.openupm.com
     m_Url: https://package.openupm.com
     m_Scopes:
+    - com.coffee.upm-git-extension
     - com.cysharp.unitask
     - com.openupm
     - com.unity.editoriterationprofiler
@@ -42,6 +43,7 @@ MonoBehaviour:
       m_Name: package.openupm.com
       m_Url: https://package.openupm.com
       m_Scopes:
+      - com.coffee.upm-git-extension
       - com.cysharp.unitask
       - com.openupm
       - com.unity.editoriterationprofiler
@@ -51,6 +53,7 @@ MonoBehaviour:
     m_Name: package.openupm.com
     m_Url: https://package.openupm.com
     m_Scopes:
+    - com.coffee.upm-git-extension
     - com.cysharp.unitask
     - com.openupm
     - com.unity.editoriterationprofiler
