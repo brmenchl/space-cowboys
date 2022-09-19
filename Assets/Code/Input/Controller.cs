@@ -12,7 +12,7 @@ namespace Code.Input {
 
     private void Start() {
       playerInput = gameObject.TryGetComponent<PlayerInput>();
-      playerInput.SwitchCurrentControlScheme(controlScheme.ToString());
+      playerInput.SwitchCurrentControlScheme(controlScheme.ToString(), Keyboard.current);
       playerInput.onActionTriggered += OnActionTriggered;
     }
 
