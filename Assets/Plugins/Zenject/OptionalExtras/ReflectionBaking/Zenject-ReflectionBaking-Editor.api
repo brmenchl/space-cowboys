@@ -10,32 +10,32 @@ namespace Zenject.ReflectionBaking
         public static System.Collections.Generic.List<string> GetAllGeneratedAssemblyRelativePaths();
     }
 
-    [System.Runtime.CompilerServices.Extension] public static class CecilExtensions
+    public static class CecilExtensions
     {
-        [System.Runtime.CompilerServices.Extension] [System.Runtime.CompilerServices.IteratorStateMachine(typeof(Zenject.ReflectionBaking.CecilExtensions.<AllNestParents>d__22))] public static System.Collections.Generic.IEnumerable<Zenject.ReflectionBaking.Mono.Cecil.TypeReference> AllNestParents(Zenject.ReflectionBaking.Mono.Cecil.TypeReference specificTypeRef);
-        [System.Runtime.CompilerServices.Extension] [System.Runtime.CompilerServices.IteratorStateMachine(typeof(Zenject.ReflectionBaking.CecilExtensions.<AllNestParentsAndSelf>d__21))] public static System.Collections.Generic.IEnumerable<Zenject.ReflectionBaking.Mono.Cecil.TypeReference> AllNestParentsAndSelf(Zenject.ReflectionBaking.Mono.Cecil.TypeReference specificTypeRef);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.FieldReference ChangeDeclaringType(Zenject.ReflectionBaking.Mono.Cecil.FieldReference fieldDef, Zenject.ReflectionBaking.Mono.Cecil.TypeReference typeRef);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.MethodReference ChangeDeclaringType(Zenject.ReflectionBaking.Mono.Cecil.MethodReference methodDef, Zenject.ReflectionBaking.Mono.Cecil.TypeReference typeRef);
-        public static Zenject.ReflectionBaking.Mono.Cecil.TypeReference FillInGenericParameters(Zenject.ReflectionBaking.Mono.Cecil.TypeReference type, System.Collections.Generic.Dictionary<string, Zenject.ReflectionBaking.Mono.Cecil.TypeReference> genericArgMap);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.CustomAttribute GetCustomAttribute<T>(Zenject.ReflectionBaking.Mono.Cecil.ICustomAttributeProvider instance);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.MethodDefinition GetMethod(Zenject.ReflectionBaking.Mono.Cecil.TypeDefinition instance, string name);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.MethodDefinition GetMethod(Zenject.ReflectionBaking.Mono.Cecil.TypeDefinition instance, string name, int argCount);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.MethodDefinition GetMethod(Zenject.ReflectionBaking.Mono.Cecil.TypeDefinition instance, string name, params System.Type[] parameterTypes);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.MethodDefinition GetMethod(Zenject.ReflectionBaking.Mono.Cecil.TypeDefinition instance, string name, params Zenject.ReflectionBaking.Mono.Cecil.TypeReference[] parameterTypes);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.PropertyDefinition GetPropertyDefinition(Zenject.ReflectionBaking.Mono.Cecil.TypeDefinition instance, string name);
-        [System.Runtime.CompilerServices.Extension] [System.Runtime.CompilerServices.IteratorStateMachine(typeof(Zenject.ReflectionBaking.CecilExtensions.<GetSpecificBaseTypes>d__20))] public static System.Collections.Generic.IEnumerable<Zenject.ReflectionBaking.Mono.Cecil.TypeReference> GetSpecificBaseTypes(Zenject.ReflectionBaking.Mono.Cecil.TypeReference specificTypeRef);
-        [System.Runtime.CompilerServices.Extension] [System.Runtime.CompilerServices.IteratorStateMachine(typeof(Zenject.ReflectionBaking.CecilExtensions.<GetSpecificBaseTypesAndSelf>d__19))] public static System.Collections.Generic.IEnumerable<Zenject.ReflectionBaking.Mono.Cecil.TypeReference> GetSpecificBaseTypesAndSelf(Zenject.ReflectionBaking.Mono.Cecil.TypeReference specificTypeRef);
-        [System.Runtime.CompilerServices.Extension] public static bool HasCustomAttribute<T>(Zenject.ReflectionBaking.Mono.Cecil.ICustomAttributeProvider instance);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.MethodReference ImportMethod<T>(Zenject.ReflectionBaking.Mono.Cecil.ModuleDefinition module, string methodName);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.MethodReference ImportMethod<T>(Zenject.ReflectionBaking.Mono.Cecil.ModuleDefinition module, string methodName, int numArgs);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.MethodReference ImportMethod(Zenject.ReflectionBaking.Mono.Cecil.ModuleDefinition module, System.Type type, string methodName);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.MethodReference ImportMethod(Zenject.ReflectionBaking.Mono.Cecil.ModuleDefinition module, System.Type type, string methodName, int numArgs);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.TypeReference ImportType<T>(Zenject.ReflectionBaking.Mono.Cecil.ModuleDefinition module);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.TypeReference ImportType(Zenject.ReflectionBaking.Mono.Cecil.ModuleDefinition module, System.Type type);
-        [System.Runtime.CompilerServices.Extension] public static System.Collections.Generic.List<Zenject.ReflectionBaking.Mono.Cecil.TypeDefinition> LookupAllTypes(Zenject.ReflectionBaking.Mono.Cecil.ModuleDefinition module);
-        [System.Runtime.CompilerServices.Extension] public static System.Type TryGetActualType(Zenject.ReflectionBaking.Mono.Cecil.TypeReference typeRef, System.Reflection.Assembly assembly);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.TypeReference TryGetSpecificBaseType(Zenject.ReflectionBaking.Mono.Cecil.TypeReference specificTypeRef);
-        [System.Runtime.CompilerServices.Extension] public static Zenject.ReflectionBaking.Mono.Cecil.TypeReference TryResolve(Zenject.ReflectionBaking.Mono.Cecil.TypeReference typeRef);
+        public static System.Collections.Generic.IEnumerable<Mono.Cecil.TypeReference> AllNestParents(this Mono.Cecil.TypeReference specificTypeRef);
+        public static System.Collections.Generic.IEnumerable<Mono.Cecil.TypeReference> AllNestParentsAndSelf(this Mono.Cecil.TypeReference specificTypeRef);
+        public static Mono.Cecil.FieldReference ChangeDeclaringType(this Mono.Cecil.FieldReference fieldDef, Mono.Cecil.TypeReference typeRef);
+        public static Mono.Cecil.MethodReference ChangeDeclaringType(this Mono.Cecil.MethodReference methodDef, Mono.Cecil.TypeReference typeRef);
+        public static Mono.Cecil.TypeReference FillInGenericParameters(Mono.Cecil.TypeReference type, System.Collections.Generic.Dictionary<string, Mono.Cecil.TypeReference> genericArgMap);
+        public static Mono.Cecil.CustomAttribute GetCustomAttribute<T>(this Mono.Cecil.ICustomAttributeProvider instance);
+        public static Mono.Cecil.MethodDefinition GetMethod(this Mono.Cecil.TypeDefinition instance, string name);
+        public static Mono.Cecil.MethodDefinition GetMethod(this Mono.Cecil.TypeDefinition instance, string name, int argCount);
+        public static Mono.Cecil.MethodDefinition GetMethod(this Mono.Cecil.TypeDefinition instance, string name, params System.Type[] parameterTypes);
+        public static Mono.Cecil.MethodDefinition GetMethod(this Mono.Cecil.TypeDefinition instance, string name, params Mono.Cecil.TypeReference[] parameterTypes);
+        public static Mono.Cecil.PropertyDefinition GetPropertyDefinition(this Mono.Cecil.TypeDefinition instance, string name);
+        public static System.Collections.Generic.IEnumerable<Mono.Cecil.TypeReference> GetSpecificBaseTypes(this Mono.Cecil.TypeReference specificTypeRef);
+        public static System.Collections.Generic.IEnumerable<Mono.Cecil.TypeReference> GetSpecificBaseTypesAndSelf(this Mono.Cecil.TypeReference specificTypeRef);
+        public static bool HasCustomAttribute<T>(this Mono.Cecil.ICustomAttributeProvider instance);
+        public static Mono.Cecil.MethodReference ImportMethod<T>(this Mono.Cecil.ModuleDefinition module, string methodName);
+        public static Mono.Cecil.MethodReference ImportMethod<T>(this Mono.Cecil.ModuleDefinition module, string methodName, int numArgs);
+        public static Mono.Cecil.MethodReference ImportMethod(this Mono.Cecil.ModuleDefinition module, System.Type type, string methodName);
+        public static Mono.Cecil.MethodReference ImportMethod(this Mono.Cecil.ModuleDefinition module, System.Type type, string methodName, int numArgs);
+        public static Mono.Cecil.TypeReference ImportType<T>(this Mono.Cecil.ModuleDefinition module);
+        public static Mono.Cecil.TypeReference ImportType(this Mono.Cecil.ModuleDefinition module, System.Type type);
+        public static System.Collections.Generic.List<Mono.Cecil.TypeDefinition> LookupAllTypes(this Mono.Cecil.ModuleDefinition module);
+        public static System.Type TryGetActualType(this Mono.Cecil.TypeReference typeRef, System.Reflection.Assembly assembly);
+        public static Mono.Cecil.TypeReference TryGetSpecificBaseType(this Mono.Cecil.TypeReference specificTypeRef);
+        public static Mono.Cecil.TypeReference TryResolve(this Mono.Cecil.TypeReference typeRef);
     }
 
     public static class ReflectionBakingBuildObserver
@@ -48,7 +48,7 @@ namespace Zenject.ReflectionBaking
         public static string ConvertAbsoluteToAssetPath(string systemPath);
         public static string ConvertAssetPathToSystemPath(string assetPath);
         public static void TryForceUnityFullCompile();
-        public static Zenject.ReflectionBaking.ZenjectReflectionBakingSettings TryGetEnabledSettingsInstance();
+        public static ZenjectReflectionBakingSettings TryGetEnabledSettingsInstance();
     }
 
     public static class ReflectionBakingMenuItems
@@ -58,16 +58,16 @@ namespace Zenject.ReflectionBaking
 
     public class ReflectionBakingModuleEditor
     {
-        public bool TryEditType(Zenject.ReflectionBaking.Mono.Cecil.TypeDefinition typeDef, System.Type actualType);
-        public static int WeaveAssembly(Zenject.ReflectionBaking.Mono.Cecil.ModuleDefinition module, System.Reflection.Assembly assembly);
-        public static int WeaveAssembly(Zenject.ReflectionBaking.Mono.Cecil.ModuleDefinition module, System.Reflection.Assembly assembly, System.Collections.Generic.List<string> namespacePatterns);
+        public bool TryEditType(Mono.Cecil.TypeDefinition typeDef, System.Type actualType);
+        public static int WeaveAssembly(Mono.Cecil.ModuleDefinition module, System.Reflection.Assembly assembly);
+        public static int WeaveAssembly(Mono.Cecil.ModuleDefinition module, System.Reflection.Assembly assembly, System.Collections.Generic.List<string> namespacePatterns);
     }
 
-    public class UnityAssemblyResolver : Zenject.ReflectionBaking.Mono.Cecil.BaseAssemblyResolver
+    public class UnityAssemblyResolver : Mono.Cecil.BaseAssemblyResolver
     {
         public UnityAssemblyResolver() {}
-        public virtual Zenject.ReflectionBaking.Mono.Cecil.AssemblyDefinition Resolve(Zenject.ReflectionBaking.Mono.Cecil.AssemblyNameReference name);
-        public virtual Zenject.ReflectionBaking.Mono.Cecil.AssemblyDefinition Resolve(Zenject.ReflectionBaking.Mono.Cecil.AssemblyNameReference name, Zenject.ReflectionBaking.Mono.Cecil.ReaderParameters parameters);
+        public override Mono.Cecil.AssemblyDefinition Resolve(Mono.Cecil.AssemblyNameReference name);
+        public override Mono.Cecil.AssemblyDefinition Resolve(Mono.Cecil.AssemblyNameReference name, Mono.Cecil.ReaderParameters parameters);
     }
 
     public class ZenjectReflectionBakingSettings : UnityEngine.ScriptableObject
@@ -81,9 +81,9 @@ namespace Zenject.ReflectionBaking
         public ZenjectReflectionBakingSettings() {}
     }
 
-    [UnityEditor.CustomEditor(typeof(Zenject.ReflectionBaking.ZenjectReflectionBakingSettings))] public class ZenjectReflectionBakingSettingsEditor : UnityEditor.Editor
+    [UnityEditor.CustomEditor(typeof(ZenjectReflectionBakingSettings))] public class ZenjectReflectionBakingSettingsEditor : UnityEditor.Editor
     {
         public ZenjectReflectionBakingSettingsEditor() {}
-        public virtual void OnInspectorGUI();
+        public override void OnInspectorGUI();
     }
 }

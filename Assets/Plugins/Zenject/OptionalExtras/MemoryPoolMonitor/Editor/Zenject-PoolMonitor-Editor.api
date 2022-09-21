@@ -10,32 +10,32 @@ namespace Zenject.MemoryPoolMonitor
         public static void Sort(System.Collections.Generic.List<T> list, System.Comparison<T> comparer, int from, int to);
     }
 
-    [UnityEngine.CreateAssetMenu(fileName = @"MpmSettingsInstaller", menuName = @"Installers/MpmSettingsInstaller")] public class MpmSettingsInstaller : Zenject.ScriptableObjectInstaller<Zenject.MemoryPoolMonitor.MpmSettingsInstaller>
+    [UnityEngine.CreateAssetMenu(fileName = @"MpmSettingsInstaller", menuName = @"Installers/MpmSettingsInstaller")] public class MpmSettingsInstaller : Zenject.ScriptableObjectInstaller<MpmSettingsInstaller>
     {
-        public Zenject.MemoryPoolMonitor.MpmView.Settings MpmView;
-        public Zenject.MemoryPoolMonitor.MpmView.Settings MpmViewDark;
+        public MpmView.Settings MpmView;
+        public MpmView.Settings MpmViewDark;
         public MpmSettingsInstaller() {}
-        public virtual void InstallBindings();
+        public override void InstallBindings();
     }
 
-    public class MpmView : Zenject.IGuiRenderable, Zenject.IInitializable, Zenject.ITickable
+    public class MpmView : IGuiRenderable, IInitializable, ITickable
     {
         public float HeaderTop { get; }
         public float TotalHeight { get; }
         public float TotalWidth { get; }
-        public MpmView(Zenject.MemoryPoolMonitor.MpmWindow window, Zenject.MemoryPoolMonitor.MpmView.Settings settings) {}
-        public virtual void GuiRender();
-        public virtual void Initialize();
-        public virtual void Tick();
+        public MpmView(MpmWindow window, MpmView.Settings settings) {}
+        public void GuiRender();
+        public void Initialize();
+        public void Tick();
         public class Settings
         {
-            public float ButtonMargin;
+            public float ButtonMargin = 3f;
             public UnityEngine.GUIStyle ContentNameTextStyle;
             public UnityEngine.GUIStyle ContentNumberTextStyle;
             public float FilterHeight;
             public float FilterInputHeight;
             public float FilterPaddingLeft;
-            public float FilterPaddingTop;
+            public float FilterPaddingTop = 10f;
             public UnityEngine.GUIStyle FilterTextStyle;
             public float FilterWidth;
             public float HeaderHeight;
@@ -48,7 +48,7 @@ namespace Zenject.MemoryPoolMonitor
             public UnityEngine.Color RowBackgroundHighlighted;
             public UnityEngine.Color RowBackgroundSelected;
             public float RowHeight;
-            public float ScrollSpeed;
+            public float ScrollSpeed = 1.5f;
             public float SplitterWidth;
             public UnityEngine.Texture2D TriangleDown;
             public UnityEngine.Vector2 TriangleOffset;
@@ -57,10 +57,10 @@ namespace Zenject.MemoryPoolMonitor
         }
     }
 
-    public class MpmWindow : Zenject.ZenjectEditorWindow
+    public class MpmWindow : ZenjectEditorWindow
     {
         public MpmWindow() {}
-        [UnityEditor.MenuItem(@"Window/Zenject Pool Monitor")] public static Zenject.MemoryPoolMonitor.MpmWindow GetOrCreateWindow();
-        public virtual void InstallBindings();
+        [UnityEditor.MenuItem(@"Window/Zenject Pool Monitor")] public static MpmWindow GetOrCreateWindow();
+        public override void InstallBindings();
     }
 }
