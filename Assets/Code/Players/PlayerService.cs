@@ -38,12 +38,13 @@ namespace Code.Players {
     public void Damage(Guid playerId, float value) {
       var player = playerState.GetPlayerById(playerId);
       player.health.Value -= value;
+      if (player.health.Value <= 0f) {
+        player.controllable.Value.MatchSome(c => c.Destroy());
+        player.controllable.Value = Option.None<IControllable>();
+      }
     }
 
-    // if (player.health.Value <= 0f) {
-    //   player.controllable.Value.MatchSome(c => c.Destroy());
-    //   player.controllable.Value = Option.None<IControllable>();
-    // }
+
     public Option<Guid> GetPlayerForControllable(IControllable controllable) =>
       playerState.GetPlayerBy(player => player.controllable == controllable.Some()).Map(p => p.id);
   }
