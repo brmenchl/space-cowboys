@@ -19,19 +19,24 @@ namespace CodeEcs.Systems {
 
     public void Run(EcsSystems systems) {
       foreach (var entity in pilotedControllables.Value) {
-        ref var controlData = ref controlledPool.Value.Get(entity);
-        if (inputService.GetAltButtonState(controlData.controlScheme)) {
-          ref var pilotedData = ref pilotedPool.Value.Get(entity);
+        var controlScheme = controlledPool.Value.Get(entity).controlScheme;
+
+        if (inputService.GetAltButtonState(controlScheme)) {
           ref var trans = ref transPool.Value.Get(entity);
           ref var physicsBody = ref physicsBodyPool.Value.Get(entity);
+          ref var piloted = ref pilotedPool.Value.Get(entity);
 
-          cowboyArchetypeFactory.Create(
+          var cowboyEntity = cowboyArchetypeFactory.Create(
             world.Value,
-            RandomPositionNear(trans.transform.position, pilotedData.ejectDistance),
+            RandomPositionNear(trans.transform.position, piloted.ejectDistance),
             RandomRotation(),
-            pilotedData.ejectForce * UnityEngine.Random.insideUnitCircle.normalized
+            piloted.ejectForce * UnityEngine.Random.insideUnitCircle.normalized
           );
           pilotedPool.Value.Del(entity);
+
+          controlledPool.Value.Del(entity);
+          ref var controlledCowboy = ref controlledPool.Value.Add(cowboyEntity);
+          controlledCowboy.controlScheme = controlScheme;
         }
       }
     }
