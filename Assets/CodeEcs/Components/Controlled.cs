@@ -1,5 +1,7 @@
 using Code.Input;
 
-public struct Controlled {
-  public ControlScheme controlScheme;
+namespace CodeEcs.Components {
+  public struct Controlled {
+    public ControlScheme controlScheme;
+  }
 }

@@ -29,6 +29,10 @@ MonoBehaviour:
     lifetime: 1
     damage: 5
     prefab: {fileID: 5774354381715059978, guid: 31e0ccf637a3b6536b2d5108da30f5db, type: 3}
+  lassoArchetype:
+    velocity: 10
+    lifetime: 0.8
+    prefab: {fileID: 5225532558061927812, guid: c1c9a7b4cfbd48fb49a419269d8967df, type: 3}
   config:
     players: 00000000
     spawnPoints:

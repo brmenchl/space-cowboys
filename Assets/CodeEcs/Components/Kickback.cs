@@ -1,5 +1,7 @@
-public struct CanKickback {
-  public float force;
-}
+namespace CodeEcs.Components {
+  public struct CanKickback {
+    public float force;
+  }
 
-public struct Kickback { }
+  public struct Kickback { }
+}

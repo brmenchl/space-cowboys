@@ -16,6 +16,7 @@ namespace CodeEcs {
       Container.Bind<ShipArchetypeFactory>().AsSingle();
       Container.Bind<CowboyArchetypeFactory>().AsSingle();
       Container.Bind<BulletArchetypeFactory>().AsSingle();
+      Container.Bind<LassoArchetypeFactory>().AsSingle();
 
       // Systems
       Container.BindInterfacesTo<PlayerInitSystem>().AsSingle();
@@ -23,8 +24,11 @@ namespace CodeEcs {
       Container.BindInterfacesTo<ForceMovementSystem>().AsSingle();
       Container.BindInterfacesTo<TorqueTurningSystem>().AsSingle();
       Container.BindInterfacesTo<FiringSystem>().AsSingle();
+      Container.BindInterfacesTo<LassoingSystem>().AsSingle();
       Container.BindInterfacesTo<CleanUpFiringSystem>().AsSingle();
+      Container.BindInterfacesTo<CleanUpLassoingSystem>().AsSingle();
       Container.BindInterfacesTo<KickbackSystem>().AsSingle();
+      Container.BindInterfacesTo<LassoSystem>().AsSingle();
       Container.BindInterfacesTo<EjectSystem>().AsSingle();
       Container.BindInterfacesTo<DestroyAfterTimeSystem>().AsSingle();
     }

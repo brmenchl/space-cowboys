@@ -35,14 +35,14 @@ namespace CodeEcs.Systems {
   }
 
   public class CleanUpFiringSystem : IEcsRunSystem {
-    private readonly EcsPoolInject<Components.Firing> firingPool;
-    private readonly EcsFilterInject<Inc<Components.Firing>> firingEntities;
+    private readonly EcsPoolInject<Firing> firingPool;
+    private readonly EcsFilterInject<Inc<Firing>> firingEntities;
 
     public void Run(EcsSystems systems) {
       var now = DateTime.UtcNow;
       foreach (var entity in firingEntities.Value) {
-        ref var firedComp = ref firingPool.Value.Get(entity);
-        if ((now - firedComp.firedAt).TotalSeconds > 0.5f) {
+        ref var fired = ref firingPool.Value.Get(entity);
+        if ((now - fired.firedAt).TotalSeconds > 0.5f) {
           firingPool.Value.Del(entity);
         }
       }

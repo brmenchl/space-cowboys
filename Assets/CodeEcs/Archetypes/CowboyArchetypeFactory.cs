@@ -27,6 +27,9 @@ namespace CodeEcs.Archetypes {
 
       ref var turnTorque = ref world.GetPool<TorqueTurning>().Add(entity);
       turnTorque.torque = settings.turnTorque;
+
+      world.GetPool<HasLasso>().Add(entity);
+
       return entity;
     }
 
