@@ -4,7 +4,7 @@ using UnityEngine;
 namespace CodeEcs.Components {
   public struct DestroyAfterTime {
     public DateTime destroyTime;
-    internal GameObject gameObject;
+    public GameObject gameObject;
 
     public void SetLifetime(GameObject gameObject, float lifeTime) {
       this.gameObject = gameObject;

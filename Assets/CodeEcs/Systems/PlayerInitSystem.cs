@@ -24,8 +24,7 @@ namespace CodeEcs.Systems {
 
         var playerEntity = world.Value.NewEntity();
 
-        playerPool.Value.Add(playerEntity);
-        ref var player = ref playerPool.Value.Get(playerEntity);
+        ref var player = ref playerPool.Value.Add(playerEntity);
         player.controlScheme = controlScheme;
 
         var spawnPointIndex = Random.Range(0, gameConfig.players.Count);
@@ -35,9 +34,8 @@ namespace CodeEcs.Systems {
           Quaternion.Euler(0, 0, Random.Range(0, 360f))
         );
 
-        controlledPool.Value.Add(shipEntity);
-        ref var controlData = ref controlledPool.Value.Get(shipEntity);
-        controlData.controlScheme = controlScheme;
+        ref var controlled = ref controlledPool.Value.Add(shipEntity);
+        controlled.controlScheme = controlScheme;
       });
     }
   }

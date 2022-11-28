@@ -17,6 +17,8 @@ namespace CodeEcs.Archetypes {
 
       ref var hasGuns = ref world.GetPool<HasGuns>().Add(entity);
       hasGuns.muzzleDistance = settings.muzzleDistance;
+      ref var canKickback = ref world.GetPool<CanKickback>().Add(entity);
+      canKickback.force = settings.kickbackForce;
 
       ref var physicsBody = ref world.GetPool<PhysicsBody>().Add(entity);
       physicsBody.rigidBody = cowboyGo.GetComponent<Rigidbody2D>();
@@ -32,6 +34,7 @@ namespace CodeEcs.Archetypes {
     public struct Settings {
       public float turnTorque;
       public float muzzleDistance;
+      public float kickbackForce;
       public GameObject prefab;
     }
   }

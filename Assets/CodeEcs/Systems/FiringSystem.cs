@@ -11,26 +11,24 @@ namespace CodeEcs.Systems {
     [Inject] private InputService inputService;
     [Inject] private BulletArchetypeFactory bulletArchetypeFactory;
     private readonly EcsWorldInject world;
-    private readonly EcsPoolInject<Controlled> controlledPool;
-    private readonly EcsPoolInject<Firing> firingPool;
-    private readonly EcsPoolInject<HasGuns> hasGunsPool;
-    private readonly EcsPoolInject<Trans> transPool;
     private readonly EcsFilterInject<Inc<Controlled, HasGuns, Trans>, Exc<Firing>> nonFiringControllables;
 
     public void Run(EcsSystems systems) {
       foreach (var entity in nonFiringControllables.Value) {
-        ref var controlData = ref controlledPool.Value.Get(entity);
+        ref var controlData = ref world.Value.GetPool<Controlled>().Get(entity);
         if (inputService.GetPrimaryButtonState(controlData.controlScheme)) {
-          firingPool.Value.Add(entity);
-          ref var firingData = ref firingPool.Value.Get(entity);
-          firingData.firedAt = DateTime.UtcNow;
-          ref var trans = ref transPool.Value.Get(entity);
-          ref var hasGuns = ref hasGunsPool.Value.Get(entity);
+          ref var firing = ref world.Value.GetPool<Firing>().Add(entity);
+          firing.firedAt = DateTime.UtcNow;
+          ref var trans = ref world.Value.GetPool<Trans>().Get(entity);
+          ref var hasGuns = ref world.Value.GetPool<HasGuns>().Get(entity);
           bulletArchetypeFactory.Create(
             world.Value,
             trans.transform.position + (trans.transform.up * hasGuns.muzzleDistance),
             trans.transform.rotation
           );
+          if (world.Value.GetPool<CanKickback>().Has(entity)) {
+            world.Value.GetPool<Kickback>().Add(entity);
+          }
         }
       }
     }

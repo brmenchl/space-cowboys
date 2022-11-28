@@ -22,6 +22,7 @@ MonoBehaviour:
   cowboyArchetype:
     turnTorque: 3
     muzzleDistance: 1
+    kickbackForce: 500
     prefab: {fileID: 7728747806077742917, guid: 0d870a3aa6ee3466aa00f982e7cc9411, type: 3}
   bulletArchetype:
     velocity: 20

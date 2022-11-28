@@ -24,6 +24,7 @@ namespace CodeEcs {
       Container.BindInterfacesTo<TorqueTurningSystem>().AsSingle();
       Container.BindInterfacesTo<FiringSystem>().AsSingle();
       Container.BindInterfacesTo<CleanUpFiringSystem>().AsSingle();
+      Container.BindInterfacesTo<KickbackSystem>().AsSingle();
       Container.BindInterfacesTo<EjectSystem>().AsSingle();
       Container.BindInterfacesTo<DestroyAfterTimeSystem>().AsSingle();
     }
