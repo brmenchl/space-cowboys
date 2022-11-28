@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c7f4a4d25a1b963bf1027b8243862b, type: 3}
+  m_Name: SettingsInstaller
+  m_EditorClassIdentifier: 
+  shipArchetype:
+    thrustForce: 400
+    turnForce: 100
+    muzzleDistance: 1
+    ejectDistance: 3
+    ejectForce: 5
+    prefab: {fileID: 5442183746321770514, guid: 02c106283ce7d4bf0941806f76a4e104, type: 3}
+  cowboyArchetype:
+    turnForce: 3
+    muzzleDistance: 1
+    prefab: {fileID: 7728747806077742917, guid: 0d870a3aa6ee3466aa00f982e7cc9411, type: 3}
+  bulletArchetype:
+    velocity: 20
+    lifetime: 1
+    damage: 5
+    prefab: {fileID: 5774354381715059978, guid: 31e0ccf637a3b6536b2d5108da30f5db, type: 3}
+  config:
+    players: 00000000
+    spawnPoints:
+    - {x: -10, y: 6}
+    - {x: 10, y: 6}
+    - {x: -10, y: -6}
+    - {x: 10, y: -6}

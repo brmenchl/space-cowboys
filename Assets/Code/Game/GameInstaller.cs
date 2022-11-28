@@ -15,7 +15,7 @@ namespace Code.Game {
     public override void InstallBindings() {
       Container.BindInterfacesTo<GameRunner>().AsSingle();
       Container.Bind<PrefabRegistry>().FromInstance(prefabRegistry);
-      InputInstaller.Install(Container);
+      InputInstaller.Install(Container, prefabRegistry.controllerPrefab);
       PlayerInstaller.Install(Container);
       BulletInstaller.Install(Container);
 

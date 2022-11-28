@@ -1,19 +1,21 @@
-using Code.Game;
+using UnityEngine;
 using Zenject;
 
 namespace Code.Input {
-  public class InputInstaller : Installer<InputInstaller> {
-    private readonly PrefabRegistry prefabRegistry;
+  public class InputInstaller : Installer<GameObject, InputInstaller> {
+    private GameObject controllerPrefab;
 
-    public InputInstaller(PrefabRegistry prefabRegistry) => this.prefabRegistry = prefabRegistry;
+    public InputInstaller(GameObject controllerPrefab) {
+      this.controllerPrefab = controllerPrefab;
+    }
 
     public override void InstallBindings() {
       Container.Bind<InputState>().AsSingle();
       Container.Bind<InputService>().AsSingle();
 
       Container.BindFactory<ControlScheme, Controller, Controller.Factory>()
-        .FromComponentInNewPrefab(prefabRegistry.controllerPrefab)
-        .UnderTransformGroup("Players");
+        .FromComponentInNewPrefab(controllerPrefab.gameObject)
+        .UnderTransformGroup("Controllers");
     }
   }
 }

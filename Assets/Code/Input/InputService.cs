@@ -1,5 +1,4 @@
 using System;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.Input {
@@ -14,21 +13,27 @@ namespace Code.Input {
 
     public void AddController(ControlScheme controlScheme) {
       ValidateControlScheme(controlScheme);
-      inputState.inputs.Add(controlScheme, new ControllerInputStream());
+      inputState.inputs.Add(controlScheme, new ControllerInputState());
       controllerFactory.Create(controlScheme);
     }
 
     public void SetMovementState(ControlScheme controlScheme, Vector2 value) =>
       inputState.inputs[controlScheme].movement = value;
 
+    public Vector2 GetMovementState(ControlScheme controlScheme) =>
+      inputState.inputs[controlScheme].movement;
+
     public void SetPrimaryButtonState(ControlScheme controlScheme, bool value) =>
       inputState.inputs[controlScheme].primary = value;
+
+    public bool GetPrimaryButtonState(ControlScheme controlScheme) =>
+      inputState.inputs[controlScheme].primary;
 
     public void SetAltButtonState(ControlScheme controlScheme, bool value) =>
       inputState.inputs[controlScheme].alt = value;
 
-    public IUniTaskAsyncEnumerable<ControllerInputState> GetInputStream(ControlScheme controlScheme) =>
-      inputState.inputs[controlScheme].state;
+    public bool GetAltButtonState(ControlScheme controlScheme) =>
+      inputState.inputs[controlScheme].alt;
 
     private void ValidateControlScheme(ControlScheme controlScheme) {
       if (inputState.inputs.ContainsKey(controlScheme))

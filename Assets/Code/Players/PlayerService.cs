@@ -31,8 +31,7 @@ namespace Code.Players {
       var player = playerState.GetPlayerById(playerId);
       player.controllable.Value.MatchSome(oldControllable => oldControllable.ClearController());
       player.controllable.Value = controllable.Some();
-      controllable.UpdateController(player.theme,
-        inputService.GetInputStream(player.controlScheme)); // TODO: controllable state
+      // controllable.UpdateController(player.theme,inputService.GetInputStream(player.controlScheme)); // TODO: controllable state
     }
 
     public void Damage(Guid playerId, float value) {
