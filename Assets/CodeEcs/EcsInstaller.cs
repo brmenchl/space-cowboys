@@ -21,6 +21,7 @@ namespace CodeEcs {
       Container.BindInterfacesTo<PlayerInitSystem>().AsSingle();
       Container.BindInterfacesTo<MoveForwardSystem>().AsSingle();
       Container.BindInterfacesTo<ForceMovementSystem>().AsSingle();
+      Container.BindInterfacesTo<TorqueTurningSystem>().AsSingle();
       Container.BindInterfacesTo<FiringSystem>().AsSingle();
       Container.BindInterfacesTo<CleanUpFiringSystem>().AsSingle();
       Container.BindInterfacesTo<EjectSystem>().AsSingle();

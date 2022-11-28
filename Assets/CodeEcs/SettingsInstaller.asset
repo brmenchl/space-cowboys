@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shipArchetype:
     thrustForce: 400
-    turnForce: 100
+    turnTorque: 100
     muzzleDistance: 1
     ejectDistance: 3
     ejectForce: 5
     prefab: {fileID: 5442183746321770514, guid: 02c106283ce7d4bf0941806f76a4e104, type: 3}
   cowboyArchetype:
-    turnForce: 3
+    turnTorque: 3
     muzzleDistance: 1
     prefab: {fileID: 7728747806077742917, guid: 0d870a3aa6ee3466aa00f982e7cc9411, type: 3}
   bulletArchetype:

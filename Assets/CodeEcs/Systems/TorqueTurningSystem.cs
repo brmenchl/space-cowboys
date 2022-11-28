@@ -5,23 +5,23 @@ using Leopotam.EcsLite.Di;
 using Zenject;
 
 namespace CodeEcs.Systems {
-  public class ForceMovementSystem : IEcsRunSystem {
+  public class TorqueTurningSystem : IEcsRunSystem {
     [Inject] private InputService inputService;
     private readonly EcsPoolInject<PhysicsBody> physicsBodyPool;
     private readonly EcsPoolInject<Trans> transPool;
     private readonly EcsPoolInject<Controlled> controlledPool;
-    private readonly EcsPoolInject<ThrustMovement> thrustMovementPool;
-    private readonly EcsFilterInject<Inc<PhysicsBody, Controlled, ThrustMovement, Trans>> toMove;
+    private readonly EcsPoolInject<TorqueTurning> torqueTurningPool;
+    private readonly EcsFilterInject<Inc<PhysicsBody, Controlled, TorqueTurning, Trans>> toMove;
 
     public void Run(EcsSystems systems) {
       foreach (var entity in toMove.Value) {
         ref var physicsBody = ref physicsBodyPool.Value.Get(entity);
-        ref var physicsMovement = ref thrustMovementPool.Value.Get(entity);
+        ref var physicsMovement = ref torqueTurningPool.Value.Get(entity);
         ref var controlData = ref controlledPool.Value.Get(entity);
         ref var trans = ref transPool.Value.Get(entity);
         var movement = inputService.GetMovementState(controlData.controlScheme);
 
-        physicsBody.rigidBody.AddForce(trans.transform.up * physicsMovement.force * movement.y);
+        physicsBody.rigidBody.AddTorque(physicsMovement.torque * -movement.x);
       }
     }
   }

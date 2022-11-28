@@ -27,16 +27,18 @@ namespace CodeEcs.Archetypes {
       physicsBody.rigidBody = shipGo.GetComponent<Rigidbody2D>();
       physicsBody.rigidBody.transform.SetPositionAndRotation(position, rotation);
 
-      ref var physicsMovement = ref world.GetPool<PhysicsMovement>().Add(entity);
-      physicsMovement.thrustForce = settings.thrustForce;
-      physicsMovement.turnForce = settings.turnForce;
+      ref var physicsMovement = ref world.GetPool<ThrustMovement>().Add(entity);
+      physicsMovement.force = settings.thrustForce;
+
+      ref var torqueTurning = ref world.GetPool<TorqueTurning>().Add(entity);
+      torqueTurning.torque = settings.turnTorque;
       return entity;
     }
 
     [Serializable]
     public struct Settings {
       public float thrustForce;
-      public float turnForce;
+      public float turnTorque;
       public float muzzleDistance;
       public float ejectDistance;
       public float ejectForce;

@@ -23,15 +23,14 @@ namespace CodeEcs.Archetypes {
       physicsBody.rigidBody.transform.SetPositionAndRotation(position, rotation);
       physicsBody.rigidBody.AddForce(ejectForce, ForceMode2D.Impulse);
 
-      ref var physicsMovement = ref world.GetPool<PhysicsMovement>().Add(entity);
-      physicsMovement.thrustForce = 0;
-      physicsMovement.turnForce = settings.turnForce;
+      ref var turnTorque = ref world.GetPool<TorqueTurning>().Add(entity);
+      turnTorque.torque = settings.turnTorque;
       return entity;
     }
 
     [Serializable]
     public struct Settings {
-      public float turnForce;
+      public float turnTorque;
       public float muzzleDistance;
       public GameObject prefab;
     }
